@@ -13,6 +13,9 @@
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
+				@if(count($errors)>0)
+				<label id="username-error" class="error" for="username">{{var_dump($errors->all())}}</label>
+				@endif
 			</div>
 		</div>
 		<div class="row cl">

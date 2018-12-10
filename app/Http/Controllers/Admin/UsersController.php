@@ -9,7 +9,7 @@ use DB;
 //引入Hash对密码进行加密
 use Hash;
 //导入AdminUsersinsert校验类
-use App\Http\Requests\Usersinsert;
+use App\Http\Requests\UsersInsert;
 class UsersController extends Controller
 {
     /**
@@ -43,11 +43,12 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UsersInert $request)
+    public function store(UsersInsert $request)
     {
         //返回以post提交上来的数据
         $data = $request->except('_token','repassword');
-        var_dump($data); 
+        var_dump($data);
+        
     }
 
     /**
