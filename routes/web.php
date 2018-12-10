@@ -27,3 +27,7 @@ Route::resource('/adminusers','Admin\UsersController');
 Route::get('/adminuserspwd/{id}','Admin\UsersController@pwd');
 //do修改密码
 Route::post('/adminuserspwds/{id}','Admin\UsersController@pwds');
+
+// 电影列表
+Route::resource("/adminfilmlist","Admin\FilmController");
+Route::get("/adminfilmlists/{id}","Admin\FilmController@films");
