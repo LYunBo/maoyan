@@ -60,7 +60,7 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        var_dump($request);
     }
 
     /**

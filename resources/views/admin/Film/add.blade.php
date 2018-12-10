@@ -5,67 +5,137 @@
 </head>
 <body>
 <article class="page-container">
-	<form class="form form-horizontal" id="form-admin-add" method="post" action="/adminuser">
+	<form class="form form-horizontal" id="/adminfilmlist" method="post" action="/adminuser" enctype="multipart/form-data">
 	{{csrf_field()}}
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影名：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="adminName" name="adminName">
+			<input type="text" class="input-text" value="" placeholder="" id="adminName" name="name">
 		</div>
 	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>放映时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
+			<input type="password" class="input-text" autocomplete="off" value="" placeholder="" id="text" name="ymd">
 		</div>
 	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影时长：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="password2" name="password2">
+			<input type="password" class="input-text" autocomplete="off"  placeholder="" id="text" name="times">
 		</div>
 	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
-		<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-			<div class="radio-box">
-				<input name="sex" type="radio" id="sex-1" checked>
-				<label for="sex-1">男</label>
-			</div>
-			<div class="radio-box">
-				<input type="radio" id="sex-2" name="sex">
-				<label for="sex-2">女</label>
-			</div>
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影年代：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
+			<input type="text" class="input-text" value="" placeholder="" id="phone" name="years">
 		</div>
 	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" placeholder="@" name="email" id="email">
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">角色：</label>
+		<label class="form-label col-xs-4 col-sm-3">区域：</label>
 		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="select" name="adminRole" size="1">
-				<option value="0">超级管理员</option>
-				<option value="1">总编</option>
-				<option value="2">栏目主辑</option>
-				<option value="3">栏目编辑</option>
+			<select class="   select" name="district_id" size="1"> 
+				<option value="">--请选择--</option>
+				<option value="0">大陆</option>
+				<option value="1">美国</option>
+				<option value="2">韩国</option>
+				<option value="3">日本</option>
+				<option value="4">中国香港</option>
+				<option value="5">中国台湾</option>
+				<option value="6">泰国</option>
+				<option value="7">印度</option>
+				<option value="8">法国</option>
+				<option value="9">英国</option>
+				<option value="10">俄罗斯</option>
+				<option value="11">意大利</option>
+				<option value="12">西班牙</option>
+				<option value="13">德国</option>
+				<option value="14">波兰</option>
+				<option value="15">澳大利亚</option>
+				<option value="16">伊朗</option>
+				<option value="17">其他</option>
 			</select>
 			</span> </div>
 	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">备注：</label>
+		<label class="form-label col-xs-4 col-sm-3">区域：</label>
+		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select class="   select" name="district_id" size="1">                           
+				<option value="">--请选择--</option>
+				<option value="0">爱情</option>
+				<option value="1">喜剧</option>
+				<option value="2">动画</option>
+				<option value="3">剧情</option>
+				<option value="4">恐怖</option>
+				<option value="5">惊悚</option>
+				<option value="6">科幻</option>
+				<option value="7">动作</option>
+				<option value="8">悬疑</option>
+				<option value="9">犯罪</option>
+				<option value="10">冒险</option>
+				<option value="11">战争</option>
+				<option value="12">奇幻</option>
+				<option value="13">运动</option>
+				<option value="14">家庭</option>
+				<option value="15">古装</option>
+				<option value="16">武侠</option>
+				<option value="17">西部</option>
+				<option value="18">历史</option>
+				<option value="19">传记</option>
+				<option value="20">歌舞</option>
+				<option value="21">黑色电影</option>
+				<option value="22">短片</option>
+				<option value="23">纪录片</option>
+				<option value="24">其他</option>
+			</select>
+			</span> </div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">状态：</label>
+		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select class="select" name="playback_status" size="1">
+				<option value="">--请选择--</option>
+				<option value="0">热播</option>
+				<option value="1">未播放</option>
+				<option value="2">经典</option>
+			</select>
+			</span> </div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影图集：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<textarea name="" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="$.Huitextarealength(this,100)"></textarea>
-			<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+			<input type="file" value="" placeholder="" id="phone" name="film_img" multiple="multiple">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影封面：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="file" value="" placeholder="" id="phone" name="cover">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>导演名字：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" id="phone" name="director">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>导演头像：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="file" value="" placeholder="" id="phone" name="director_img">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>演员头像：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			请将图像命名为演员名字:<input type="file" value="" placeholder="请将图像命名为演员名字" id="phone" name="performer_img" multiple="multiple">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">电影简介：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<textarea name="film_introduce" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="$.Huitextarealength(this,100)"></textarea>
+			<p class="textarea-numberbar"><em class="textarea-length"><i>0</i></em>/<i>100</i></p>
 		</div>
 	</div>
 	<div class="row cl">
