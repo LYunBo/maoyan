@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 //引入底层DB
 use DB;
+//引入Hash对密码进行加密
+use Hash;
+//导入AdminUsersinsert校验类
+use App\Http\Requests\Usersinsert;
 class UsersController extends Controller
 {
     /**
@@ -13,11 +17,13 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //返回用户列表页
         $list = DB::table('user')->get();
-        return view('admin.Users.index',['list'=>$list]);
+        //返回共有多少条数据
+        $tol = DB::table('user')->count();
+        return view('admin.Users.index',['list'=>$list,'tol'=>$tol,'request'=>$request->all()]);
     }
 
     /**
@@ -37,9 +43,11 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UsersInert $request)
     {
-        //
+        //返回以post提交上来的数据
+        $data = $request->except('_token','repassword');
+        var_dump($data); 
     }
 
     /**
@@ -90,11 +98,25 @@ class UsersController extends Controller
     //返回修改密码页
     public function pwd($id){
         //修改密码
-        return view('admin.Users.pwd');
+        //用传过来的id查出相对应的数据遍历
+        $res = DB::table('user')->where('id','=',$id)->first();
+        return view('admin.Users.pwd',['res'=>$res]);
     }
 
     //do修改密码
-    public function pwds($id){
-        dd($id);
+    public function pwds(Request $request,$id){
+        // echo $id;
+        //把提交上来的数据出_token,repassword字段外对应数据表的字段
+        $row = $request->except('_token','repassword');
+        //把密码进行Hash加密
+        $row['password'] = Hash::make($row['password']);
+        // var_dump($row);
+        //修改密码
+        if(DB::table('user')->where('id','=',$id)->update($row)){
+            return redirect('/adminusers');
+        }else{
+            return back();
+        }
+        
     }
 }
