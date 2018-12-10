@@ -5,7 +5,7 @@
 </head>
 <body>
 <article class="page-container">
-	<form class="form form-horizontal" id="/adminfilmlist" method="post" action="/adminuser" enctype="multipart/form-data">
+	<form class="form form-horizontal" id="adminfilmlist" method="post" action="/adminfilmlist" enctype="multipart/form-data">
 	{{csrf_field()}}
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影名称：</label>
@@ -16,13 +16,13 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>放映时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="password" class="input-text" autocomplete="off" value="" placeholder="" id="text" name="ymd">
+			<input type="text" class="input-text" autocomplete="off" value="" placeholder="" id="text" name="ymd">
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影时长：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="password" class="input-text" autocomplete="off"  placeholder="" id="text" name="times">
+			<input type="text" class="input-text" autocomplete="off"  placeholder="" id="text" name="times">
 		</div>
 	</div>
 	<div class="row cl">
@@ -58,9 +58,9 @@
 			</span> </div>
 	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">区域：</label>
+		<label class="form-label col-xs-4 col-sm-3">类型：</label>
 		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="   select" name="district_id" size="1">                           
+			<select class="   select" name="type_id" size="1">                           
 				<option value="">--请选择--</option>
 				<option value="0">爱情</option>
 				<option value="1">喜剧</option>

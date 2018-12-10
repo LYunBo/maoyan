@@ -60,7 +60,23 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-        var_dump($request);
+        // $request -> get("name");//电影名称
+        // $request -> get("ymd");//放映时间
+        // $request -> get("times");//电影时长
+        // $request -> get("years");//电影年代
+        // $request -> get("district_id");//区域
+        // $request -> get("type_id");//类型
+        // $request -> get("playback_status");//状态
+        // $request -> get("film_img");//电影图集
+        // $request -> get("cover");//电影封面
+        // $request -> get("director");//导演名字
+        // $request -> get("director_img");//导演头像
+        // $request -> file("performer_img");//演员头像
+        // 获取文件名字的方法
+        // $name = pathinfo($request -> file("performer_img"));
+        // $name = $name['filename'];
+        // $request -> get("film_introduce");//电影简介
+        
     }
 
     /**
