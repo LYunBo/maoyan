@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+//引入底层DB
+use DB;
 class UsersController extends Controller
 {
     /**
@@ -15,7 +16,8 @@ class UsersController extends Controller
     public function index()
     {
         //返回用户列表页
-        return view('admin.Users.index');
+        $list = DB::table('user')->get();
+        return view('admin.Users.index',['list'=>$list]);
     }
 
     /**
