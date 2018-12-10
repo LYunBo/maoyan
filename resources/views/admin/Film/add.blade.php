@@ -8,7 +8,7 @@
 	<form class="form form-horizontal" id="/adminfilmlist" method="post" action="/adminuser" enctype="multipart/form-data">
 	{{csrf_field()}}
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影名：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影名称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			<input type="text" class="input-text" value="" placeholder="" id="adminName" name="name">
 		</div>
