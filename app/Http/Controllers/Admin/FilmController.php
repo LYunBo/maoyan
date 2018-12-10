@@ -17,7 +17,7 @@ class FilmController extends Controller
     public function index()
     {
         // 获取film电影表数据
-        $data = DB::table("film") -> paginate(3);
+        $data = DB::table("film") -> get();
         // 查看film表数据有多少条
         $counts = DB::table("film") -> count();
         // 传参
