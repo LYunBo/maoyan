@@ -169,4 +169,30 @@ class UsersController extends Controller
             echo 2;
         }
     }
+
+    //通过ajax修改状态启动
+    public function start(Request $request){
+        //获取id
+        $id = $request->input('id');
+        //同过传来的id修改状态
+        if(Users::where('id','=',$id)->update(['status'=>1])){
+            //返回状态码
+            echo 1;
+        }else{
+            echo 2;
+        }
+    }
+
+    //通过ajax修改状态停用
+    public function stop(Request $request){
+        //获取id
+        $id = $request->input('id');
+        //同过传来的id修改状态
+        if(Users::where('id','=',$id)->update(['status'=>0])){
+            //返回状态码
+            echo 1;
+        }else{
+            echo 2;
+        }
+    }
 }

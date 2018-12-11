@@ -29,6 +29,10 @@ Route::get('/adminuserspwd/{id}','Admin\UsersController@pwd');
 Route::post('/adminuserspwds/{id}','Admin\UsersController@pwds');
 //Ajax删除用户
 Route::get('/adminusersdel','Admin\UsersController@del');
+//Ajax 修改状态 启用
+Route::get('/adminusersstart','Admin\UsersController@start');
+//Ajax 修改状态 停用
+Route::get('/adminusersstop','Admin\UsersController@stop');
 
 // 电影列表
 Route::resource("/adminfilmlist","Admin\FilmController");

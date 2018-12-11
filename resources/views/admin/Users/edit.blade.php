@@ -1,6 +1,5 @@
-@extends('admin.Public.meta')
-
-<title>添加用户 - H-ui.admin v3.1</title>
+@extends('admin.Public.all')
+@section('admin')
 <meta name="keywords" content="H-ui.admin">
 <meta name="description" content="H-ui.admin">
 </head>
@@ -36,7 +35,6 @@
 	</form>
 </article>
 
-@extends('admin.Public.footer')
 
 <!--请在下方写此页面业务相关的脚本--> 
 <script type="text/javascript" src="/static/admin/lib/jquery/1.9.1/jquery.min.js"></script>
@@ -47,4 +45,5 @@
 
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
-</html>
+@endsection
+@section('title','修改用户')

@@ -1,5 +1,5 @@
-﻿@extends('admin.Public.meta')
-<title>用户管理</title>
+﻿@extends('admin.Public.all')
+@section('admin')
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
@@ -48,11 +48,17 @@
 					@endif
 				</td>
 				<td class="td-manage">
-					<a style="text-decoration:none" href="javascript:;" onclick="start({{$row->id}})" id="start" title="启用"><i class="Hui-iconfont">
+					<a style="text-decoration:none" href="javascript:;" onclick="
+					//判断状态使用相对应的方法
+					@if($row->status == 0) 
+						start(this,{{$row->id}})
+					@else 
+						stop(this,{{$row->id}}) 
+					@endif " title="@if($row->status == 0) 启用 @else 启用 @endif"><i class="Hui-iconfont">
 						@if($row->status == 0)
 							&#xe615;
 						@else
-							&#xe636;
+							&#xe631;
 						@endif
 					</i></a>
 					<a title="编辑" href="/adminusers/{{$row->id}}/edit" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
@@ -66,7 +72,7 @@
 	<!-- 显示分页 -->
 		{{$list->render()}}
 </div>
-@extends('admin.Public.footer')
+
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="/static/admin/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="/static/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
@@ -101,18 +107,69 @@ function member_show(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
 //通过ajax修改状态
-//从启用状态到停用状态
-function start(id){
+//从停用状态到启用状态
+function start(obj,id){
 	// console.log(id);
 	//找到父级的td让其好在后面加元素
-	var td = $('#start').parents('td');
+	var td = $(obj).parents('td');
 	// console.log(td);
 	//找到本身
-	var a = $('#start');
+	var a = $(obj);
 	//创建要创建的对象
-	var newa = $('<a style="text-decoration:none" href="javascript:;" onclick="stop({{$row->id}})" id="start" title="停用"><i class="Hui-iconfont">&#xe615;</i></a>')
+	var newa = $('<a style="text-decoration:none" href="javascript:;" onclick="stop(this,{{$row->id}})" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
+	//状态显示样式
+	var prevtd = $(obj).parents('td').prev();
+	//新的样式
+	var newspan = $('<span class="label label-success radius">已启用</span>')
+	var status = confirm('确定要启用?');
+	//用ajax提交修改状态
+	if(status){
+		$.get('/adminusersstart',{'id':id},function(data){
+			//返回参数进行页面修改
+			if(data == 1){
+				alert('启用成功');
+				a.remove();
+				td.prepend(newa);
+				prevtd.empty();
+				prevtd.prepend(newspan);
+				
+			}
+		});
+	}
+	
+}
+//从启用到停用
+function stop(obj,id){
+	// console.log(id);
+	//找到父级的td让其好在后面加元素
+	var td = $(obj).parents('td');
+	// console.log(td);
+	//找到本身
+	var a = $(obj);
+	//创建要创建的对象
+	var newa = $('<a style="text-decoration:none" href="javascript:;" onclick="start(this,{{$row->id}})" title="启用"><i class="Hui-iconfont">&#xe615;</i></a>');
+	//状态显示样式
+	var prevtd = $(obj).parents('td').prev();
+	//新的样式
+	var newspan = $('<span class="label  radius">已停用</span>')
+	var status = confirm('确定要停用?');
+	//用ajax提交修改状态
+	if(status){
+		$.get('/adminusersstop',{'id':id},function(data){
+			//返回参数进行页面修改
+			if(data == 1){
+				alert('停用成功');
+				a.remove();
+				td.prepend(newa);
+				prevtd.empty();
+				prevtd.prepend(newspan);
+				
+			}
+		});
+	}
 	
 }
 </script> 
 </body>
-</html>
+@endsection
+@section('title','用户管理')
