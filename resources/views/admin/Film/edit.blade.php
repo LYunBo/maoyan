@@ -3,6 +3,7 @@
 <meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
+<script src="/static/jquery-1.8.3.min.js"></script>
 <body>
 	@if(session("success"))
 	<div class="Huialert Huialert-success"><i class="Hui-iconfont">&#xe6a6;</i>添加</div>
@@ -305,6 +306,10 @@
 			<a href="javascript:;">删除所有图集</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<b>提示:双击图片可以删除该图</b>
+			<br>
+			@foreach($film_img as $v)
+				<img style="width:100px;height:150px;border:1px solid #0085d2;margin-bottom:10px;" src="{{$v}}" ondblclick="fun(this)" alt="">
+			@endforeach
 		</div>
 	</div>
 	<div class="row cl">
@@ -314,6 +319,10 @@
 			<a href="javascript:;">删除所有演员</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<b>提示:双击图片可以删除该图</b>
+			<br>
+			@foreach($data2 as $v)
+				{{$v -> name}}:&nbsp;&nbsp;<img style="width:100px;height:150px;border:1px solid #0085d2;margin:0 10px 10px 0;" src="{{$v -> img}}" ondblclick="funs(this)" alt="">
+			@endforeach
 		</div>
 	</div>
 	<div class="row cl">
@@ -323,6 +332,21 @@
 	</div>
 	</form>
 </article>
+<script>
+	function fun(thiss){
+		var trues = confirm("确定删除么?");
+		if (trues) {
+			alert(111);
+		}
+	}
+	function funs(thiss){
+		var trues = confirm("确定删除么?");
+		if (trues) {
+			alert(111);
+		}
+	}
+</script>
+
 
 @extends('admin.Public.footer')
 

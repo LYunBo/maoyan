@@ -109,12 +109,14 @@ class FilmController extends Controller
             // 将演员插入并将头像移如指定文件夹内
             // 指定文件夹为public下的 /film/performer_img/时间文件
             // 预备储存文件夹
-            $path = "/film/performer_img/".time().rand(100000,999999);
+            $path = "./film/performer_img/".time().rand(100000,999999);
+            $paths = substr($path,1);
+            // var_dump($paths);
             // 预备文件名
             $filmname = time().rand(100000,999999).".".$houzhui;
             $v -> move($path,$filmname);
             // 插入performer演员表内，顺便返回插入时id
-            if (!$id = DB::table("performer") -> insertgetId(["name" => $name,"img" => $path."/".$filmname])) {
+            if (!$id = DB::table("performer") -> insertgetId(["name" => $name,"img" => $paths."/".$filmname])) {
                 return back() -> with("error","演员添加失败");
             }
             // 将返回id存入$ids内
@@ -131,7 +133,8 @@ class FilmController extends Controller
         // 自定义名字
         $cover_name = time().rand(100000,999999).".".$cover_houzhui;
         // 自定义文件夹
-        $cover_path = "/film/cover/".time().rand(100000,999999);
+        $cover_path = "./film/cover/".time().rand(100000,999999);
+        $cover_paths = substr($cover_path,1);
         // 移入文件夹内
         $cover -> move($cover_path,$cover_name);
 
@@ -144,6 +147,7 @@ class FilmController extends Controller
         $director_img_name = time().rand(100000,999999).".".$director_img_houzhui;
         // 自定义文件夹
         $director_img_path = "/film/director_img/".time().rand(100000,999999);
+        $director_img_paths = substr($director_img_path,1);
         // 移入文件夹内
         $director_img -> move($director_img_path,$director_img_name);
 
@@ -160,11 +164,12 @@ class FilmController extends Controller
             // 不需要名字，因此自定义名字
             $film_img_name = time().rand(100000,999999).$i.".".$film_img_houzhui;
             // 自定义路径
-            $film_img_path = "/film/film_img/".time().rand(100000,999999).$i;
+            $film_img_path = "./film/film_img/".time().rand(100000,999999).$i;
+            $film_img_paths = substr($film_img_path,1);
             // 移入文件
             $v -> move($film_img_path,$film_img_name);
             // 应为后面插入数据要用到路径，且在数据库内是用,号链接，所以我们提前先存入数组中
-            $film_imgs[] = $film_img_path."/".$film_img_name;
+            $film_imgs[] = $film_img_paths."/".$film_img_name;
 
             $i++;
         }
@@ -183,7 +188,7 @@ class FilmController extends Controller
         $playback_status = $request -> get("playback_status");
         $director = $request -> get("director");
         // 将有的数据插入到第二张表，电影关联表film_relation上
-        if (!$idk = DB::table('film_relation') -> insertgetId(["years" => $years,"district_id" => $district_id,"type_id" => $type_id,"film_img" => $film_imgs,"cover" => $cover_path."/".$cover_name,"playback_status" => $playback_status,"director" => $director,"director_img" => $director_img_path."/".$director_img_name,"performer_id" => $ids])) {
+        if (!$idk = DB::table('film_relation') -> insertgetId(["years" => $years,"district_id" => $district_id,"type_id" => $type_id,"film_img" => $film_imgs,"cover" => $cover_paths."/".$cover_name,"playback_status" => $playback_status,"director" => $director,"director_img" => $director_img_paths."/".$director_img_name,"performer_id" => $ids])) {
             return back() -> with("error","失败");
         }
         
@@ -222,10 +227,16 @@ class FilmController extends Controller
         // performer
         // 将film_relation的演员id分开做数组
         $ids = explode(",",$data1[0] -> performer_id);
-        $data2 = DB::table("film") -> whereIn("id",$ids) -> get();
+        $data2 = DB::table("performer") -> whereIn("id",[11,12]) -> get();
+        // 将类型id分为数组，方便前台设置默认
         $string = $data1[0] -> type_id;
         $string = explode(",",$string);
-        return view("admin.Film.edit",["data" => $data,"data1" => $data1,"type_id" => $string,"data2" => $data2]);
+
+        // 将$data1的图集字段film_img分为数组
+        $film_img = explode(",",$data1[0] -> film_img);
+
+        
+        return view("admin.Film.edit",["data" => $data,"data1" => $data1,"type_id" => $string,"data2" => $data2,"film_img" => $film_img]);
     }
 
     /**
