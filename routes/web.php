@@ -21,12 +21,14 @@ Route::resource('/admin','Admin\AdminController');
 //后台管理员
 Route::resource('/adminuser','Admin\UserController');
 
-//后台会员
+//会员管理
 Route::resource('/adminusers','Admin\UsersController');
 //修改会员密码
 Route::get('/adminuserspwd/{id}','Admin\UsersController@pwd');
 //do修改密码
 Route::post('/adminuserspwds/{id}','Admin\UsersController@pwds');
+//Ajax删除用户
+Route::get('/adminusersdel','Admin\UsersController@del');
 
 // 电影列表
 Route::resource("/adminfilmlist","Admin\FilmController");

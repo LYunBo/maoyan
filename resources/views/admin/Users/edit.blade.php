@@ -1,73 +1,31 @@
 @extends('admin.Public.meta')
 
 <title>添加用户 - H-ui.admin v3.1</title>
-<meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
-<meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+<meta name="keywords" content="H-ui.admin">
+<meta name="description" content="H-ui.admin">
 </head>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户修改 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="/adminusers" title="返回" ><i class="Hui-iconfont">&#xe625;</i></a></nav>
 <body>
 <article class="page-container">
-	<form action="/adminusers/1" method="post" class="form form-horizontal" id="form-member-add">
+	<form action="/adminusers/{{$list->id}}" method="post" class="form form-horizontal" id="form-member-add">
 		{{method_field('PUT')}}
 		{{csrf_field()}}
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<div class="radio-box">
-					<input name="sex" type="radio" id="sex-1" checked>
-					<label for="sex-1">男</label>
-				</div>
-				<div class="radio-box">
-					<input type="radio" id="sex-2" name="sex">
-					<label for="sex-2">女</label>
-				</div>
-				<div class="radio-box">
-					<input type="radio" id="sex-3" name="sex">
-					<label for="sex-3">保密</label>
-				</div>
+				<input type="text" class="input-text" value="{{$list->username}}" placeholder="" name="username">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="mobile" name="mobile">
+				<input type="text" class="input-text" value="{{$list->phone}}" placeholder="" name="phone">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="@" name="email" id="email">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">附件：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="btn-upload form-group">
-				<input class="input-text upload-url" type="text" name="uploadfile" id="uploadfile" readonly nullmsg="请添加附件！" style="width:200px">
-				<a href="javascript:void();" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont">&#xe642;</i> 浏览文件</a>
-				<input type="file" multiple name="file-2" class="input-file">
-				</span> </div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">所在城市：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="city">
-					<option value="" selected>请选择城市</option>
-					<option value="1">北京</option>
-					<option value="2">上海</option>
-					<option value="3">广州</option>
-				</select>
-				</span> </div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">备注：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="beizhu" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"></textarea>
-				<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+				<input type="text" value="{{$list->email}}" class="input-text" placeholder="@" name="email">
 			</div>
 		</div>
 		<div class="row cl">
@@ -86,49 +44,7 @@
 <script type="text/javascript" src="/static/admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
 <script type="text/javascript" src="/static/admin/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="/static/admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
-<script type="text/javascript">
-$(function(){
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
-	});
-	
-	$("#form-member-add").validate({
-		rules:{
-			username:{
-				required:true,
-				minlength:2,
-				maxlength:16
-			},
-			sex:{
-				required:true,
-			},
-			mobile:{
-				required:true,
-				isMobile:true,
-			},
-			email:{
-				required:true,
-				email:true,
-			},
-			uploadfile:{
-				required:true,
-			},
-			
-		},
-		onkeyup:false,
-		focusCleanup:true,
-		success:"valid",
-		submitHandler:function(form){
-			//$(form).ajaxSubmit();
-			var index = parent.layer.getFrameIndex(window.name);
-			//parent.$('.btn-refresh').click();
-			parent.layer.close(index);
-		}
-	});
-});
-</script> 
+
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>

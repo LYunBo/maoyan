@@ -109,7 +109,7 @@ class FilmController extends Controller
             // 将演员插入并将头像移如指定文件夹内
             // 指定文件夹为public下的 /film/performer_img/时间文件
             // 预备储存文件夹
-            $path = "/film/performer_img/".time().rand(100000,999999);
+            $path = "./film/performer_img/".time().rand(100000,999999);
             // 预备文件名
             $filmname = time().rand(100000,999999).".".$houzhui;
             $v -> move($path,$filmname);

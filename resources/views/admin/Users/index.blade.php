@@ -24,6 +24,7 @@
 				<th width="150">邮箱</th>
 				<th width="130">加入时间</th>
 				<th width="130">修改时间</th>
+				<th width="90">状态</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
@@ -33,12 +34,30 @@
 			<tr class="text-c">
 				<td><input type="checkbox" value="1" name=""></td>
 				<td>{{$row->id}}</td>
-				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">{{$row->username}}</u></td>
+				<td>{{$row->username}}</u></td>
 				<td>{{$row->phone}}</td>
 				<td>{{$row->email}}</td>
 				<td>{{$row->created_at}}</td>
 				<td>{{$row->updated_at}}</td>
-				<td class="td-manage"><a title="编辑" href="javascript:;" onclick="member_edit('编辑','/adminusers/1/edit','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a href="/adminuserspwd/{{$row->id}}" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a><a title="查看详情" href="" class="ml-5" style="text-decoration:none;"><i class="Hui-iconfont">&#xe725;</i></a><a title="删除" href="javascript:;" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<td>
+					<!-- 判断状态显示样式 -->
+					@if($row->status == 0)
+					<span class="label radius">已停用</span>
+					@else
+					<span class="label label-success radius">已启用</span>
+					@endif
+				</td>
+				<td class="td-manage">
+					<a style="text-decoration:none" href="javascript:;" onclick="start({{$row->id}})" id="start" title="启用"><i class="Hui-iconfont">
+						@if($row->status == 0)
+							&#xe615;
+						@else
+							&#xe636;
+						@endif
+					</i></a>
+					<a title="编辑" href="/adminusers/{{$row->id}}/edit" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+					<a href="/adminuserspwd/{{$row->id}}" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a>
+					<a title="删除" href="javascript:;" class="ml-5 del" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 		@endforeach
 		</tbody>
@@ -54,93 +73,46 @@
 <script type="text/javascript" src="/static/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 <script type="text/javascript" src="/static/admin/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
-/*$(function(){
-	$('.table-sort').dataTable({
-		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
-		"bStateSave": true,//状态保存
-		"aoColumnDefs": [
-		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
-		]
-	});
-	
-});*/
-$('.ml-5').click(function(){
-	console.log($(this).parents('td').parents('tr').find('td').eq(1).html());
-})
-// $('.table-sort').dataTable({});
-/*用户-添加*/
-function member_add(title,url,w,h){
-	layer_show(title,url,w,h);
-}
-/*用户-查看*/
+//通过ajax删除
+$('.del').click(function(){
+	//通过Jq的父级方法找到当前列表的id
+	var id = $(this).parents('td').parents('tr').find('td').eq(1).html();
+	//找到父级的tr好让删除成功后再前台用ajax删除
+	var tr = $(this).parents('tr');
+	//通过confirm 来让判断true 或者 false
+	res = confirm('你确定要删除吗?');
+	//通过confirm传来的参数来做判断
+	if(res){
+		//通过ajax get 的方法来删除
+		$.get('/adminusersdel',{'id':id},function(data){
+			// console.log(data);
+			if(data == 1){
+				//删除当前id的数据列
+				tr.remove();
+				alert('删除成功');
+			}else{
+				alert('删除失败')
+			}
+		});
+	}
+});
+
 function member_show(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
-/*用户-停用*/
-function member_stop(obj,id){
-	layer.confirm('确认要停用吗？',function(index){
-		$.ajax({
-			type: 'POST',
-			url: '',
-			dataType: 'json',
-			success: function(data){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
-				$(obj).remove();
-				layer.msg('已停用!',{icon: 5,time:1000});
-			},
-			error:function(data) {
-				console.log(data.msg);
-			},
-		});		
-	});
+//通过ajax修改状态
+//从启用状态到停用状态
+function start(id){
+	// console.log(id);
+	//找到父级的td让其好在后面加元素
+	var td = $('#start').parents('td');
+	// console.log(td);
+	//找到本身
+	var a = $('#start');
+	//创建要创建的对象
+	var newa = $('<a style="text-decoration:none" href="javascript:;" onclick="stop({{$row->id}})" id="start" title="停用"><i class="Hui-iconfont">&#xe615;</i></a>')
+	
 }
-
-/*用户-启用*/
-function member_start(obj,id){
-	layer.confirm('确认要启用吗？',function(index){
-		$.ajax({
-			type: 'POST',
-			url: '',
-			dataType: 'json',
-			success: function(data){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
-				$(obj).remove();
-				layer.msg('已启用!',{icon: 6,time:1000});
-			},
-			error:function(data) {
-				console.log(data.msg);
-			},
-		});
-	});
-}
-/*用户-编辑*/
-function member_edit(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
-/*密码-修改*/
-function change_password(title,url,id,w,h){
-	layer_show(title,url,w,h);	
-}
-/*用户-删除*/
-/*function member_del(obj,id){
-	layer.confirm('确认要删除吗？',function(index){
-		$.ajax({
-			type: 'POST',
-			url: '',
-			dataType: 'json',
-			success: function(data){
-				$(obj).parents("tr").remove();
-				layer.msg('已删除!',{icon:1,time:1000});
-			},
-			error:function(data) {
-				console.log(data.msg);
-			},
-		});		
-	});
-}*/
 </script> 
 </body>
 </html>

@@ -70,8 +70,13 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //\
-        dd($id);
+        //
+        // dd($id);
+        // 用的到的id查用户详情表对应的信息
+        $row = DB::table('information')->where('id','=',$id)->first();
+        //返回用户信息列表页
+        return view('admin.Users.message',['row'=>$row]);
+
     }
 
     /**
@@ -81,9 +86,12 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
+    {   
+        //查出用id查出的相对应的数据
+        $list = Users::where('id','=',$id)->first();
+        // var_dump($list);exit;
         //修改页面
-        return view('admin.Users.edit');
+        return view('admin.Users.edit',['list'=>$list]);
     }
 
     /**
@@ -93,9 +101,19 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        //
+        //返回打印回来的数据
+        $result = $request->except('_token','_method');
+        // var_dump($result);
+        //修改数据
+        if(Users::where('id','=',$id)->update($result)){
+             // 返回到列表页,并存一个名为success的session让列表页提示
+            return redirect('/adminusers')->with('success','修改成功');
+        }else{
+            //返回添加页,存个error的session并用闪存保存原来的数据
+            return back()->withInput()->with('error','修改失败');
+        }
     }
 
     /**
@@ -126,12 +144,29 @@ class UsersController extends Controller
         // var_dump($row);
         //修改密码
         if(Users::where('id','=',$id)->update($row)){
+             // 返回到列表页,并存一个名为success的session让列表页提示
             // echo 1;exit;
             return redirect('/adminusers')->with('success','修改成功');
         }else{
+            //返回添加页,存个error的session并用闪存保存原来的数据
             // echo 1;exit;
             return back()->withInput()->with("error",'修改失败');
         }
         
+    }
+
+    //通过Ajax的get方法来的删除方法
+    public function del(Request $request){
+        // 获取id
+        $id  = $request->input('id');
+        // echo $id;exit;
+        //通过传来的id删除数据表对应的数据
+        if(Users::destroy($id)){
+            // 返回状态1表示成功
+            echo 1;
+        }else{
+            //返回状态2表示失败
+            echo 2;
+        }
     }
 }

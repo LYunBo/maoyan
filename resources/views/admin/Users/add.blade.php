@@ -17,7 +17,7 @@
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<!-- class内的为三元运算符判断生成样式 -->
-				<input type="text" class="input-text {{empty($errors->get('username'))?'':'error'}}" value="" placeholder="请以字母开头5-16字节包括字母数组下划线" id="username" name="username">
+				<input type="text" class="input-text {{empty($errors->get('username'))?'':'error'}}" value="" placeholder="请以字母开头5-16字节包括字母数组下划线" name="username">
 				<!-- 验证信息,错误返回 下面一样 -->
 				@if(count($errors)>0)
 				@foreach($errors->get('username') as $username)
@@ -29,7 +29,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">密码：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="password" class="input-text {{empty($errors->get('password'))?'':'error'}}" value="" placeholder="请以字母开头6-18字节包括字母数组下划线" id="username" name="password">
+				<input type="password" class="input-text {{empty($errors->get('password'))?'':'error'}}" value="" placeholder="请以字母开头6-18字节包括字母数组下划线" name="password">
 				@if(count($errors)>0)
 				@foreach($errors->get('password') as $pwd)
 				<label class="error">{{$pwd}}</label>
@@ -40,7 +40,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">确认密码：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="password" class="input-text {{empty($errors->get('repassword'))?'':'error'}}" value="" placeholder="请确认密码" id="username" name="repassword">
+				<input type="password" class="input-text {{empty($errors->get('repassword'))?'':'error'}}" value="" placeholder="请确认密码"  name="repassword">
 				@if(count($errors)>0)
 				@foreach($errors->get('repassword') as $pwds)
 				<label class="error">{{$pwds}}</label>
