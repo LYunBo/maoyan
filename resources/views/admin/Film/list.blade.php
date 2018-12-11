@@ -39,6 +39,7 @@
 		</tbody>
 	</table>
 	</div>
+	{{$data -> render()}}
 </div>
 @extends('admin.Public.footer')
 <!--请在下方写此页面业务相关的脚本-->
@@ -58,7 +59,7 @@
 	});
 	
 });*/
-$('.table-sort').dataTable({});
+// $('.table-sort').dataTable({});
 /*用户-添加*/
 function member_add(title,url,w,h){
 	layer_show(title,url,w,h);
