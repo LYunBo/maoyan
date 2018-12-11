@@ -29,7 +29,7 @@ class FilmController extends Controller
     public function films($id)
     {
         // 获取电影详情film_relation表的信息
-        $data = DB::table("film_relation") -> get();
+        $data = DB::table("film_relation") -> where("id","=",$id) -> get();
         // 循环获取film_relation内的演员人员id，performer_id字段
         foreach($data as $kk){
             $str = $kk -> performer_id;
@@ -59,7 +59,7 @@ class FilmController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdminFilminserts $request)
     {
         // $request -> get("name");//电影名称
         // $request -> get("ymd");//放映时间
@@ -74,9 +74,9 @@ class FilmController extends Controller
         // $request -> get("director_img");//导演头像
         // $request -> file("performer_img");//演员头像
         // $request -> get("film_introduce");//电影简介
-
         
-
+        
+        
         $performer_img = $request -> file("performer_img");
         // 获取演员图像名上的演员名字
         foreach($performer_img as $v){
@@ -91,43 +91,43 @@ class FilmController extends Controller
             // 截取除了.后缀名的名字
             $name = substr($names,0,$count-$num);
             // 将演员插入并将头像移如指定文件夹内
-            // 指定文件夹为public下的 ./film/performer_img/时间文件
+            // 指定文件夹为public下的 /film/performer_img/时间文件
             // 预备储存文件夹
-            $path = "./film/performer_img/".time().rand(100000,999999);
+            $path = "/film/performer_img/".time().rand(100000,999999);
             // 预备文件名
-            $filmname = time().rand(100000,999999).$houzhui;
+            $filmname = time().rand(100000,999999).".".$houzhui;
             $v -> move($path,$filmname);
             // 插入performer演员表内，顺便返回插入时id
-            if (!$id = DB::table("performer") -> insertgetId(["name" => $name,"img" => $path.$filmname])) {
+            if (!$id = DB::table("performer") -> insertgetId(["name" => $name,"img" => $path."/".$filmname])) {
                 return back() -> with("error","演员添加失败");
             }
             // 将返回id存入$ids内
             $ids[] = $id;
         }
-        
+       
         
         // 将获取的封面图和导演头像、以及图集存入对应的文件夹内
         // 1，封面图
-        // 对应的文件夹./film/cover/
+        // 对应的文件夹/film/cover/
         $cover = $request -> file("cover");
         // 获取封面图的后缀名
         $cover_houzhui = $cover -> getClientOriginalExtension();
         // 自定义名字
         $cover_name = time().rand(100000,999999).".".$cover_houzhui;
         // 自定义文件夹
-        $cover_path = "./film/cover/".thme().rand(100000,999999);
+        $cover_path = "/film/cover/".time().rand(100000,999999);
         // 移入文件夹内
         $cover -> move($cover_path,$cover_name);
 
         // 1，导演头像
-        // 对应的文件夹./film/director_img/
+        // 对应的文件夹/film/director_img/
         $director_img = $request -> file("director_img");
         // 获取封面图的后缀名
         $director_img_houzhui = $director_img -> getClientOriginalExtension();
         // 自定义名字
         $director_img_name = time().rand(100000,999999).".".$director_img_houzhui;
         // 自定义文件夹
-        $director_img_path = "./film/director_img/".thme().rand(100000,999999);
+        $director_img_path = "/film/director_img/".time().rand(100000,999999);
         // 移入文件夹内
         $director_img -> move($director_img_path,$director_img_name);
 
@@ -144,30 +144,45 @@ class FilmController extends Controller
             // 不需要名字，因此自定义名字
             $film_img_name = time().rand(100000,999999).$i.".".$film_img_houzhui;
             // 自定义路径
-            $film_img_path = "./film/film_img/".time().rand(100000,999999).$i;
+            $film_img_path = "/film/film_img/".time().rand(100000,999999).$i;
             // 移入文件
-            // $v -> move($film_img_path,$film_img_name);
+            $v -> move($film_img_path,$film_img_name);
             // 应为后面插入数据要用到路径，且在数据库内是用,号链接，所以我们提前先存入数组中
-            $film_imgs[] = $film_img_path;
+            $film_imgs[] = $film_img_path."/".$film_img_name;
 
             $i++;
         }
+        
         // 将地址用,号分开
         $film_imgs = implode(",",$film_imgs);
-
         
         // 将插入时获取的id存入$ids下
         $ids = implode(",",$ids);
-        $ymd = $request -> get("ymd");
+        // 上面有注释
+        $years = $request -> get("years");
         $district_id = $request -> get("district_id");
         $type_id = $request -> get("type_id");
         $playback_status = $request -> get("playback_status");
         $director = $request -> get("director");
-        // $name = $request -> get("name");
-        // $times = $request -> get("times");
-        // $years = $request -> get("years");
-        // $film_introduce = $request -> get("film_introduce");
+        // 将有的数据插入到第二张表，电影关联表film_relation上
+        if (!$idk = DB::table('film_relation') -> insertgetId(["years" => $years,"district_id" => $district_id,"type_id" => $type_id,"film_img" => $film_imgs,"cover" => $cover_path."/".$cover_name,"playback_status" => $playback_status,"director" => $director,"director_img" => $director_img_path."/".$director_img_name,"performer_id" => $ids])) {
+            return back() -> with("error","失败");
+        }
         
+        // 获取film_relation表插入成功后返回的id
+        $idkk = $idk;
+        $name = $request -> get("name");
+        $ymd = $request -> get("ymd");
+        $times = $request -> get("times");
+        // 票房和评分一开始的默认为0;
+        $film_introduce = $request -> get("film_introduce");
+        
+        // 插入第三张表，电影表film
+        if (DB::table("film") -> insert(["relation_id" => $idkk,"name" => $name,"ymd" => $ymd,"times" => $times,"film_introduce" => $film_introduce])) {
+            return view("admin.Film.add") -> with("success","成功");
+        }else{
+            return back() -> with("error","失败");
+        }
 
 
         // var_dump($film_img);

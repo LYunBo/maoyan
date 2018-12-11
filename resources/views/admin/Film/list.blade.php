@@ -33,7 +33,7 @@
 				<td>{{$row->times}}</td>
 				<td>{{$row->box_office}}</td>
 				<td>{{$row->film_introduce}}</td>
-				<td class="td-manage"><a title="编辑" href="javascript:;" onclick="member_edit('编辑','/adminusers/1/edit','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a href="/adminuserspwd/{{$row->id}}" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a><a title="查看详情" href="" class="ml-5" style="text-decoration:none;"><i class="Hui-iconfont">&#xe725;</i></a><a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<td class="td-manage"><a title="编辑" href="javascript:;" onclick="member_edit('编辑','/adminusers/1/edit','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a href="/adminuserspwd/{{$row->id}}" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a><a title="查看详情" href="javascript:;" onclick="member_add('电影详情','/adminfilmlists/{{$row->relation_id}}','800','500')" class="ml-5" style="text-decoration:none;"><i class="Hui-iconfont">&#xe725;</i></a><a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 		@endforeach
 		</tbody>
