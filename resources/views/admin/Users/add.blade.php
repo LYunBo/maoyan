@@ -6,6 +6,10 @@
 </head>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户添加 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="/adminusers" title="返回" ><i class="Hui-iconfont">&#xe625;</i></a></nav>
 <body>
+<!-- 提示信息 -->
+@if(!empty(session('error')))
+	<div class="Huialert Huialert-danger"><i class ="Hui-iconfont">&#xe6a6;</i>{{session('error')}}</div>
+@endif
 <article class="page-container">
 	<form action="/adminusers" method="post" class="form form-horizontal" id="form-member-add">
 		{{csrf_field()}}
@@ -14,6 +18,7 @@
 			<div class="formControls col-xs-8 col-sm-9">
 				<!-- class内的为三元运算符判断生成样式 -->
 				<input type="text" class="input-text {{empty($errors->get('username'))?'':'error'}}" value="" placeholder="请以字母开头5-16字节包括字母数组下划线" id="username" name="username">
+				<!-- 验证信息,错误返回 下面一样 -->
 				@if(count($errors)>0)
 				@foreach($errors->get('username') as $username)
 				<label class="error">{{$username}}</label>
@@ -24,7 +29,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">密码：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="password" class="input-text {{empty($errors->get('username'))?'':'error'}}" value="" placeholder="请以字母开头6-18字节包括字母数组下划线" id="username" name="password">
+				<input type="password" class="input-text {{empty($errors->get('password'))?'':'error'}}" value="" placeholder="请以字母开头6-18字节包括字母数组下划线" id="username" name="password">
 				@if(count($errors)>0)
 				@foreach($errors->get('password') as $pwd)
 				<label class="error">{{$pwd}}</label>
@@ -35,7 +40,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">确认密码：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="password" class="input-text {{empty($errors->get('username'))?'':'error'}}" value="" placeholder="请确认密码" id="username" name="repassword">
+				<input type="password" class="input-text {{empty($errors->get('repassword'))?'':'error'}}" value="" placeholder="请确认密码" id="username" name="repassword">
 				@if(count($errors)>0)
 				@foreach($errors->get('repassword') as $pwds)
 				<label class="error">{{$pwds}}</label>
@@ -46,7 +51,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text {{empty($errors->get('username'))?'':'error'}}" value="" placeholder="请输入相对应手机格式" name="phone">
+				<input type="text" class="input-text {{empty($errors->get('phone'))?'':'error'}}" value="" placeholder="请输入相对应手机格式" name="phone">
 				@if(count($errors)>0)
 				@foreach($errors->get('phone') as $phone)
 				<label class="error">{{$phone}}</label>
@@ -57,7 +62,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text {{empty($errors->get('username'))?'':'error'}}" placeholder="@" name="email" id="email">
+				<input type="text" class="input-text {{empty($errors->get('email'))?'':'error'}}" placeholder="@" name="email" id="email">
 				@if(count($errors)>0)
 				@foreach($errors->get('email') as $email)
 				<label class="error">{{$email}}</label>

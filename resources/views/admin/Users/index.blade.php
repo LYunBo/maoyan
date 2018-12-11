@@ -3,6 +3,10 @@
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<!-- 提示信息 -->
+@if(!empty(session('success')))
+	<div class = "Huialert Huialert-success"> <i class ="Hui-iconfont">&#xe6a6;</i>{{session('success')}}</div>
+@endif
 <div class="page-container">
 	<div class="text-c">
 		<input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="" name="">
@@ -24,6 +28,7 @@
 			</tr>
 		</thead>
 		<tbody>
+		<!-- 数据遍历 -->
 		@foreach($list as $row)
 			<tr class="text-c">
 				<td><input type="checkbox" value="1" name=""></td>
@@ -31,14 +36,15 @@
 				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">{{$row->username}}</u></td>
 				<td>{{$row->phone}}</td>
 				<td>{{$row->email}}</td>
-				<td>{{$row->created_id}}</td>
-				<td>{{$row->updated_id}}</td>
+				<td>{{$row->created_at}}</td>
+				<td>{{$row->updated_at}}</td>
 				<td class="td-manage"><a title="编辑" href="javascript:;" onclick="member_edit('编辑','/adminusers/1/edit','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a href="/adminuserspwd/{{$row->id}}" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a><a title="查看详情" href="" class="ml-5" style="text-decoration:none;"><i class="Hui-iconfont">&#xe725;</i></a><a title="删除" href="javascript:;" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 		@endforeach
 		</tbody>
 	</table>
 	</div>
+	<!-- 显示分页 -->
 		{{$list->render()}}
 </div>
 @extends('admin.Public.footer')

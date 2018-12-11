@@ -10,6 +10,8 @@ use DB;
 use Hash;
 //导入AdminUsersinsert校验类
 use App\Http\Requests\UsersInsert;
+//导入要调用的模型类
+use App\AdminModel\Users;
 class UsersController extends Controller
 {
     /**
@@ -20,9 +22,9 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         //返回用户列表页
-        $list = DB::table('user')->paginate(5);
+        $list = Users::paginate(5);
         //返回共有多少条数据
-        $tol = DB::table('user')->count();
+        $tol = Users::count();
         return view('admin.Users.index',['list'=>$list,'tol'=>$tol,'request'=>$request->all()]);
     }
 
@@ -47,7 +49,16 @@ class UsersController extends Controller
     {
         //返回以post提交上来的数据
         $data = $request->except('_token','repassword');
-        var_dump($data);
+        //吧密码用Hash来加密
+        $data['password'] = Hash::make($data['password']);
+        // var_dump($data);
+        if(Users::create($data)){
+            // 返回到列表页,并存一个名为success的session让列表页提示
+            return redirect('/adminusers')->with('success','添加成功');
+        }else{
+            //返回添加页,存个error的session并用闪存保存原来的数据
+            return back()->withInput()->with('error','添加失败,请按要求填写');
+        }
         
     }
 
@@ -100,7 +111,7 @@ class UsersController extends Controller
     public function pwd($id){
         //修改密码
         //用传过来的id查出相对应的数据遍历
-        $res = DB::table('user')->where('id','=',$id)->first();
+        $res = Users::where('id','=',$id)->first();
         return view('admin.Users.pwd',['res'=>$res]);
     }
 
@@ -113,10 +124,12 @@ class UsersController extends Controller
         $row['password'] = Hash::make($row['password']);
         // var_dump($row);
         //修改密码
-        if(DB::table('user')->where('id','=',$id)->update($row)){
-            return redirect('/adminusers');
+        if(Users::where('id','=',$id)->update($row)){
+            // echo 1;exit;
+            return redirect('/adminusers')->with('success','修改成功');
         }else{
-            return back();
+            // echo 1;exit;
+            return back()->withInput()->with("error",'修改失败');
         }
         
     }
