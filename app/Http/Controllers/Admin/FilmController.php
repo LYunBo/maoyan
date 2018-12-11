@@ -15,14 +15,16 @@ class FilmController extends Controller
      */
 
     // 电影列表页面
-    public function index()
+    public function index(Request $request)
     {
+        // 获取搜索提交信息
+        $name = $request -> input("name");
         // 获取film电影表数据
-        $data = DB::table("film") -> paginate(3);
+        $data = DB::table("film") -> where("name","like","%".$name."%") -> paginate(3);
         // 查看film表数据有多少条
-        $counts = DB::table("film") -> count();
+        $counts = DB::table("film") -> where("name","like","%".$name."%") -> count();
         // 传参
-        return view("admin.Film.list",["data" => $data,"counts" => $counts]);
+        return view("admin.Film.list",["data" => $data,"counts" => $counts,"request" => $request -> all()]);
     }
 
     // 电影详情
@@ -33,12 +35,27 @@ class FilmController extends Controller
         // 循环获取film_relation内的演员人员id，performer_id字段
         foreach($data as $kk){
             $str = $kk -> performer_id;
+            // 将区域赋值中文
+            $status = ["0" => "大陆", "1" => "美国", "2" => "韩国", "3" => "日本", "4" => "中国香港", "5" => "中国台湾", "6" => "泰国", "7" => "印度", "8" => "法国", "9" => "英国", "10" => "俄罗斯", "11" => "意大利", "12" => "西班牙", "13" => "德国", "14" => "波兰", "15" => "澳大利亚", "16" => "伊朗", "17" => "其他"];
+            $kk -> district_id = $status[$kk -> district_id];
+            // 将状态赋值中文
+            $statusk = ["0" => "热播","1" => "未播放","2" => "经典"];
+            $kk -> playback_status = $statusk[$kk -> playback_status];
+            // 将类型赋值中文
+            $statusz = ["0" => "爱情","1" => "喜剧","2" => "动画","3" => "剧情","4" => "恐怖","5" => "惊悚","6" => "科幻","7" => "动作","8" => "悬疑","9" => "犯罪","10" => "冒险","11" => "战争","12" => "奇幻","13" => "运动","14" => "家庭","15" => "古装","16" => "武侠","17" => "西部","18" => "历史","19" => "传记","20" => "歌舞","21" => "黑色电影","22" => "短片","23" => "纪录片","24" => "其他"];
+            $strings = explode(",",$kk -> type_id);
+            foreach($strings as $v){
+                $stringz[] = $statusz[$v];
+            }
+            $stringz = implode(",",$stringz);
+            $kk -> type_id = $stringz;
         }
         // 将获取的演员id变成数组
         $str = explode(",",$str);
         // 将演员id的字段来查询演员表performer，获取演员信息
         $str = DB::table("performer") -> whereIn("id",$str) -> get();
         return view("admin.Film.film_relation",["data" => $data,"str" => $str]);
+        
     }
 
     /**
@@ -74,7 +91,6 @@ class FilmController extends Controller
         // $request -> get("director_img");//导演头像
         // $request -> file("performer_img");//演员头像
         // $request -> get("film_introduce");//电影简介
-        
         
         
         $performer_img = $request -> file("performer_img");
@@ -162,6 +178,8 @@ class FilmController extends Controller
         $years = $request -> get("years");
         $district_id = $request -> get("district_id");
         $type_id = $request -> get("type_id");
+        // 将获取到的类型合并成字符串
+        $type_id = implode(",",$type_id);
         $playback_status = $request -> get("playback_status");
         $director = $request -> get("director");
         // 将有的数据插入到第二张表，电影关联表film_relation上
@@ -179,13 +197,12 @@ class FilmController extends Controller
         
         // 插入第三张表，电影表film
         if (DB::table("film") -> insert(["relation_id" => $idkk,"name" => $name,"ymd" => $ymd,"times" => $times,"film_introduce" => $film_introduce])) {
-            return view("admin.Film.add") -> with("success","成功");
+            return redirect("/adminfilmlist/create") -> with("success","成功");
         }else{
             return back() -> with("error","失败");
         }
 
 
-        // var_dump($film_img);
         
     }
 
@@ -197,7 +214,18 @@ class FilmController extends Controller
      */
     public function show($id)
     {
-        //
+        // 用传过来的id获取三张表
+        // film表
+        $data = DB::table("film") -> where("id","=",$id) -> get();
+        // film_relation
+        $data1 = DB::table("film_relation") -> where("id","=",$data[0] -> relation_id) -> get();
+        // performer
+        // 将film_relation的演员id分开做数组
+        $ids = explode(",",$data1[0] -> performer_id);
+        $data2 = DB::table("film") -> whereIn("id",$ids) -> get();
+        $string = $data1[0] -> type_id;
+        $string = explode(",",$string);
+        return view("admin.Film.edit",["data" => $data,"data1" => $data1,"type_id" => $string,"data2" => $data2]);
     }
 
     /**

@@ -4,8 +4,10 @@
 <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
-	@if(session("success"))
-	<div class="Huialert Huialert-success"><i class="Hui-iconfont">&#xe6a6;</i>添加</div>
+	@if(!empty(session("success")))
+	<div class="Huialert Huialert-success"><i class="Hui-iconfont">&#xe6a6;</i>
+	{{session('success')}}
+	</div>
 	@endif
 	@if(count($errors) >0)
 	@foreach($errors -> all() as $v)
@@ -69,35 +71,57 @@
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">类型：</label>
-		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="   select" name="type_id" size="1">                           
-				<option value="">--请选择--</option>
-				<option value="0">爱情</option>
-				<option value="1">喜剧</option>
-				<option value="2">动画</option>
-				<option value="3">剧情</option>
-				<option value="4">恐怖</option>
-				<option value="5">惊悚</option>
-				<option value="6">科幻</option>
-				<option value="7">动作</option>
-				<option value="8">悬疑</option>
-				<option value="9">犯罪</option>
-				<option value="10">冒险</option>
-				<option value="11">战争</option>
-				<option value="12">奇幻</option>
-				<option value="13">运动</option>
-				<option value="14">家庭</option>
-				<option value="15">古装</option>
-				<option value="16">武侠</option>
-				<option value="17">西部</option>
-				<option value="18">历史</option>
-				<option value="19">传记</option>
-				<option value="20">歌舞</option>
-				<option value="21">黑色电影</option>
-				<option value="22">短片</option>
-				<option value="23">纪录片</option>
-				<option value="24">其他</option>
-			</select>
+		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:800px;">
+				<label><input type="checkbox" name="type_id[]" value="0">爱情</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="1">喜剧</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="2">动画</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="3">剧情</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="4">恐怖</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="5">惊悚</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="6">科幻</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="7">动作</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="8">悬疑</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="9">犯罪</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="10">冒险</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="11">战争</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="12">奇幻</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="13">运动</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="14">家庭</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="15">古装</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="16">武侠</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="17">西部</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="18">历史</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="19">传记</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="20">歌舞</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="21">黑色电影</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="22">短片</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="23">纪录片</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="type_id[]" value="24">其他</label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</span> </div>
 	</div>
 	<div class="row cl">

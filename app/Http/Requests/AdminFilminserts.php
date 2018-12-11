@@ -24,19 +24,19 @@ class AdminFilminserts extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|regex:/[^x00-xff]/",
-            "ymd" => "required|regex://",
-            "times" => "required|regex://",
-            "years" => "required|regex://",
-            "district_id" => "required|regex://",
-            "type_id" => "required|regex://",
-            "playback_status" => "required|regex://",
-            "film_img" => "required|regex://",
-            "cover" => "required|regex://",
-            "director" => "required|regex://",
-            "director_img" => "required|regex://",
-            "performer_img" => "required",
-            "film_introduce" => "required"
+            // "name" => "required|regex:/[^x00-xff]/",
+            // "ymd" => "required|regex://",
+            // "times" => "required|regex://",
+            // "years" => "required|regex://",
+            // "district_id" => "required|regex://",
+            // "type_id" => "required|regex://",
+            // "playback_status" => "required|regex://",
+            // "film_img" => "required|regex://",
+            // "cover" => "required|regex://",
+            // "director" => "required|regex://",
+            // "director_img" => "required|regex://",
+            // "performer_img" => "required",
+            // "film_introduce" => "required"
         ];
     }
     public function messages()
