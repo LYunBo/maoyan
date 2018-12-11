@@ -20,7 +20,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         //返回用户列表页
-        $list = DB::table('user')->get();
+        $list = DB::table('user')->paginate(5);
         //返回共有多少条数据
         $tol = DB::table('user')->count();
         return view('admin.Users.index',['list'=>$list,'tol'=>$tol,'request'=>$request->all()]);

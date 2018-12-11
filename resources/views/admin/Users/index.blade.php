@@ -33,12 +33,13 @@
 				<td>{{$row->email}}</td>
 				<td>{{$row->created_id}}</td>
 				<td>{{$row->updated_id}}</td>
-				<td class="td-manage"><a title="编辑" href="javascript:;" onclick="member_edit('编辑','/adminusers/1/edit','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a href="/adminuserspwd/{{$row->id}}" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a><a title="查看详情" href="" class="ml-5" style="text-decoration:none;"><i class="Hui-iconfont">&#xe725;</i></a><a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<td class="td-manage"><a title="编辑" href="javascript:;" onclick="member_edit('编辑','/adminusers/1/edit','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a href="/adminuserspwd/{{$row->id}}" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a><a title="查看详情" href="" class="ml-5" style="text-decoration:none;"><i class="Hui-iconfont">&#xe725;</i></a><a title="删除" href="javascript:;" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 		@endforeach
 		</tbody>
 	</table>
 	</div>
+		{{$list->render()}}
 </div>
 @extends('admin.Public.footer')
 <!--请在下方写此页面业务相关的脚本-->
@@ -58,7 +59,10 @@
 	});
 	
 });*/
-$('.table-sort').dataTable({});
+$('.ml-5').click(function(){
+	console.log($(this).parents('td').parents('tr').find('td').eq(1).html());
+})
+// $('.table-sort').dataTable({});
 /*用户-添加*/
 function member_add(title,url,w,h){
 	layer_show(title,url,w,h);
@@ -115,7 +119,7 @@ function change_password(title,url,id,w,h){
 	layer_show(title,url,w,h);	
 }
 /*用户-删除*/
-function member_del(obj,id){
+/*function member_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
 			type: 'POST',
@@ -130,7 +134,7 @@ function member_del(obj,id){
 			},
 		});		
 	});
-}
+}*/
 </script> 
 </body>
 </html>

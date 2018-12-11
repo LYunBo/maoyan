@@ -12,34 +12,57 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
+				<!-- class内的为三元运算符判断生成样式 -->
+				<input type="text" class="input-text {{empty($errors->get('username'))?'':'error'}}" value="" placeholder="请以字母开头5-16字节包括字母数组下划线" id="username" name="username">
 				@if(count($errors)>0)
-				<label id="username-error" class="error" for="username">{{var_dump($errors->all())}}</label>
+				@foreach($errors->get('username') as $username)
+				<label class="error">{{$username}}</label>
+				@endforeach
 				@endif
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">密码：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="password" class="input-text" name="password">
+				<input type="password" class="input-text {{empty($errors->get('username'))?'':'error'}}" value="" placeholder="请以字母开头6-18字节包括字母数组下划线" id="username" name="password">
+				@if(count($errors)>0)
+				@foreach($errors->get('password') as $pwd)
+				<label class="error">{{$pwd}}</label>
+				@endforeach
+				@endif
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">确认密码：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="password" class="input-text" name="repassword">
+				<input type="password" class="input-text {{empty($errors->get('username'))?'':'error'}}" value="" placeholder="请确认密码" id="username" name="repassword">
+				@if(count($errors)>0)
+				@foreach($errors->get('repassword') as $pwds)
+				<label class="error">{{$pwds}}</label>
+				@endforeach
+				@endif
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" name="phone">
+				<input type="text" class="input-text {{empty($errors->get('username'))?'':'error'}}" value="" placeholder="请输入相对应手机格式" name="phone">
+				@if(count($errors)>0)
+				@foreach($errors->get('phone') as $phone)
+				<label class="error">{{$phone}}</label>
+				@endforeach
+				@endif
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="@" name="email" id="email">
+				<input type="text" class="input-text {{empty($errors->get('username'))?'':'error'}}" placeholder="@" name="email" id="email">
+				@if(count($errors)>0)
+				@foreach($errors->get('email') as $email)
+				<label class="error">{{$email}}</label>
+				@endforeach
+				@endif
 			</div>
 		</div>
 		<div class="row cl">
