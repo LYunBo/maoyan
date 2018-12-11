@@ -308,7 +308,7 @@
 			<b>提示:双击图片可以删除该图</b>
 			<br>
 			@foreach($film_img as $v)
-				<img style="width:100px;height:150px;border:1px solid #0085d2;margin-bottom:10px;" src="{{$v}}" ondblclick="fun(this)" alt="">
+				<input type="text" value="{{$data1[0] -> id}}" style="display:none;"><img style="width:100px;height:150px;border:1px solid #0085d2;margin-bottom:10px;" src="{{$v}}" ondblclick="fun(this)" alt="">
 			@endforeach
 		</div>
 	</div>
@@ -321,7 +321,7 @@
 			<b>提示:双击图片可以删除该图</b>
 			<br>
 			@foreach($data2 as $v)
-				{{$v -> name}}:&nbsp;&nbsp;<img style="width:100px;height:150px;border:1px solid #0085d2;margin:0 10px 10px 0;" src="{{$v -> img}}" ondblclick="funs(this)" alt="">
+				{{$v -> name}}:&nbsp;&nbsp;<input type="text" value="{{$v -> id}}" style="display:none;"><img style="width:100px;height:150px;border:1px solid #0085d2;margin:0 10px 10px 0;" src="{{$v -> img}}" ondblclick="funs(this)" alt="">
 			@endforeach
 		</div>
 	</div>
@@ -336,7 +336,7 @@
 	function fun(thiss){
 		var trues = confirm("确定删除么?");
 		if (trues) {
-			alert(111);
+			$.get("/adminfilmdelfilmimg",{})
 		}
 	}
 	function funs(thiss){
