@@ -2,17 +2,19 @@
 @section('admin')
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-primary radius r" style="line-height:1.6em;margin-top:3px" href="/adminusers" title="返回" ><i class="Hui-iconfont">&#xe625;</i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <!-- 提示信息 -->
 @if(!empty(session('success')))
 	<div class = "Huialert Huialert-success"> <i class ="Hui-iconfont">&#xe6a6;</i>{{session('success')}}</div>
 @endif
 <div class="page-container">
 	<div class="text-c">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="" name="">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+		<form action="/adminusers" method="get">
+			<input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" name="keyword" value="{{$request['keyword'] or ''}}">
+			<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+		</form>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="/adminusers/create" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a></span> <span class="r">共有数据：<strong>{{$tol}}</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>{{$tol}}</strong> 条</span> </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -34,7 +36,7 @@
 			<tr class="text-c">
 				<td><input type="checkbox" value="1" name=""></td>
 				<td>{{$row->id}}</td>
-				<td>{{$row->username}}</u></td>
+				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('{{$row->username}}','/adminusers/{{$row->id}}','','500','500')">{{$row->username}}</u></td>
 				<td>{{$row->phone}}</td>
 				<td>{{$row->email}}</td>
 				<td>{{$row->created_at}}</td>
@@ -54,7 +56,7 @@
 						start(this,{{$row->id}})
 					@else 
 						stop(this,{{$row->id}}) 
-					@endif " title="@if($row->status == 0) 启用 @else 启用 @endif"><i class="Hui-iconfont">
+					@endif " title="@if($row->status == 0) 启用 @else 停 用 @endif"><i class="Hui-iconfont">
 						@if($row->status == 0)
 							&#xe615;
 						@else
@@ -116,7 +118,7 @@ function start(obj,id){
 	//找到本身
 	var a = $(obj);
 	//创建要创建的对象
-	var newa = $('<a style="text-decoration:none" href="javascript:;" onclick="stop(this,{{$row->id}})" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
+	var newa = $('<a style="text-decoration:none" href="javascript:;" onclick="stop(this,'+id+'}})" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
 	//状态显示样式
 	var prevtd = $(obj).parents('td').prev();
 	//新的样式
@@ -147,7 +149,7 @@ function stop(obj,id){
 	//找到本身
 	var a = $(obj);
 	//创建要创建的对象
-	var newa = $('<a style="text-decoration:none" href="javascript:;" onclick="start(this,{{$row->id}})" title="启用"><i class="Hui-iconfont">&#xe615;</i></a>');
+	var newa = $('<a style="text-decoration:none" href="javascript:;" onclick="start(this,'+id+'}})" title="启用"><i class="Hui-iconfont">&#xe615;</i></a>');
 	//状态显示样式
 	var prevtd = $(obj).parents('td').prev();
 	//新的样式

@@ -12,6 +12,7 @@ use Hash;
 use App\Http\Requests\UsersInsert;
 //导入要调用的模型类
 use App\AdminModel\Users;
+use App\AdminModel\message;
 class UsersController extends Controller
 {
     /**
@@ -21,8 +22,10 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
+        //返回搜索的关键词
+        $key = $request->input('keyword');
         //返回用户列表页
-        $list = Users::paginate(5);
+        $list = Users::where('username','like','%'.$key.'%')->paginate(5);
         //返回共有多少条数据
         $tol = Users::count();
         return view('admin.Users.index',['list'=>$list,'tol'=>$tol,'request'=>$request->all()]);
@@ -73,9 +76,14 @@ class UsersController extends Controller
         //
         // dd($id);
         // 用的到的id查用户详情表对应的信息
-        $row = DB::table('information')->where('id','=',$id)->first();
+        $row = message::where('user_id','=',$id)->first();
+        // dd($row);
+         //查出用户关注的电影
+        $love = DB::table('follow_film')->where('user_id','=',$id)->get();
+        //查用户的历史电影
+        $histroy = DB::table('pastfilm')->where('user_id','=',$id)->get();
         //返回用户信息列表页
-        return view('admin.Users.message',['row'=>$row]);
+        return view('admin.Users.message',['row'=>$row,'love'=>$love,'histroy'=>$histroy]);
 
     }
 
@@ -163,6 +171,7 @@ class UsersController extends Controller
         //通过传来的id删除数据表对应的数据
         if(Users::destroy($id)){
             // 返回状态1表示成功
+            with('success','删除成功');
             echo 1;
         }else{
             //返回状态2表示失败
