@@ -23,6 +23,10 @@ class FilmController extends Controller
         $data = DB::table("film") -> where("name","like","%".$name."%") -> paginate(3);
         // 查看film表数据有多少条
         $counts = DB::table("film") -> where("name","like","%".$name."%") -> count();
+        $status = ["0" => "下架","1" => "上架"];
+        foreach($data as $v){
+            $v -> film_status = $status[$v -> film_status];
+        }
         // 传参
         return view("admin.Film.list",["data" => $data,"counts" => $counts,"request" => $request -> all()]);
     }
@@ -340,7 +344,7 @@ class FilmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AdminFilminserts $request, $id)
     {
         // $request -> get("name");//电影名称
         // $request -> get("film_status");//电影上下架
