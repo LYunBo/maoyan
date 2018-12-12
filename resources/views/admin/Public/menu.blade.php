@@ -78,6 +78,15 @@
 				</ul>
 			</dd>
 		</dl>
+		<dl id="menu-admin">
+			<dt><i class="Hui-iconfont">&#xe62d;</i> 电影院管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="/adminfilm_scene_list" data-title="电影列表" href="javascript:void(0)">电影院列表</a></li>
+					<li><a data-href="/adminfilm_scene_list/create" data-title="添加电影院" href="javascript:void(0)">添加电影院</a></li>
+				</ul>
+			</dd>
+		</dl>
 	</div>
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>

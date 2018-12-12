@@ -47,3 +47,7 @@ Route::get("/adminfilmlists/{id}","Admin\FilmController@films");
 Route::get("/adminfilmdelfilmimg","Admin\FilmController@delfilmimg");
 // 修改中删除演员头像
 Route::get("/adminfilmdelperformerimg","Admin\FilmController@performerimg");
+
+
+// 电影院管理
+Route::resource("/adminfilm_scene_list","Admin\FilmsceneController");
