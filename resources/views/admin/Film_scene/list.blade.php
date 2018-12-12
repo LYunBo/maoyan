@@ -16,13 +16,13 @@
 		<thead>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
-				<th width="80">ID</th>
-				<th width="100">电影名</th>
-				<th width="90">上映时间</th>
-				<th width="150">电影时长</th>
-				<th width="130">评分</th>
-				<th width="130">票房</th>
-				<th>上/下架</th>
+				<th width="80">电影院ID</th>
+				<th width="100">电影院名</th>
+				<th width="90">所在城市</th>
+				<th width="150">地址</th>
+				<th width="130">电话</th>
+				<th width="130">品牌</th>
+				<th>服务</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>

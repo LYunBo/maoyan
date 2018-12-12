@@ -12,9 +12,11 @@ class FilmsceneController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // 电影院类表
     public function index()
     {
-        //
+        return view("admin.Film_scene.list");
     }
 
     /**
