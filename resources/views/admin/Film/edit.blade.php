@@ -16,8 +16,9 @@
 	@endforeach
 	@endif
 <article class="page-container">
-	<form class="form form-horizontal" id="adminfilmlist" method="post" action="/adminfilmlist" enctype="multipart/form-data">
+	<form class="form form-horizontal" id="adminfilmlist" method="post" action="/adminfilmlist/{{$data[0] -> id}}" enctype="multipart/form-data">
 	{{csrf_field()}}
+	{{method_field("PUT")}}
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影ID：</label>
 		<div class="formControls col-xs-8 col-sm-9">
@@ -35,6 +36,15 @@
 		<div class="formControls col-xs-8 col-sm-9">
 			<input type="text" class="input-text" value="{{$data[0] -> name}}" placeholder="" id="adminName" name="name">
 		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">上/下架：</label>
+		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select class="   select" name="film_status" size="1"> 
+				<option {{($data[0] -> film_status)=="0"?"selected":""}} value="0">下架</option>
+				<option {{($data[0] -> film_status)=="1"?"selected":""}} value="1">上架</option>
+			</select>
+			</span> </div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>放映时间：</label>
@@ -303,12 +313,14 @@
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影图集：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			添加文件:<input type="file" value="" placeholder="" id="phone" name="film_img[]" multiple="multiple">
-			<a href="javascript:;">删除所有图集</a>
+			<a href="javascript:;" onclick="funz(this,{{$data1[0] -> id}})">删除所有图集</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<b>提示:双击图片可以删除该图</b>
 			<br>
 			@foreach($film_img as $v)
+			<span class="data1_film_img">
 				<input type="text" value="{{$data1[0] -> id}}" style="display:none;"><img style="width:100px;height:150px;border:1px solid #0085d2;margin-bottom:10px;" src="{{$v}}" ondblclick="fun(this)" alt="">
+			</span>
 			@endforeach
 		</div>
 	</div>
@@ -316,12 +328,15 @@
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>演员头像：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			请将图像命名为演员名字:<input type="file" value="" placeholder="请将图像命名为演员名字" id="phone" name="performer_img[]" multiple="multiple">
-			<a href="javascript:;">删除所有演员</a>
+			<a href="javascript:;" onclick="funsz(this,{{$data1[0] -> id}})" >删除所有演员</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<b>提示:双击图片可以删除该图</b>
 			<br>
 			@foreach($data2 as $v)
-				{{$v -> name}}:&nbsp;&nbsp;<input type="text" value="{{$v -> id}}" style="display:none;"><img style="width:100px;height:150px;border:1px solid #0085d2;margin:0 10px 10px 0;" src="{{$v -> img}}" ondblclick="funs(this)" alt="">
+			<span class="data1_performer_id">
+
+				{{$v -> name}}:&nbsp;&nbsp;<input type="text" value="{{$v -> id}}" style="display:none;"><img style="width:100px;height:150px;border:1px solid #0085d2;margin:0 10px 10px 0;" src="{{$v -> img}}" ondblclick="funs(this,{{$data1[0] -> id}})" alt="">
+			</span>
 			@endforeach
 		</div>
 	</div>
@@ -334,15 +349,66 @@
 </article>
 <script>
 	function fun(thiss){
+		// 获取要操作的film_relation表的id
+		var id = $(thiss).prev().val();
+		// 获取film_relation表的图集字段film_img中的某字段
+		var imgs = $(thiss).attr("src");
+		// 确认是否删除
 		var trues = confirm("确定删除么?");
 		if (trues) {
-			$.get("/adminfilmdelfilmimg",{})
+			$.get("/adminfilmdelfilmimg",{"id":id,"imgs":imgs},function(result){
+				if (result == "1") {
+					$(thiss).parents("span").remove();
+				}else{
+					alert("删除图集失败");
+				}
+			})
 		}
 	}
-	function funs(thiss){
+	function funz(thiss,id){
+		// 删除全部图集，将imgs当成空的条件传过去
+		var trues = confirm("确定删除全部图集么?");
+		if (trues) {
+			$.get("/adminfilmdelfilmimg",{"id":id,"imgs":""},function(result){
+				if (result == "1") {
+					// 删除span
+					$(".data1_film_img").remove();
+				}else{
+					alert("删除图集失败");
+				}
+			})
+		}
+	}
+	function funs(thiss,ids){
+		// 删除的演员id
+		var id = $(thiss).prev().val();
+		// ids是要操作的film_relation表id
+
 		var trues = confirm("确定删除么?");
 		if (trues) {
-			alert(111);
+			$.get("/adminfilmdelperformerimg",{"id":id,"ids":ids},function(result){
+				if (result == "1") {
+					// 删除span
+					$(thiss).parents("span").remove();
+				}else{
+					alert("删除演员失败");
+				}
+			})
+		}
+	}
+	function funsz(thiss,ids){
+		// 要删除全部演员，将id当成空字符串传过去 
+
+		var trues = confirm("确定删除么?");
+		if (trues) {
+			$.get("/adminfilmdelperformerimg",{"id":"","ids":ids},function(result){
+				if (result == "1") {
+					// 删除span
+					$(".data1_performer_id").remove();
+				}else{
+					alert("删除演员失败");
+				}
+			})
 		}
 	}
 </script>

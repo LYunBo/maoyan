@@ -26,6 +26,16 @@
 		</div>
 	</div>
 	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">上/下架：</label>
+		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select class="   select" name="film_status" size="1"> 
+				<option value="">--请选择--</option>
+				<option value="0">下架</option>
+				<option value="1">上架</option>
+			</select>
+			</span> </div>
+	</div>
+	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>放映时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			<input type="text" class="input-text" autocomplete="off" value="" placeholder="" id="text" name="ymd">

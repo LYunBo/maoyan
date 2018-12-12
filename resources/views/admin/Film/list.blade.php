@@ -22,6 +22,7 @@
 				<th width="150">电影时长</th>
 				<th width="130">评分</th>
 				<th width="130">票房</th>
+				<th>上/下架</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
@@ -35,7 +36,8 @@
 				<td>{{$row->times}}</td>
 				<td>{{$row->score}}</td>
 				<td>{{$row->box_office}}</td>
-				<td class="td-manage"><a title="编辑" href="/adminfilmlist/{{$row-> id}}" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a><a title="查看详情" href="javascript:;" onclick="member_add('电影详情','/adminfilmlists/{{$row->relation_id}}','800','500')" class="ml-5" style="text-decoration:none;"><i class="Hui-iconfont">&#xe725;</i></a><a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<td>{{$row->film_status}}</td>
+				<td class="td-manage"><a title="编辑" href="/adminfilmlist/{{$row-> id}}" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a title="查看详情" href="javascript:;" onclick="member_add('电影详情','/adminfilmlists/{{$row->relation_id}}','800','500')" class="ml-5" style="text-decoration:none;"><i class="Hui-iconfont">&#xe725;</i></a></td>
 			</tr>
 		@endforeach
 		</tbody>
