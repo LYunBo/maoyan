@@ -20,6 +20,11 @@ Route::resource('/admin','Admin\AdminController');
 
 //后台管理员
 Route::resource('/adminuser','Admin\UserController');
+//Ajax 后台用户状态statuss变动
+Route::get("/statuss","Admin\UserController@statuss");
+
+//Aja 删除后台用户
+Route::get("/del",'Admin\UserController@del');
 
 //会员管理
 Route::resource('/adminusers','Admin\UsersController');
