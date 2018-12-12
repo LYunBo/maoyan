@@ -119,9 +119,14 @@ function admin_del(obj,id){
 	if(confirm('确认删除吗')){
 
 		$.get('/del',{'id':id},function(data){
-			alert(data);
+			if(data==1){
+				layer.msg('删除成功!', {icon: 6,time:1000});
+			}else{
+				layer.msg('删除失败!', {icon: 5,time:1000});
+			}
 		});
 		$(obj).parent().parent().remove();
+
 	}
 }
 

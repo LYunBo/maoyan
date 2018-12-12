@@ -103,7 +103,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AdminUserinsert $request, $id)
     {
         //获取id
         // dd($id);
@@ -116,7 +116,7 @@ class UserController extends Controller
         if(User::where('id','=',$id)->update($data)){
             return redirect("adminuser")->with('success','修改成功');
         }else{
-            return back()->with('error','添加失败');
+            return back()->with('error','修改失败');
         }
     }
 
@@ -148,9 +148,9 @@ class UserController extends Controller
         $id=$request->input('id');
         // echo $id;
         if(DB::table('admin_user')->where('id','=',$id)->delete()){
-            echo '删除成功';
+            echo '1';
         }else{
-            echo '删除失败';
+            echo '0';
         }
     }
 }
