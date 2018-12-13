@@ -129,12 +129,12 @@ function start(obj,id){
 		$.get('/adminusersstart',{'id':id},function(data){
 			//返回参数进行页面修改
 			if(data == 1){
-				alert('启用成功');
+				
 				a.remove();
 				td.prepend(newa);
 				prevtd.empty();
 				prevtd.prepend(newspan);
-				
+				layer.msg('已启用!',{icon: 6,time:1000});
 			}
 		});
 	}
@@ -160,12 +160,12 @@ function stop(obj,id){
 		$.get('/adminusersstop',{'id':id},function(data){
 			//返回参数进行页面修改
 			if(data == 1){
-				alert('停用成功');
+				
 				a.remove();
 				td.prepend(newa);
 				prevtd.empty();
 				prevtd.prepend(newspan);
-				
+				layer.msg('已停用!',{icon: 5,time:1000});
 			}
 		});
 	}
