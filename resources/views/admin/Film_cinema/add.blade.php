@@ -24,7 +24,7 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">城市：</label>
 		<div class="formControls col-xs-8 col-sm-9"> 
-			市:&nbsp;&nbsp;<span class="select-box" style="width:150px;">
+			省:&nbsp;&nbsp;<span class="select-box" style="width:150px;">
 			<select class="   select" name="city" size="1" id="city">
 				<option id="city_option" value="">--请选择--</option>
 				@foreach($city as $v)
@@ -32,13 +32,8 @@
 				@endforeach
 			</select>
 			</span>
-			区/县:&nbsp;&nbsp;<span class="select-box" style="width:150px;">
+			市:&nbsp;&nbsp;<span class="select-box" style="width:150px;">
 			<select class="   select" name="citys" size="1" id="citys">
-				<option id="citys_option" value="">--请选择--</option>
-			</select>
-			</span>
-			镇:&nbsp;&nbsp;<span class="select-box" style="width:150px;">
-			<select class="   select" name="city_id" size="1" id="cityss">
 				<option id="citys_option" value="">--请选择--</option>
 			</select>
 			</span>
@@ -50,60 +45,83 @@
 			$.get("/adminfilmcinema/create",{"city_upid":$value},function(result){
 				// console.log(result.length);
 				$("#citys").empty();
-				$("#cityss").empty();
-				$("#cityss").append('<option id="citys_option" value="">--请选择--</option>');
+				$("#citys").append('<option id="citys_option" value="">--请选择--</option>');
 				for(var i=0;i<result.length;i++){
 					$("#citys").append('<option id="citys_option" value="'+(result[i].id)+'">'+(result[i].name)+'</option>');
 				}
 			});
 			$("#city_option").remove();
 		})
-		$("#citys").change(function(){
-			$value = $(this).find(":selected").val();
-			$.get("/adminfilmcinema/create",{"city_upid":$value},function(result){
-				// console.log(result.length);
-				$("#cityss").empty();
-				for(var i=0;i<result.length;i++){
-					$("#cityss").append('<option id="citys_option" value="'+(result[i].id)+'">'+(result[i].name)+'</option>');
-				}
-			});
-		})
 	</script>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影院名称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="adminName" name="name">
+			<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
 		</div>
 	</div>
 	
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影院电话：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" autocomplete="off" value="" placeholder="" id="text" name="cinema_phone">
+			<input type="text" class="input-text" autocomplete="off" value="" placeholder="" id="cinema_phone" name="cinema_phone">
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影院详细地址：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" autocomplete="off"  placeholder="" id="text" name="address">
+			<input type="text" class="input-text" autocomplete="off"  placeholder="" id="address" name="address">
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影院品牌：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="phone" name="years">
+			<input type="text" class="input-text" value="" placeholder="" id="brand" name="brand">
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影院封面图：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="file" value="" placeholder="" id="phone" name="covers" multiple="multiple">
+			<input type="file" value="" placeholder="" id="cover" name="cover" multiple="multiple">
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影院图集：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="file" value="" placeholder="" id="phone" name="cover[]" multiple="multiple">
+			<input type="file" value="" placeholder="" id="covers" name="covers[]" multiple="multiple">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影院服务：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			3D眼镜:
+			<br>
+			<span class="select-box" style="width:150px;">
+			<select class="   select" name="service1" size="1"> 
+				<option value="0">无</option>
+				<option value="1">免押金</option>
+				<option value="2">5元/副</option>
+				<option value="2">3元/副起步</option>
+			</select>
+			</span>
+			<br>
+			儿童优惠:
+			<br>
+			<span class="select-box" style="width:150px;">
+			<select class="   select" name="service2" size="1"> 
+				<option value="0">无</option>
+				<option value="1">1.3m（不含）以下2D\3D免费，需由1名成人陪同</option>
+			</select>
+			</span>
+			<br>
+			可停车:
+			<br>
+			<span class="select-box" style="width:150px;">
+			<select class="   select" name="service3" size="1">
+				<option value="0">无</option>
+				<option value="1">影院地下停车场可停车</option>
+				<option value="1">看电影免费停车3小时</option>
+			</select>
+			</span>
 		</div>
 	</div>
 	<div class="row cl">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use App\Http\Requests\AdminCinema;
 class FilmcinemaController extends Controller
 {
     /**
@@ -19,6 +20,19 @@ class FilmcinemaController extends Controller
         $name = $request -> input("name");
         // 查询数据
         $data = DB::table("cinema") -> where("name","like","%".$name."%") -> paginate(3);
+        // 便于列表页查看，将service服务列取出修改
+        foreach($data as $v){
+            $service = $v -> service;
+            $service = explode(",",$service);
+            $service1 = ["0" => "无","1" => "免押金","2" => '5元/副',"3" => '3元/副起步'];
+            $service2 = ["0" => "无","1" => '1.3m（不含）以下2D\3D免费，需由1名成人陪同'];
+            $service3 = ["0" => '无',"1" => '影院地下停车场可停车',"2" => '看电影免费停车3小时'];
+            $service[0] = "3D眼镜——".$service1[$service[0]];
+            $service[1] = "儿童优惠——".$service1[$service[1]];
+            $service[2] = "停车——".$service1[$service[2]];
+            $service = implode("*****//",$service);
+            $v -> service = $service;
+        }
         // 电影院内的取出城市id
         foreach($data as $v){
             // 市
@@ -74,11 +88,68 @@ class FilmcinemaController extends Controller
      * @return \Illuminate\Http\Response
      */
     // 添加页的数据处理
-    public function store(Request $request)
+    public function store(AdminCinema $request)
     {
+        // 3D眼睛服务
+        $service1 = $request -> input("service1");
+        // 儿童优惠服务
+        $service2 = $request -> input("service2");
+        // 停车服务
+        $service3 = $request -> input("service3");
+        // 合并三个服务
+        $service = $service1.",".$service2.",".$service3;
+        // 省的id
         $city = $request -> input("city");
-        $citys = $request -> input("citys");
-        
+        // 市的id
+        $city_id = $request -> input("citys");
+        // 电影院名
+        $name = $request -> input("name");
+        // 电影院电话号码
+        $cinema_phone = $request -> input("cinema_phone");
+        // 电影院地址
+        $address = $request -> input("address");
+        // 电影院品牌
+        $brand = $request -> input("brand");
+
+        // 电影院封面
+        $cover = $request -> file("cover");
+        // 存储到/film/cinema/cover内
+        // 获取到封面图的文件后缀名
+        $cover_houzhui = $cover -> getClientOriginalExtension();
+        // 自定义储存的路径
+        $cover_path = "./film/cinema/cover/".time().rand(1000,9999);
+        // 自定义文件名
+        $cover_name = time().rand(1000,9999).".".$cover_houzhui;
+        // 存储
+        $cover_y = $cover -> move($cover_path,$cover_name);
+        // 为了方便在数据库存储路径
+        $cover_path = ltrim($cover_path,".");
+        $path = $cover_path."/".$cover_name;
+
+
+        // 电影院图集
+        $covers = $request -> file("covers");
+        $paths = "";
+        foreach($covers as $v){
+            // 存储到/film/cinema/covers内
+            // 获取到封面图的文件后缀名
+            $covers_houzhui = $v -> getClientOriginalExtension();
+            // 自定义储存的路径
+            $covers_path = "./film/cinema/covers/".time().rand(1000,9999);
+            // 自定义文件名
+            $covers_name = time().rand(1000,9999).".".$covers_houzhui;
+            // 存储
+            $covers_y = $v -> move($covers_path,$covers_name);
+            // 为了方便在数据库存储路径
+            $covers_path = ltrim($covers_path,".");
+            $paths .= ",".$covers_path."/".$covers_name;
+        }
+        $paths = ltrim($paths,",");
+        if ($data = DB::table("cinema") -> insert(["city_id" => $city_id,"name" => $name,"cinema_phone" => $cinema_phone,"address" => $address,"brand" => $brand,"service" => $service,"cover" => $path,"covers" => $paths])) {
+            return redirect("/adminfilmcinema/create") -> with("success","添加成功");
+        }else{
+            return back() -> with("error","添加失败");
+        }
     }
 
     /**

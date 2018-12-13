@@ -16,8 +16,9 @@
 		<thead>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
-				<th width="80">电影院ID</th>
-				<th width="100">电影院名</th>
+				<th width="25">电影院ID</th>
+				<th width="80">电影院名</th>
+				<th>电影院封面</th>
 				<th width="90">所在城市</th>
 				<th width="150">地址</th>
 				<th width="130">电话</th>
@@ -32,6 +33,7 @@
 				<td><input type="checkbox" value="1" name=""></td>
 				<td>{{$row->id}}</td>
 				<td>{{$row->name}}</td>
+				<td><img src="{{$row->cover}}" style="width:100px;" alt=""></td>
 				<td>{{$row->city_id}}</td>
 				<td>{{$row->address}}</td>
 				<td>{{$row->cinema_phone}}</td>
