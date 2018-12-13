@@ -34,7 +34,7 @@
 			</tr>
 			<tr>
 				<th class="text-r">从事：</th>
-				<td>{{$row->occupation or '未填'}}</td>
+				<td>{{$row->job or '未填'}}</td>
 			</tr>
 			<tr>
 				<th class="text-r">爱好：</th>
