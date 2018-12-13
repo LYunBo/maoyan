@@ -15,7 +15,7 @@ class HotNewsController extends Controller
     public function index()
     {
         //返回资讯热点列表
-        return view('admin.Hotnews.index')
+        return view('admin.Hotnews.index');
     }
 
     /**
