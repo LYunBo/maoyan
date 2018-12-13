@@ -49,5 +49,8 @@ Route::get("/adminfilmdelfilmimg","Admin\FilmController@delfilmimg");
 Route::get("/adminfilmdelperformerimg","Admin\FilmController@performerimg");
 
 
-// 电影院管理
+// 电影场次管理
 Route::resource("/adminfilm_scene_list","Admin\FilmsceneController");
+
+// 电影院管理
+Route::resource("adminfilmcinema","Admin\FilmcinemaController");
