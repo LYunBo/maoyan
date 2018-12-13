@@ -142,7 +142,6 @@ function start(obj,id){
 }
 //从启用到停用
 function stop(obj,id){
-	// console.log(id);
 	//找到父级的td让其好在后面加元素
 	var td = $(obj).parents('td');
 	// console.log(td);
