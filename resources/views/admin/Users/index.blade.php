@@ -50,13 +50,13 @@
 					@endif
 				</td>
 				<td class="td-manage">
-					<a style="text-decoration:none" href="javascript:;" onclick="
+					<a style="text-decoration:none" href="javascript:;" onclick='
 					//判断状态使用相对应的方法
 					@if($row->status == 0) 
 						start(this,{{$row->id}})
 					@else 
 						stop(this,{{$row->id}}) 
-					@endif " title="@if($row->status == 0) 启用 @else 停 用 @endif"><i class="Hui-iconfont">
+					@endif ' title="@if($row->status == 0) 启用 @else 停 用 @endif"><i class="Hui-iconfont">
 						@if($row->status == 0)
 							&#xe615;
 						@else
@@ -118,7 +118,7 @@ function start(obj,id){
 	//找到本身
 	var a = $(obj);
 	//创建要创建的对象
-	var newa = $('<a style="text-decoration:none" href="javascript:;" onclick="stop(this,'+id+'}})" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
+	var newa = $('<a style="text-decoration:none" href="javascript:;" onclick="stop(this,'+id+')" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
 	//状态显示样式
 	var prevtd = $(obj).parents('td').prev();
 	//新的样式
@@ -149,7 +149,7 @@ function stop(obj,id){
 	//找到本身
 	var a = $(obj);
 	//创建要创建的对象
-	var newa = $('<a style="text-decoration:none" href="javascript:;" onclick="start(this,'+id+'}})" title="启用"><i class="Hui-iconfont">&#xe615;</i></a>');
+	var newa = $('<a style="text-decoration:none" href="javascript:;" onclick="start(this,'+id+')" title="启用"><i class="Hui-iconfont">&#xe615;</i></a>');
 	//状态显示样式
 	var prevtd = $(obj).parents('td').prev();
 	//新的样式
