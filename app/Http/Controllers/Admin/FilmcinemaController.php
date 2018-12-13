@@ -1,10 +1,10 @@
 <?php
-
+// 电影院控制器
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use DB;
 class FilmcinemaController extends Controller
 {
     /**
@@ -12,9 +12,26 @@ class FilmcinemaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    // 电影院列表页
+    public function index(Request $request)
     {
-        //
+        $data = DB::table("cinema") -> paginate(3);
+        foreach($data as $v){
+            $city = DB::table("city") -> where("id","=",$v -> city_id) -> get();
+            if (($city[0] -> upid) != "0") {
+                $citys = DB::table("city") -> where("id","=",$city[0] -> upid) -> get();
+                if (($citys[0] -> upid) != "0") {
+                    $cityss = DB::table("city") -> where("id","=",$citys[0] -> upid) -> get();
+                    $v -> city_id = ($cityss[0] -> name).",".($citys[0] -> name).",".$city[0] -> name;
+                }else{
+                    $v -> city_id = ($citys[0] -> name).",".$city[0] -> name;
+                }
+            }else{
+                $v -> city_id = $city[0] -> name;
+            }
+        }
+        $counts = DB::table("cinema") -> count();
+        return view("admin.Film_cinema.list",['data' => $data,"counts" => $counts,"request" => $request -> all()]);
     }
 
     /**

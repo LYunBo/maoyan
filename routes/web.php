@@ -53,4 +53,6 @@ Route::get("/adminfilmdelperformerimg","Admin\FilmController@performerimg");
 Route::resource("/adminfilm_scene_list","Admin\FilmsceneController");
 
 // 电影院管理
-Route::resource("adminfilmcinema","Admin\FilmcinemaController");
+Route::resource("/adminfilmcinema","Admin\FilmcinemaController");
+// 电影院删除
+Route::get("/adminfilmcinemadel","Admin\FilmcinemaController@cinemadel");

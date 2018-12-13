@@ -10,12 +10,11 @@
 		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜电影</button>
 		</form>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>{{$counts}}</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"></span> <span class="r">共有数据：<strong>{{$counts}}</strong> 条</span> </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
-				<th width="25"><input type="checkbox" name="" value=""></th>
 				<th width="80">ID</th>
 				<th width="100">电影名</th>
 				<th width="90">上映时间</th>
@@ -29,7 +28,6 @@
 		<tbody>
 		@foreach($data as $row)
 			<tr class="text-c">
-				<td><input type="checkbox" value="1" name=""></td>
 				<td>{{$row->id}}</td>
 				<td>{{$row->name}}</td>
 				<td>{{$row->ymd}}</td>
