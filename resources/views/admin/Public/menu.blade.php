@@ -20,7 +20,7 @@
 			<dt><i class="Hui-iconfont">&#xe6c1;</i> 热点管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="/hotnews" data-title="图片管理" href="javascript:void(0)">资讯管理</a></li>
+					<li><a data-href="/hotnew" data-title="图片管理" href="javascript:void(0)">资讯管理</a></li>
 				</ul>
 			</dd>
 		</dl>

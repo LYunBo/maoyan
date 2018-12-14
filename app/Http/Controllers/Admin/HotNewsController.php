@@ -4,7 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+//引入底层DB
+use DB;
+//引入模型
+use App\AdminModel\HotNews;
+//导入Config
+use Config;
 class HotNewsController extends Controller
 {
     /**
@@ -14,8 +19,9 @@ class HotNewsController extends Controller
      */
     public function index()
     {
+        $list = DB::table('hotnews')->get();
         //返回资讯热点列表
-        return view('admin.Hotnews.index');
+        return view('admin.Hotnews.index',['list'=>$list]);
     }
 
     /**
@@ -25,7 +31,8 @@ class HotNewsController extends Controller
      */
     public function create()
     {
-        //
+        //返回资讯的添加页
+        return view('admin.Hotnews.add');
     }
 
     /**
@@ -36,7 +43,18 @@ class HotNewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //查看添加的参数
+        /*// dd($request->all());
+        dd($request->file());*/
+        if($request->hasFile('cover')){
+            //初始化名字
+            $name = date('Ymd',time())+rand(1,10000);
+            //获取上传后缀
+            $ext = $request->file('cover')->getClientOriginalExtension();
+            
+            //移动到指定的目录下(提前在Public下新建文件目录)
+            $request->file('cover')->move(Config::get('app.HotNews'),$name.'.'.$ext);
+        }
     }
 
     /**
@@ -47,7 +65,10 @@ class HotNewsController extends Controller
      */
     public function show($id)
     {
-        //
+        // dd($id);
+        $content = DB::table('hotnews')->where('id','=',$id)->first();
+        //返回资讯内容
+        return view('admin.Hotnews.content',['content'=>$content]);
     }
 
     /**

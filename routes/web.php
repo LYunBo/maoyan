@@ -41,7 +41,7 @@ Route::get('/adminusersstop','Admin\UsersController@stop');
 
 //热点管理
 //资讯管理
-Route::resource('/hotnews','Admin\HotNewsController');
+Route::resource('/hotnew','Admin\HotNewsController');
 
 // 电影列表
 Route::resource("/adminfilmlist","Admin\FilmController");
