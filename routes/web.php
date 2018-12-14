@@ -60,3 +60,5 @@ Route::resource("/adminfilm_scene_list","Admin\FilmsceneController");
 Route::resource("/adminfilmcinema","Admin\FilmcinemaController");
 // 电影院删除
 Route::get("/adminfilmcinemadel","Admin\FilmcinemaController@cinemadel");
+// 电影院修改时删除的电影院图集
+Route::get("/adminfilmcinemacoverdel","Admin\FilmcinemaController@del");

@@ -39,7 +39,7 @@
 				<td>{{$row->cinema_phone}}</td>
 				<td>{{$row->brand}}</td>
 				<td>{{$row->service}}</td>
-				<td class="td-manage"><a title="编辑" href="/adminfilmcinema/{{$row-> id}}" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a title="删除" href="/adminfilmcinemadel" class="ml-5 del" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<td class="td-manage"><a title="编辑" href="/adminfilmcinema/{{$row-> id}}/edit" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a title="删除" href="/adminfilmcinemadel" class="ml-5 del" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 		@endforeach
 		</tbody>

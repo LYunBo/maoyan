@@ -314,7 +314,7 @@
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影图集：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			添加文件:<input type="file" value="" placeholder="" id="phone" name="film_img[]" multiple="multiple">
-			<a href="javascript:;" onclick="funz(this,{{$data1[0] -> id}})">删除所有图集</a>
+			<a class="btn btn-primary" href="javascript:;" onclick="funz(this,{{$data1[0] -> id}})">删除所有图集</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<b>提示:双击图片可以删除该图</b>
 			<br>
@@ -329,7 +329,7 @@
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>演员头像：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			请将图像命名为演员名字:<input type="file" value="" placeholder="请将图像命名为演员名字" id="phone" name="performer_img[]" multiple="multiple">
-			<a href="javascript:;" onclick="funsz(this,{{$data1[0] -> id}})" >删除所有演员</a>
+			<a class="btn btn-primary" href="javascript:;" onclick="funsz(this,{{$data1[0] -> id}})" >删除所有演员</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<b>提示:双击图片可以删除该图</b>
 			<br>

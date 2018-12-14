@@ -224,6 +224,17 @@ class FilmController extends Controller
      */
     public function show($id)
     {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
         // 用传过来的id获取三张表
         // film表
         $data = DB::table("film") -> where("id","=",$id) -> get();
@@ -243,14 +254,7 @@ class FilmController extends Controller
         
         return view("admin.Film.edit",["data" => $data,"data1" => $data1,"type_id" => $string,"data2" => $data2,"film_img" => $film_img]);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // 修改中双击删除图集
+        // 修改中双击删除图集
     public function delfilmimg(Request $request){
         // 获取要删除图集的id
         $id = $request -> input("id");
@@ -331,10 +335,6 @@ class FilmController extends Controller
             echo "2";
         }
         
-    }
-    public function edit($id)
-    {
-        //
     }
 
     /**

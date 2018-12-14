@@ -158,10 +158,48 @@ class FilmcinemaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     public function show($id)
     {
         //
     }
+
+
+
+    /**
+    *
+    *删除电影院的图集一个或者全部 
+    *
+    **/
+    public function del(Request $request){
+        $id = $request -> input("id");
+        $num = $request -> input("num");
+        if (empty($num)) {
+            if ($data_covers = DB::table("cinema") -> where("id","=",$id) -> update(["covers" => ""])) {
+                return "1";
+            }else{
+                return "2";
+            }
+        }
+        $data = DB::table("cinema") -> where("id","=",$id) -> get();
+            
+        $covers = $data[0] -> covers;
+        $covers = explode(",",$covers);
+        $covers_num = count($covers);
+        for ($i=0; $i < $covers_num; $i++) { 
+            if ($i != $num) {
+                $covers_z[] = $covers[$i];
+            }
+        }
+        $covers = implode(",",$covers_z);
+        if ($data_covers = DB::table("cinema") -> where("id","=",$id) -> update(["covers" => $covers])) {
+            return "1";
+        }else{
+            return "2";
+        }
+    }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -169,9 +207,17 @@ class FilmcinemaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // 显示修改页面
     public function edit($id)
     {
-        //
+        $data = DB::table("cinema") -> where("id","=",$id) -> get();
+        $city = DB::table("city") -> where("id","=",$data[0] -> city_id) -> get();
+        $citys = DB::table("city") -> where("upid","=",$city[0] -> upid) -> get();
+        $covers = explode(",",$data[0] -> covers);
+        $num = count($covers);
+        $service = $data[0] -> service;
+        $service = explode(",",$service);
+        return view("admin.Film_cinema.edit",["city" => $city,"data" => $data,"citys" => $citys,"covers" => $covers,"num" => $num,"service" => $service]);
     }
 
     /**
@@ -183,7 +229,7 @@ class FilmcinemaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        echo "是提交到这里么???";
     }
 
     /**

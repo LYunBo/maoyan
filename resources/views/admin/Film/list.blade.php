@@ -35,7 +35,7 @@
 				<td>{{$row->score}}</td>
 				<td>{{$row->box_office}}</td>
 				<td>{{$row->film_status}}</td>
-				<td class="td-manage"><a title="编辑" href="/adminfilmlist/{{$row-> id}}" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a title="查看详情" href="javascript:;" onclick="member_add('电影详情','/adminfilmlists/{{$row->relation_id}}','800','500')" class="ml-5" style="text-decoration:none;"><i class="Hui-iconfont">&#xe725;</i></a></td>
+				<td class="td-manage"><a title="编辑" href="/adminfilmlist/{{$row-> id}}/edit" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a title="查看详情" href="javascript:;" onclick="member_add('电影详情','/adminfilmlists/{{$row->relation_id}}','800','500')" class="ml-5" style="text-decoration:none;"><i class="Hui-iconfont">&#xe725;</i></a></td>
 			</tr>
 		@endforeach
 		</tbody>

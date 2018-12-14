@@ -100,7 +100,7 @@
 				<option value="0">无</option>
 				<option value="1">免押金</option>
 				<option value="2">5元/副</option>
-				<option value="2">3元/副起步</option>
+				<option value="3">3元/副起步</option>
 			</select>
 			</span>
 			<br>
