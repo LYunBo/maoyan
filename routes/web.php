@@ -53,12 +53,17 @@ Route::get("/adminfilmdelfilmimg","Admin\FilmController@delfilmimg");
 Route::get("/adminfilmdelperformerimg","Admin\FilmController@performerimg");
 
 
-// 电影场次管理
-Route::resource("/adminfilm_scene_list","Admin\FilmsceneController");
-
 // 电影院管理
 Route::resource("/adminfilmcinema","Admin\FilmcinemaController");
 // 电影院删除
 Route::get("/adminfilmcinemadel","Admin\FilmcinemaController@cinemadel");
 // 电影院修改时删除的电影院图集
 Route::get("/adminfilmcinemacoverdel","Admin\FilmcinemaController@del");
+
+
+// 电影放映厅管理
+Route::resource("/adminfilmprojection","Admin\ProjectionController");
+
+
+// 电影场次管理
+Route::resource("/adminfilm_scene_list","Admin\FilmsceneController");

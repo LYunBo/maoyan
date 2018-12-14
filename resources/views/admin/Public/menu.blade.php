@@ -88,6 +88,14 @@
 			</dd>
 		</dl>
 		<dl id="menu-admin">
+			<dt><i class="Hui-iconfont">&#xe62d;</i> 电影院放映厅管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="/adminfilmprojection" data-title="电影场次" href="javascript:void(0)">电影院放映厅列表</a></li><li><a data-href="/adminfilmprojection/create" data-title="添加电影场次" href="javascript:void(0)">添加电影院放映厅</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-admin">
 			<dt><i class="Hui-iconfont">&#xe62d;</i> 电影场次管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>

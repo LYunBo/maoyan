@@ -1,10 +1,10 @@
 @extends('admin.Public.meta')
-<title>电影院管理 - 添加电影院</title>
+<title>电影院放映厅管理 - 添加电影院放映厅</title>
 <script src="/static/jquery-1.8.3.min.js"></script>
 <meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 电影院管理 <span class="c-gray en">&gt;</span> 添加电影院 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a><a class="btn btn-primary radius r" style="line-height:1.6em;margin-top:3px" href="/adminfilmcinema" title="电影院列表" ><i class="Hui-iconfont">&#xe625;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 电影院放映厅管理 <span class="c-gray en">&gt;</span> 添加电影院放映厅 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a><a class="btn btn-primary radius r" style="line-height:1.6em;margin-top:3px" href="/adminfilmcinema" title="电影院列表" ><i class="Hui-iconfont">&#xe625;</i></a></nav>
 <body>
 	@if(!empty(session("success")))
 	<div class="Huialert Huialert-success"><i class="Hui-iconfont">&#xe6a6;</i>
