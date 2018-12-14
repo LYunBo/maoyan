@@ -33,8 +33,6 @@ class AdminCinema extends FormRequest
             "citys" => "required",
             "address" => "required",
             "brand" => "required",
-            "cover" => "required",
-            "covers" => "required"
         ];
     }
     public function messages(){
@@ -50,8 +48,6 @@ class AdminCinema extends FormRequest
             "city_id.required" => "请选择电影院所在市",
             "address.required" => "电影院详细地址不为空",
             "brand.required" => "电影院品牌不为空",
-            "cover.required" => "电影院封面不为空",
-            "covers.required" => "电影院图集不为空"
         ];
     }
 }

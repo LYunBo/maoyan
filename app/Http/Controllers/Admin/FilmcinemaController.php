@@ -213,11 +213,16 @@ class FilmcinemaController extends Controller
         $data = DB::table("cinema") -> where("id","=",$id) -> get();
         $city = DB::table("city") -> where("id","=",$data[0] -> city_id) -> get();
         $citys = DB::table("city") -> where("upid","=",$city[0] -> upid) -> get();
+        $city_q = DB::table("city") -> where("upid","=",0) -> get();
         $covers = explode(",",$data[0] -> covers);
-        $num = count($covers);
+        if ($covers[0] != "") {
+            $num = count($covers);
+        }else{
+            $num = 0;
+        }
         $service = $data[0] -> service;
         $service = explode(",",$service);
-        return view("admin.Film_cinema.edit",["city" => $city,"data" => $data,"citys" => $citys,"covers" => $covers,"num" => $num,"service" => $service]);
+        return view("admin.Film_cinema.edit",["city" => $city,"data" => $data,"citys" => $citys,"covers" => $covers,"num" => $num,"service" => $service,"city_q" => $city_q]);
     }
 
     /**
@@ -227,11 +232,98 @@ class FilmcinemaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AdminCinema $request, $id)
     {
-        echo "是提交到这里么???";
+        // 3D眼睛服务
+        $service1 = $request -> input("service1");
+        // 儿童优惠服务
+        $service2 = $request -> input("service2");
+        // 停车服务
+        $service3 = $request -> input("service3");
+        // 合并三个服务
+        $service = $service1.",".$service2.",".$service3;
+        // 省的id
+        $city = $request -> input("city");
+        // 市的id
+        $city_id = $request -> input("citys");
+        // 电影院名
+        $name = $request -> input("name");
+        // 电影院电话号码
+        $cinema_phone = $request -> input("cinema_phone");
+        // 电影院地址
+        $address = $request -> input("address");
+        // 电影院品牌
+        $brand = $request -> input("brand");
+
+        // 电影院封面
+        if ($request -> hasFile("cover")) {
+            $cover = $request -> file("cover");
+            // 存储到/film/cinema/cover内
+            // 获取到封面图的文件后缀名
+            $cover_houzhui = $cover -> getClientOriginalExtension();
+            // 自定义储存的路径
+            $cover_path = "./film/cinema/cover/".time().rand(1000,9999);
+            // 自定义文件名
+            $cover_name = time().rand(1000,9999).".".$cover_houzhui;
+            // 存储
+            $cover_y = $cover -> move($cover_path,$cover_name);
+            // 为了方便在数据库存储路径
+            $cover_path = ltrim($cover_path,".");
+            $path = $cover_path."/".$cover_name;
+        }else{
+            $cover_data = DB::table("cinema") -> where("id","=",$id) -> get();
+            $path = $cover_data[0] -> cover;
+        }
+        
+
+
+        // 电影院图集
+        if ($request -> hasFile("covers")) {
+            $covers = $request -> file("covers");
+            $paths = "";
+            foreach($covers as $v){
+                // 存储到/film/cinema/covers内
+                // 获取到封面图的文件后缀名
+                $covers_houzhui = $v -> getClientOriginalExtension();
+                // 自定义储存的路径
+                $covers_path = "./film/cinema/covers/".time().rand(1000,9999);
+                // 自定义文件名
+                $covers_name = time().rand(1000,9999).".".$covers_houzhui;
+                // 存储
+                $covers_y = $v -> move($covers_path,$covers_name);
+                // 为了方便在数据库存储路径
+                $covers_path = ltrim($covers_path,".");
+                $paths .= ",".$covers_path."/".$covers_name;
+            }
+            $paths = ltrim($paths,",");
+        }else{
+            $covers_data = DB::table("cinema") -> where("id","=",$id) -> get();
+            $paths = $covers_data[0] -> covers;
+        }
+        
+        if ($data = DB::table("cinema") -> where("id","=",$id) -> update(["city_id" => $city_id,"name" => $name,"cinema_phone" => $cinema_phone,"address" => $address,"brand" => $brand,"service" => $service,"cover" => $path,"covers" => $paths])) {
+            return back() -> with("success","添加成功");
+        }else{
+            if ($data != "0") {
+                return back() -> with("error","添加失败");
+            }else{
+                return back() -> with("success","添加成功");
+            }
+        }
     }
 
+
+
+
+
+    public function cinemadel(Request $request){
+        $id = $request -> input("id");
+        if ($data = DB::table("cinema") -> where("id","=",$id) -> delete()) {
+            return "1";
+        }else{
+            return "2";
+        }
+    }
     /**
      * Remove the specified resource from storage.
      *
