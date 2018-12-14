@@ -26,7 +26,7 @@
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>选择已有电影院：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			<span class="select-box" style="width:150px;">
-			<select class="   select" name="cinema" size="1"> 
+			<select class="select" name="cinema" size="1"> 
 				<option value="{{$data1[0] -> id}}">{{$data1[0] -> cinema_name}}</option>
 				@foreach($data as $v)
 				<option value="{{$v -> id}}">{{$v -> name}}</option>

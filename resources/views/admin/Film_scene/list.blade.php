@@ -1,16 +1,17 @@
 @extends('admin.Public.meta')
 <title>电影场次管理</title>
 </head>
+<script src="/static/jquery-1.8.3.min.js"></script>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 电影场次管理 <span class="c-gray en">&gt;</span> 电影场次列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c">
-		<form action="/adminfilmlist" method="get">
+		<form action="/adminfilmscene" method="get">
 		<input type="text" class="input-text" style="width:250px" placeholder="电影名称" id="" name="name">
 		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜电影</button>
 		</form>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>{{$counts}}</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="del_checked()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>{{$counts}}</strong> 条</span> </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -18,31 +19,72 @@
 				<th width="25"><input type="checkbox" name="" value=""></th>
 				<th width="80">电影场次ID</th>
 				<th width="100">电影院名</th>
-				<th width="90">所在城市</th>
-				<th width="150">地址</th>
-				<th width="130">电话</th>
-				<th width="130">品牌</th>
-				<th>服务</th>
+				<th width="90">放映时间</th>
+				<th width="150">观影时间</th>
+				<th width="130">语言版本</th>
+				<th width="130">放映厅ID</th>
+				<th width="130">放映厅名</th>
+				<th width="130">放映厅类型</th>
+				<th width="130">售价</th>
+				<th width="130">电影名</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
 		<tbody>
 		@foreach($data as $row)
 			<tr class="text-c">
-				<td><input type="checkbox" value="1" name=""></td>
+				<td><input type="checkbox" value="{{$row->id}}" name=""></td>
 				<td>{{$row->id}}</td>
-				<td>{{$row->name}}</td>
-				<td>{{$row->ymd}}</td>
+				<td>{{$row->cinema_name}}</td>
+				<td>{{$row->hi}}</td>
 				<td>{{$row->times}}</td>
-				<td>{{$row->score}}</td>
-				<td>{{$row->box_office}}</td>
-				<td>{{$row->film_status}}</td>
-				<td class="td-manage"><a title="编辑" href="/adminfilmlist/{{$row-> id}}" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a title="查看详情" href="javascript:;" onclick="member_add('电影详情','/adminfilmlists/{{$row->relation_id}}','800','500')" class="ml-5" style="text-decoration:none;"><i class="Hui-iconfont">&#xe725;</i></a></td>
+				<td>{{$row->language}}</td>
+				<td>{{$row->projection_hall_id}}</td>
+				<td>{{$row->projection_name}}</td>
+				<td>{{$row->projection_type}}</td>
+				<td>{{$row->price}}/张</td>
+				<td>{{$row->film_name}}</td>
+				<td class="td-manage"><a title="编辑" href="/adminfilmscene/{{$row -> id}}/edit" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a title="删除" href="javascript:;" class="ml-5 del" onclick="del(this,{{$row -> id}})" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 		@endforeach
 		</tbody>
 	</table>
 	</div>
+	<script>
+		function del(thiss,id){
+			var trues = confirm("确定删除么?");
+			if (trues) {
+				$.get("/adminfilmscenedel",{"id":id},function(result){
+					if (result == "1") {
+						$(thiss).parents("tr").remove();
+					}else{
+						alert("删除失败");
+					}
+					// alert(result);
+				})
+			}
+		}
+		function del_checked(){
+			var trues = confirm("确定全部删除么?");
+			if (trues) {
+				var num = $(":checked").length;
+				for(var i=0;i<num-2;i++){
+					id = $(":checked").eq(i).val();
+					if (id != 0) {
+						$.get("/adminfilmscenedel",{"id":id},function(result){
+							if (result == "1") {
+								i--
+								$(":checked").eq(i).parents("tr").remove();
+							}else{
+								alert("删除失败");
+							}
+						})
+					}
+				}
+				
+			}
+		}
+	</script>
 	{{$data ->appends($request) -> render()}}
 </div>
 @extends('admin.Public.footer')

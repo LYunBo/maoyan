@@ -20,6 +20,10 @@ class ProjectionController extends Controller
         $name = $request -> input("name");
         // 利用join来将projection_hall表和cinema表链接在一起
         $data = DB::table("projection_hall") -> join("cinema","projection_hall.cinema_id","=","cinema.id") -> select("projection_hall.*","cinema.name as cinema_name") -> where("cinema.name","like","%".$name."%") -> paginate(3);
+        $types = ["1" => "IMAX厅","2" => "CGS中国巨幕厅","3" => "杜比全景声厅","4" => "RealD厅","5" => "RealD","6" => "6FL厅","7" => "LUXE巨幕厅","8" => "4DX厅","9" => "DTS:X","10" => "临境音厅","11" => "儿童厅","12" => "4K厅","13" => "4D厅","14" => "巨幕厅"];
+        foreach($data as $v){
+            $v -> type = $types[$v -> type];
+        }
         $counts = DB::table("projection_hall") -> count();
         return view("admin.Projection_hall.list",["data" => $data,"counts" => $counts,"request" => $request -> all()]);
     }
@@ -80,8 +84,10 @@ class ProjectionController extends Controller
     public function edit($id)
     {
         // 利用join来将projection_hall表和cinema表链接在一起
-        $data1 = DB::table("projection_hall") -> join("cinema","projection_hall.cinema_id","=","cinema.id") -> select("projection_hall.*","cinema.name as cinema_name") -> where("projection_hall.id","=",1) -> get();
+        $data1 = DB::table("projection_hall") -> join("cinema","projection_hall.cinema_id","=","cinema.id") -> select("projection_hall.*","cinema.name as cinema_name") -> where("projection_hall.id","=",$id) -> get();
         $data = DB::table("cinema") -> get();
+        // var_dump($data);
+        // var_dump($data1);
         return view("admin.Projection_hall.edit",["data" => $data,"data1" => $data1]);
     }
 

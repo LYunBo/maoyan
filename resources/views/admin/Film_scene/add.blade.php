@@ -1,10 +1,10 @@
 @extends('admin.Public.meta')
-<title>电影院放映厅管理 - 添加电影院放映厅</title>
+<title>电影场次管理 - 添加电影场次</title>
 <script src="/static/jquery-1.8.3.min.js"></script>
 <meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 电影院放映厅管理 <span class="c-gray en">&gt;</span> 添加电影院放映厅 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a><a class="btn btn-primary radius r" style="line-height:1.6em;margin-top:3px" href="/adminfilmprojection" title="电影院放映厅列表" ><i class="Hui-iconfont">&#xe625;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 电影场次管理 <span class="c-gray en">&gt;</span> 添加电影场次 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a><a class="btn btn-primary radius r" style="line-height:1.6em;margin-top:3px" href="/adminfilmscene" title="电影场次列表" ><i class="Hui-iconfont">&#xe625;</i></a></nav>
 <body>
 	@if(!empty(session("success")))
 	<div class="Huialert Huialert-success"><i class="Hui-iconfont">&#xe6a6;</i>
@@ -19,79 +19,131 @@
 	@endforeach
 	@endif
 <article class="page-container">
-	<form class="form form-horizontal" id="adminfilmprojection" method="post" action="/adminfilmprojection" enctype="multipart/form-data">
+	<form class="form form-horizontal" id="adminfilmcinema" method="post" action="/adminfilmscene" enctype="multipart/form-data">
 	{{csrf_field()}}
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>选择已有电影院：</label>
+		<label class="form-label col-xs-4 col-sm-3">城市：</label>
+		<div class="formControls col-xs-8 col-sm-9"> 
+			省:&nbsp;&nbsp;<span class="select-box" style="width:150px;">
+			<select class="   select" name="city" size="1" id="city">
+				<option id="city_option" value="">--请选择--</option>
+				@foreach($city as $v)
+				<option value="{{$v -> id}}">{{$v -> name}}</option>
+				@endforeach
+			</select>
+			</span>
+			市:&nbsp;&nbsp;<span class="select-box" style="width:150px;">
+			<select class="   select" name="citys" size="1" id="citys">
+				<option id="citys_option" value="">--请选择--</option>
+			</select>
+			</span>
+			电影院:&nbsp;&nbsp;<span class="select-box" style="width:150px;">
+			<select class="   select" name="cinema_id" size="1" id="cityss">
+				<option id="cityss_option" value="">--请选择--</option>
+			</select>
+			</span>
+			放映厅:&nbsp;&nbsp;<span class="select-box" style="width:150px;">
+			<select class="   select" name="projection_hall_id" size="1" id="citysss">
+				<option id="citysss_option" value="">--请选择--</option>
+			</select>
+			</span>
+		</div>
+	</div>
+	<script>
+		$("#city").change(function(){
+			$value = $(this).find(":selected").val();
+			$.get("/adminfilmscene/create",{"city_upid":$value},function(result){
+				// console.log(result.length);
+				$("#citys").empty();
+				$("#citys").append('<option id="citys_option" value="">--请选择--</option>');
+				$("#cityss").empty();
+				$("#cityss").append('<option id="cityss_option" value="">--请选择--</option>');
+				$("#citysss").empty();
+				$("#citysss").append('<option id="citysss_option" value="">--请选择--</option>');
+				for(var i=0;i<result.length;i++){
+					$("#citys").append('<option value="'+(result[i].id)+'">'+(result[i].name)+'</option>');
+				}
+			});
+			$("#city_option").remove();
+		})
+		$("#citys").change(function(){
+			$value = $(this).find(":selected").val();
+			$.get("/adminfilmscene/create",{"city_idss":$value},function(result){
+				$("#cityss").empty();
+				$("#cityss").append('<option id="cityss_option" value="">--请选择--</option>');
+				if (result == "") {
+					$("#cityss").empty();
+					$("#cityss").append('<option id="cityss_option" value="">请先去创建电影院</option>');
+					$("#citysss").empty();
+					$("#citysss").append('<option id="citysss_option" value="">请先去创建电影院</option>');
+				}else{
+					for(var i=0;i<result.length;i++){
+						$("#cityss").append('<option value="'+(result[i].id)+'">'+(result[i].name)+'</option>');
+					}
+				}
+			});
+			$("#citys_option").remove();
+		})
+		$("#cityss").change(function(){
+			$value = $(this).find(":selected").val();
+			$.get("/adminfilmscene/create",{"cinema_id":$value},function(result){
+				$("#citysss").empty();
+				$("#citysss").append('<option id="citysss_option" value="">--请选择--</option>');
+				if (result == "") {
+					$("#citysss").empty();
+					$("#citysss").append('<option id="citysss_option" value="">请先去创建放映厅</option>');
+				}else{
+					// alert(result.length);
+					for(var i=0;i<result.length;i++){
+						$("#citysss").append('<option value="'+(result[i].id)+'">'+(result[i].name)+'</option>');
+					}
+				}
+			});
+			$("#cityss_option").remove();
+		})
+
+	</script>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>放映时间：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="如:2018-10-10" id="hi" name="hi">
+		</div>
+	</div>
+	
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>观影时间：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" autocomplete="off" value="" placeholder="如:15:30" id="times" name="times">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>售价/单位元：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" autocomplete="off" value="" placeholder="50" id="price" name="price">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>语言版本：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			<span class="select-box" style="width:150px;">
-			<select class="   select" name="cinema" size="1"> 
-				@foreach($data as $v)
-				<option value="{{$v -> id}}">{{$v -> name}}</option>
+			<select class="   select" name="language" size="1"> 
+				<option value="">无</option>
+				@foreach($language as $k => $v)
+				<option value="{{$k}}">{{$v}}</option>
 				@endforeach
 			</select>
 			</span>
 		</div>
 	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>播放厅名称：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>播放厅座位安排：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<br>
-			_代表过道/空位
-			<br>
-			e代表位置
-			<br>
-			,代表过行
-			<br>
-			请不要输入其他，也不要按下回车来跳行
-			<br>
-			<input type="text" class="input-text" autocomplete="off" value="" placeholder="例如:_eeeeeee_eeeeeee,_eeeeeee_eeeee" id="seat" name="seat">
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>播放厅座位数：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" autocomplete="off"  placeholder="" id="couts" name="couts" value="">
-		</div>
-	</div>
-	<script>
-		$("#seat").blur(function(){
-			var $value = $(this).val();
-			var num = $value.length;
-			var j = 0;
-			for(var i=0;i<num;i++){
-				if ($value[i] == "e") {
-					j = j+1;
-				}
-			}
-			$("#couts").val(j);
-		});
-	</script>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>放映厅类型：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>电影选择：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			<span class="select-box" style="width:150px;">
-			<select class="   select" name="type" size="1">  
-				<option value="1">IMAX厅</option>
-				<option value="2">CGS中国巨幕厅</option>
-				<option value="3">杜比全景声厅</option>
-				<option value="4">RealD厅</option>
-				<option value="5">RealD</option>
-				<option value="6">6FL厅</option>
-				<option value="7">LUXE巨幕厅</option>
-				<option value="8">4DX厅</option>
-				<option value="9">DTS:X</option>
-				<option value="10">临境音厅</option>
-				<option value="11">儿童厅</option>
-				<option value="12">4K厅</option>
-				<option value="13">4D厅</option>
-				<option value="14">巨幕厅</option>
+			<select class="   select" name="film_id" size="1"> 
+				<option value="">无</option>
+				@foreach($film as $v)
+				<option value="{{$v -> id}}">{{$v -> name}}</option>
+				@endforeach
 			</select>
 			</span>
 		</div>

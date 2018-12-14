@@ -66,7 +66,6 @@ Route::resource("/adminfilmprojection","Admin\ProjectionController");
 // 放映厅删除
 Route::get("/adminfilmprojectiondel","Admin\ProjectionController@del");
 
-
 // 电影场次管理
 Route::resource("/adminfilmscene","Admin\FilmsceneController");
 // 自定义电影场次删除
