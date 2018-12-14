@@ -99,7 +99,15 @@
 			<dt><i class="Hui-iconfont">&#xe62d;</i> 电影场次管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="/adminfilm_scene_list" data-title="电影场次" href="javascript:void(0)">电影场次列表</a></li><li><a data-href="/adminfilm_scene_list/create" data-title="添加电影场次" href="javascript:void(0)">添加电影场次</a></li>
+					<li><a data-href="/adminfilmscene" data-title="电影场次" href="javascript:void(0)">电影场次列表</a></li><li><a data-href="/adminfilmscene/create" data-title="添加电影场次" href="javascript:void(0)">添加电影场次</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-admin">
+			<dt><i class="Hui-iconfont">&#xe62d;</i> 电影订单管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="/adminfilmorder" data-title="电影场次" href="javascript:void(0)">电影订单列表</a></li>
 				</ul>
 			</dd>
 		</dl>
