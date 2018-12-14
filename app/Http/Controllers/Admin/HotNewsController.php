@@ -8,8 +8,6 @@ use App\Http\Controllers\Controller;
 use DB;
 //引入模型
 use App\AdminModel\HotNews;
-//导入Config
-use Config;
 class HotNewsController extends Controller
 {
     /**
@@ -44,16 +42,32 @@ class HotNewsController extends Controller
     public function store(Request $request)
     {
         //查看添加的参数
-        /*// dd($request->all());
-        dd($request->file());*/
-        if($request->hasFile('cover')){
+        // dd($request->all());
+        // dd($request->file());
+        if($request->has('cover') && $request->input('title') !== null && $request->input('content') !== null){
+            //把获取到的数据打包好
+            $list = $request->except('_token');
+            // dd($list);
             //初始化名字
             $name = date('Ymd',time())+rand(1,10000);
             //获取上传后缀
             $ext = $request->file('cover')->getClientOriginalExtension();
+            //路径名称
+            $upload = './HotNews/'.date('Y-m-d',time());
+            //把路径存好
+            $list['cover'] = substr($upload,1).'/'.$name.'.'.$ext;
+            // dd($list);
             
+            // 把数据存入数据库
+            if(HotNews::create($list)){
             //移动到指定的目录下(提前在Public下新建文件目录)
-            $request->file('cover')->move(Config::get('app.HotNews'),$name.'.'.$ext);
+                $request->file('cover')->move($upload,$name.'.'.$ext);
+                return redirect('/hotnew')->with('success','添加成功');
+            }else{
+                return back()->with('worng','添加失败');
+            }
+        }else{
+            return back()->withInput()->with('wrong','请不要留空');
         }
     }
 

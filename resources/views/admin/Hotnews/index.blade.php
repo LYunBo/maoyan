@@ -4,6 +4,9 @@
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 热点管理 <span class="c-gray en">&gt;</span> 资讯管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+@if(!empty(session('success')))
+	<div class = "Huialert Huialert-success"> <i class ="Hui-iconfont">&#xe6a6;</i>{{session('success')}}</div>
+@endif
 <div class="page-container">
 	<div class="text-c">
 		<input type="text" name="" id="" placeholder=" 资讯" style="width:250px" class="input-text">
@@ -19,9 +22,10 @@
 					<th width="100">标题</th>
 					<th width="100">封面</th>
 					<th>内容</th>
-					<th width="150">点赞</th>
-					<th width="150">发布时间</th>
+					<th width="150">点赞</th>					
 					<th width="60">浏览量</th>
+					<th width="150">发布时间</th>
+					<th width="150">修改时间</th>
 					<th>状态</th>
 					<th>操作</th>
 				</tr>
@@ -32,11 +36,12 @@
 					<td><input name="" type="checkbox" value=""></td>
 					<td>{{$row->id}}</td>
 					<td>{{$row->title}}</td>
-					<td><img width="100" height="80" class="picture-thumb" src="/HotNews/{{$row->cover}}.jpg"></td>
+					<td><img width="100" height="80" class="picture-thumb" src="{{$row->cover}}"></td>
 					<td><u style="cursor:pointer" class="text-primary" onclick="content_show('文章内容','/hotnew/{{$row->id}}','10001','360','400')">资讯内容</u></td>
-					<td>{{$row->nice}}</td>
-					<td>{{$row->created_at}}</td>
+					<td>{{$row->nice}}</td>				
 					<td>{{$row->browse}}</td>
+					<td>{{$row->created_at}}</td>
+					<td>{{$row->updated_at}}</td>
 					<td class="td-status"><span class="label label-success radius">已发布</span></td>
 					<td class="td-manage"><a style="text-decoration:none" onClick="picture_stop(this,'10001')" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a> <a style="text-decoration:none" class="ml-5" onClick="picture_edit('图库编辑','picture-add.html','10001')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="picture_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
