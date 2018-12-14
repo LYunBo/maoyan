@@ -13,7 +13,7 @@ class Projection extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,21 @@ class Projection extends FormRequest
     public function rules()
     {
         return [
-            //
+            "cinema" => "required",
+            "name" => "required",
+            "seat" => "required",
+            "couts" => "required",
+            "type" => "required"
+        ];
+    }
+    public function messages()
+    {
+        return [
+            "cinema.required" => "已有电影选择不为空",
+            "name.required" => "放映厅名字不为空",
+            "seat.required" => "作为格式不为空",
+            "couts.required" => "座位数量不为空",
+            "type.required" => "放映厅类型不为空"
         ];
     }
 }

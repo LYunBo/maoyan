@@ -63,7 +63,16 @@ Route::get("/adminfilmcinemacoverdel","Admin\FilmcinemaController@del");
 
 // 电影放映厅管理
 Route::resource("/adminfilmprojection","Admin\ProjectionController");
+// 放映厅删除
+Route::get("/adminfilmprojectiondel","Admin\ProjectionController@del");
 
 
 // 电影场次管理
-Route::resource("/adminfilm_scene_list","Admin\FilmsceneController");
+Route::resource("/adminfilmscene","Admin\FilmsceneController");
+// 自定义电影场次删除
+Route::get("/adminfilmscenedel","Admin\FilmsceneController@del");
+
+// 电影订单管理
+Route::resource("/adminfilmorder","Admin\FilmorderController");
+// 自定义订单删除
+Route::resource("/adminfilmorderdel","Admin\FilmorderController@del");
