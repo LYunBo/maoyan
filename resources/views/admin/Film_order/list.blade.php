@@ -1,49 +1,87 @@
 @extends('admin.Public.meta')
-<title>电影场次管理</title>
+<title>电影订单管理</title>
 </head>
+<script src="/static/jquery-1.8.3.min.js"></script>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 电影场次管理 <span class="c-gray en">&gt;</span> 电影场次列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 电影订单管理 <span class="c-gray en">&gt;</span> 电影订单列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c">
 		<form action="/adminfilmlist" method="get">
-		<input type="text" class="input-text" style="width:250px" placeholder="电影名称" id="" name="name">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜电影</button>
+		<input type="text" class="input-text" style="width:250px" placeholder="手机号码" id="" name="name">
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜手机号</button>
 		</form>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>{{$counts}}</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="del_checked()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 清除所有已过期订单</a>  <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 清除所有已看订单</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
-				<th width="80">电影场次ID</th>
-				<th width="100">电影院名</th>
-				<th width="90">所在城市</th>
-				<th width="150">地址</th>
-				<th width="130">电话</th>
-				<th width="130">品牌</th>
-				<th>服务</th>
+				<th width="50">订单ID</th>
+				<th width="50">用户ID</th>
+				<th width="50">电影场次ID</th>
+				<th width="150">手机号</th>
+				<th width="130">订单号</th>
+				<th width="130">价格 &nbsp; /张</th>
+				<th width="130">票数</th>
+				<th width="130">座位</th>
+				<th width="130">是/否支付</th>
+				<th width="130">是/否申请退单</th>
+				<th width="130">退单理由</th>
+				<th width="130">订单时间</th>
+				<th width="130">修改订单时间</th>
+				<th width="50">后台允许退单</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
 		<tbody>
-		@foreach($data as $row)
+			@foreach($data as $row)
 			<tr class="text-c">
 				<td><input type="checkbox" value="1" name=""></td>
-				<td>{{$row->id}}</td>
-				<td>{{$row->name}}</td>
-				<td>{{$row->ymd}}</td>
-				<td>{{$row->times}}</td>
-				<td>{{$row->score}}</td>
-				<td>{{$row->box_office}}</td>
-				<td>{{$row->film_status}}</td>
-				<td class="td-manage"><a title="编辑" href="/adminfilmlist/{{$row-> id}}" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a title="查看详情" href="javascript:;" onclick="member_add('电影详情','/adminfilmlists/{{$row->relation_id}}','800','500')" class="ml-5" style="text-decoration:none;"><i class="Hui-iconfont">&#xe725;</i></a></td>
+				<td>{{$row -> id}}</td>
+				<td>{{$row -> user_id}}</td>
+				<td>{{$row -> film_id}}</td>
+				<td>{{$row -> phone}}</td>
+				<td>{{$row -> order_number}}</td>
+				<td>{{$row -> price}}</td>
+				<td>{{$row -> num}}</td>
+				<td>{{$row -> seat_num}}</td>
+				<td>{{$row -> payment}}</td>
+				<td>{{$row -> eturn_goods}}</td>
+				<td><a href="javascript:;" onclick="member_add('退单理由','/adminfilmorder/{{$row -> id}}','500','500')">测试</a></td>
+				<td>{{$row -> created_at}}</td>
+				<td>{{$row -> updated_at}}</td>
+				<td>{{$row -> ny}}</td>
+				<td class="td-manage"><a title="编辑" href="javascript:;" onclick="member_add('退单理由','/adminfilmorder/{{$row -> id}}/edit','500','300')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			</tr>
-		@endforeach
+			@endforeach
 		</tbody>
 	</table>
+	{{$data -> appends($request) -> render()}}
 	</div>
-	{{$data ->appends($request) -> render()}}
+	<script>
+		function del_checked(){
+			var trues = confirm("确定全部删除么?");
+			if (trues) {
+				var num = $(":checked").length;
+				alert(num);
+				for(var i=0;i<num-2;i++){
+					id = $(":checked").eq(i).val();
+					if (id != 0) {
+						$.get("/adminfilmorderdel",{"id":id},function(result){
+							if (result == "1") {
+								i--
+								$(":checked").eq(i).parents("tr").remove();
+							}else{
+								alert("删除失败");
+							}
+						})
+					}
+				}
+				
+			}
+		}
+	</script>
 </div>
 @extends('admin.Public.footer')
 <!--请在下方写此页面业务相关的脚本-->

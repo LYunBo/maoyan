@@ -74,4 +74,4 @@ Route::get("/adminfilmscenedel","Admin\FilmsceneController@del");
 // 电影订单管理
 Route::resource("/adminfilmorder","Admin\FilmorderController");
 // 自定义订单删除
-Route::resource("/adminfilmorderdel","Admin\FilmorderController@del");
+Route::get("/adminfilmorderdel","Admin\FilmorderController@del");
