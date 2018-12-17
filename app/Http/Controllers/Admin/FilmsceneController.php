@@ -179,7 +179,18 @@ class FilmsceneController extends Controller
 
     // 清除所有时间已过的电影场次
     public function dels(Request $request){
-        echo "kakna";
+        $data = DB::table("film_scene") -> get();
+        foreach($data as $v){
+            $times = strtotime(($v -> hi).($v -> times));
+            $data_film = DB::table("film") -> where("id","=",$v -> film_id) -> get();
+            $film_times = $data_film[0] -> times;
+            if (($times+($film_times*60)) < time()) {
+                if (!$data_film_scene = DB::table("film_scene") -> where("id","=",$v -> id) -> delete()) {
+                    return "删除失败,film_scene表ID".$v -> id;
+                }
+            }
+        }
+        return redirect("/adminfilmscene");
     }
 
 
