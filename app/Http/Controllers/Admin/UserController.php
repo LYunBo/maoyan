@@ -128,15 +128,24 @@ class UserController extends Controller
         // dd($id);
         // $data=$request->all();
         $data = $request->except(['repwd','_token','_method']);
-        //加密admin_password
-        $data['admin_password']=Hash::make($data['admin_password']);
-        // dd($data);
+
+        $solo=DB::table('admin_user')->where('id','=',$id)->first();
+        // var_dump($data);
+        // 如果密码没修改,避免重复加密
+        if($solo->admin_password != $data['admin_password']){
+            // dd(1);
+        
+            //加密admin_password
+            $data['admin_password']=Hash::make($data['admin_password']);
+            // dd($data);
+        }
         // 执行修改
         if(User::where('id','=',$id)->update($data)){
             return redirect("adminuser")->with('success','修改成功');
         }else{
             return back()->with('error','修改失败');
-        }
+            }
+        
     }
 
     /**
