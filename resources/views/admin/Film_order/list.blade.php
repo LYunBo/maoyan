@@ -6,7 +6,7 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 电影订单管理 <span class="c-gray en">&gt;</span> 电影订单列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c">
-		<form action="/adminfilmlist" method="get">
+		<form action="/adminfilmorder" method="get">
 		<input type="text" class="input-text" style="width:250px" placeholder="手机号码" id="" name="name">
 		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜手机号</button>
 		</form>
@@ -48,7 +48,7 @@
 				<td>{{$row -> seat_num}}</td>
 				<td>{{$row -> payment}}</td>
 				<td>{{$row -> eturn_goods}}</td>
-				<td><a href="javascript:;" onclick="member_add('退单理由','/adminfilmorder/{{$row -> id}}','500','500')">测试</a></td>
+				<td><a href="javascript:;" onclick="member_add('退单理由','/adminfilmorder/{{$row -> id}}','500','500')">点击查看</a></td>
 				<td>{{$row -> created_at}}</td>
 				<td>{{$row -> updated_at}}</td>
 				<td>{{$row -> ny}}</td>

@@ -14,17 +14,23 @@ class FilmorderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // 订单首页
     public function index(Request $request)
     {
+        // 每次刷新页面时，都会判断未支付订单是否过期
+        // 获取全部未支付的订单
         $datas = DB::table("order") -> where("payment","=","0") -> get();
         foreach($datas as $v){
+            // 利用时间戳，判断是否超过半个小时即1800秒
             if (strtotime($v -> created_at) + 1800 < time()) {
+                // 超过了则删除订单
                 $ids = $v -> id;
                 $datak = DB::table("order") -> where("id","=",$ids) -> update(["payment" => "2"]);
             }
         }
+        // 搜索时输入的手机号码
         $name = $request -> input("name");
-        // var_dump($name);
+        // 获取订单列表,有输入手机号码则搜索，没有则全部内容
         $data = Filmorder::where("phone","like","%".$name."%")-> orderBy("id","asc") -> paginate(3);
         return view("admin.Film_order.list",["data" => $data,"request" => $request -> all()]);
     }
@@ -56,8 +62,10 @@ class FilmorderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // 查看退单理由列
     public function show($id)
     {
+        // 获取
         $data = Filmorder::where("id","=",$id) -> get();
         if(empty($data[0] -> reason)){
             echo "没有退单理由";
