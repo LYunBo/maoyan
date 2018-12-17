@@ -11,6 +11,7 @@ use Hash;
 use App\Models\Admin\User;
 //导入校验类
 use App\Http\Requests\AdminUserinsert;
+use App\Http\Requests\AdminUseredit;
 
 class UserController extends Controller
 {
@@ -44,7 +45,7 @@ class UserController extends Controller
             //后台用户添加
             return view('admin.User.add');
         }else{
-            return back()->with('error','嘿~,麻瓜!您的权限不够,快去学魔法吧~~~!');
+            return back()->with('error','权限不足,操作未成功');
         }
     }
 
@@ -110,7 +111,7 @@ class UserController extends Controller
             //返回修改模板
             return view('admin.User.edit',['data'=>$data]);
         }else{
-            return back()->with('error','哟~,麻瓜!~~您的权限不够,快去学魔法吧~~~!');
+            return back()->with('error','修改权限不足');
         }
         
     }
@@ -122,30 +123,52 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AdminUserinsert $request, $id)
+    public function update(AdminUseredit $request, $id)
     {
         //获取id
         // dd($id);
         // $data=$request->all();
         $data = $request->except(['repwd','_token','_method']);
 
+        //查出该条数据原本数据信息进行对照
         $solo=DB::table('admin_user')->where('id','=',$id)->first();
         // var_dump($data);
-        // 如果密码没修改,避免重复加密
-        if($solo->admin_password != $data['admin_password']){
-            // dd(1);
         
-            //加密admin_password
-            $data['admin_password']=Hash::make($data['admin_password']);
-            // dd($data);
-        }
-        // 执行修改
-        if(User::where('id','=',$id)->update($data)){
-            return redirect("adminuser")->with('success','修改成功');
-        }else{
-            return back()->with('error','修改失败');
+
+        //用户名更改的话,对比数据库是否重复
+        // dd($data['admin_user']);
+        if($data['admin_user'] == $solo->admin_user){
+
+            // 如果密码没修改,避免重复加密
+            if($solo->admin_password != $data['admin_password']){
+                // dd(1);
+            
+                //加密admin_password
+                $data['admin_password']=Hash::make($data['admin_password']);
+                // dd($data);
             }
-        
+            // 执行修改
+            if(User::where('id','=',$id)->update($data)){
+                return redirect("adminuser")->with('success','修改成功');
+            }else{
+                return back()->with('error','修改失败');
+                }
+        }else{
+            // echo 1;
+            $new = $data['admin_user'];
+            // dd($new);
+            $if = DB::table('admin_user')->where('id','!=',$id)->where('admin_user','=',$new)->first();
+            // dd($if);
+            if($if){
+                return back()->with('error','这个名字太潮流了,请换个吧~~~');
+            }else{
+                if(User::where('id','=',$id)->update($data)){
+                    return redirect("adminuser")->with('success','修改成功');
+                }else{
+                    return back()->with('error','修改失败');
+                }
+            }
+        }
     }
 
     /**

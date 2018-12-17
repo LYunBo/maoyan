@@ -176,7 +176,7 @@ function admin_stop(obj,id,statuss,level){
 					layer.msg('已停用!',{icon: 5,time:1000});
 			});
 		}else{
-			layer.alert("您的权限不够 So~ Don't touch me.");
+			layer.alert("您的权限不够-->Don't touch me.");
 		}
 }
 

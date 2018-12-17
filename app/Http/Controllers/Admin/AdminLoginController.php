@@ -24,6 +24,7 @@ class AdminLoginController extends Controller
         $request->session()->pull('admin_user');
         $request->session()->pull('level');
 
+        // dd(Hash::make('123456'));
         //加载登录页面
         return view('admin.Login.login');
     }
