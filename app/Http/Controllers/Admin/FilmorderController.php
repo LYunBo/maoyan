@@ -65,8 +65,9 @@ class FilmorderController extends Controller
     // 查看退单理由列
     public function show($id)
     {
-        // 获取
+        // 利用传过来的id准确获取数据
         $data = Filmorder::where("id","=",$id) -> get();
+        // 直接输出内容
         if(empty($data[0] -> reason)){
             echo "没有退单理由";
         }else{
@@ -80,8 +81,10 @@ class FilmorderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // 加载修改页面
     public function edit($id)
     {
+        // 用传过来的id准确获取数据
         $data = Filmorder::where("id","=",$id) -> get();
         return view("admin.Film_order.edit",["data" => $data]);
     }
@@ -93,11 +96,16 @@ class FilmorderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //处理修改页面的数据
     public function update(Request $request, $id)
     {
+        // 获取要修改的手机号
         $phone = $request -> input("phone");
+        // 获取修改的，是否允许退单
         $ny = $request -> input("ny");
+        // 存进数组内
         $arr = array("phone" => $phone,"ny" => $ny);
+        // 修改数据
         if ($data = Filmorder::where("id","=",$id) -> update($arr)) {
             echo "修改成功，请刷新订单页面";
         }else{
@@ -111,7 +119,9 @@ class FilmorderController extends Controller
 
     // 自定义删除
     public function del(Request $request){
+        // 获取传过来的id
         $id = $request -> input("id");
+        // 直接删除数据
         if ($data = Filmorder::destroy($id)) {
             return "1";
         }else{
@@ -121,9 +131,13 @@ class FilmorderController extends Controller
 
     // 自定义删除:删除所有过期订单
     public function dels(Request $request){
+        // 获取所有已过期和未支付的订单
         $data = Filmorder::where("payment","=","2") -> Orwhere("payment","=","0") -> get();
         foreach($data as $v){
+            // 如果订单创建时间超过半小时，则删除
+            // 过期的订单是一定超过了半小时的
             if ((strtotime($v -> created_at)+1800) < time()) {
+                // 删除订单
                 $id = $v -> id;
                 $datas = Filmorder::destroy($id);
                 echo "清除成功，ID:".$id;

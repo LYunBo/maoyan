@@ -179,11 +179,16 @@ class FilmsceneController extends Controller
 
     // 清除所有时间已过的电影场次
     public function dels(Request $request){
+        // 获取所有的电影场次
         $data = DB::table("film_scene") -> get();
         foreach($data as $v){
+            // 获取电影场次中的上映时间和观影时间，合起来转为时间戳
             $times = strtotime(($v -> hi).($v -> times));
+            // 根据电影场次的电影id来获取电影数据
             $data_film = DB::table("film") -> where("id","=",$v -> film_id) -> get();
+            // 取出电影数据中，电影的时长
             $film_times = $data_film[0] -> times;
+            // 将电影场次时间戳和电影时长都转化为时间戳，小于现在的时间，表示已经过了，所以删除这个电影场次
             if (($times+($film_times*60)) < time()) {
                 if (!$data_film_scene = DB::table("film_scene") -> where("id","=",$v -> id) -> delete()) {
                     return "删除失败,film_scene表ID".$v -> id;
