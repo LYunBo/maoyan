@@ -32,8 +32,8 @@
 		<div class="formControls col-xs-8 col-sm-9">
 			<span class="select-box" style="width:150px;">
 			<select class="   select" name="ny" size="1">
-				<option {{($data[0] -> ny) == 0?"selected":""}} value="0">否</option>
-				<option {{($data[0] -> ny) == 1?"selected":""}} value="1">是</option>
+				<option {{($data[0] -> ny) == "否"?"selected":""}} value="0">否</option>
+				<option {{($data[0] -> ny) == "是"?"selected":""}} value="1">是</option>
 			</select>
 			</span>
 		</div>

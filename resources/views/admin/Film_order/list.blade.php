@@ -11,7 +11,7 @@
 		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜手机号</button>
 		</form>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="del_checked()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 清除所有已过期订单</a>  <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 清除所有已看订单</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="del_checked()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="/adminfilmorderdels" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 清除所有已过期订单</a>  <a href="/adminfilmorderdelss" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 清除所有已看订单</a></span> <span class="r">共有数据：<strong>1</strong> 条</span> </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -64,7 +64,6 @@
 			var trues = confirm("确定全部删除么?");
 			if (trues) {
 				var num = $(":checked").length;
-				alert(num);
 				for(var i=0;i<num-2;i++){
 					id = $(":checked").eq(i).val();
 					if (id != 0) {

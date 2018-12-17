@@ -82,3 +82,7 @@ Route::get("/adminfilmscenedel","Admin\FilmsceneController@del");
 Route::resource("/adminfilmorder","Admin\FilmorderController");
 // 自定义订单删除
 Route::get("/adminfilmorderdel","Admin\FilmorderController@del");
+// 清除所有已过期的订单
+Route::get("/adminfilmorderdels","Admin\FilmorderController@dels");
+// 清除所有观影时间已过的订单
+Route::get("/adminfilmorderdelss","Admin\FilmorderController@delss");
