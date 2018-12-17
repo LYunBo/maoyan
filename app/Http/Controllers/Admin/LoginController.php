@@ -14,7 +14,11 @@ class LoginController extends Controller
      */
     public function index()
     {
-        //
+        // 退出销毁session
+        // $request->session()->pull();
+        
+        //加载后台模板登录模板
+        return view('Admin.Login.login');
     }
 
     /**
@@ -24,7 +28,7 @@ class LoginController extends Controller
      */
     public function create()
     {
-        //
+        echo 1;
     }
 
     /**
@@ -35,7 +39,9 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $data=$reqest->all();
+        // dd($data);
+        echo 1;
     }
 
     /**

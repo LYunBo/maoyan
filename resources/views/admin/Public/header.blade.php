@@ -15,11 +15,21 @@
 			</nav>
 			<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 				<ul class="cl">
-					<li>超级管理员</li>
-					<li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+					<li>
+						@if(session('level')==3)
+						BOSS
+						@elseif(session('level')==2)
+						心悦管理员
+						@elseif(session('level')==1)
+						管理员
+						@else
+						麻瓜
+						@endif
+					</li>
+					<li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">{{session('admin_user')}}<i class="Hui-iconfont">&#xe6d5;</i></a>
 						<ul class="dropDown-menu menu radius box-shadow">
 							
-							<li><a href="#">退出</a></li>
+							<li><a href="/login">退出</a></li>
 						</ul>
 					</li>
 					<li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a> </li>

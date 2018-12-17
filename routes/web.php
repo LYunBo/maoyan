@@ -15,16 +15,23 @@
     return view('welcome');
 });*/
 
-//后台首页路由
-Route::resource('/admin','Admin\AdminController');
+Route::group(['middleware'=>'login'],function(){
+	//后台首页路由
+	Route::resource('/admin','Admin\AdminController');
 
-//后台管理员
-Route::resource('/adminuser','Admin\UserController');
-//Ajax 后台用户状态statuss变动
-Route::get("/statuss","Admin\UserController@statuss");
+	//后台管理员
+	Route::resource('/adminuser','Admin\UserController');
+	//Ajax 后台用户状态statuss变动
+	Route::get("/statuss","Admin\UserController@statuss");
 
-//Aja 删除后台用户
-Route::get("/del",'Admin\UserController@del');
+	//Ajax 删除后台用户
+	Route::get("/del",'Admin\UserController@del');
+});
+
+//后台登录
+Route::resource('/login','Admin\AdminLoginController');
+
+
 
 //会员管理
 Route::resource('/adminusers','Admin\UsersController');

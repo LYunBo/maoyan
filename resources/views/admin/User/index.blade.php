@@ -10,6 +10,12 @@
 </div>
 @endif
 
+@if(session('error'))
+<div class="Huialert Huialert-error"><i class="Hui-iconfont">&#xe6a6;</i>
+{{session('error')}}
+</div>
+@endif
+
 <div class="page-container">
 	<div class="text-c"> 
 		<form action="./adminuser" method="get">
@@ -47,7 +53,7 @@
 				<td>{{$row->email}}</td>
 				<td>
 				@if($row->level==3)
-				{{boss}}
+				boss
 				@elseif($row->level==2)
 				心悦管理员
 				@elseif($row->level==1)
@@ -67,12 +73,13 @@
 					@endif
 				
 				<td class="td-manage">
-					
-					<a style="text-decoration:none" onClick="@if($row->statuss==1) admin_stop(this,{{$row->id}},{{$row->statuss}}) @else admin_start(this,{{$row->id}},{{$row->statuss}}) @endif" href="javascript:;" title="@if($row->statuss==1)禁止@else启用@endif"><i class="Hui-iconfont">@if($row->statuss==1) &#xe631; @else &#xe615; @endif</i></a> 
+
+					<!-- 启用禁用用户 -->
+					<a style="text-decoration:none" onClick="@if($row->statuss==1) admin_stop(this,{{$row->id}},{{$row->statuss}},{{$row->level}}) @else admin_start(this,{{$row->id}},{{$row->statuss}},{{$row->level}}) @endif" href="javascript:;" title="@if($row->statuss==1)禁止@else启用@endif"><i class="Hui-iconfont">@if($row->statuss==1) &#xe631; @else &#xe615; @endif</i></a> 
 					
 					<a title="编辑" href="/adminuser/{{$row->id}}/edit" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
 
-					<a title="删除" href="javascript:;" onclick="admin_del(this,{{$row->id}})" class="ml-5" id="del" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<a title="删除" href="javascript:;" onclick="admin_del(this,{{$row->id}},{{$row->level}})" class="ml-5" id="del" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 			@endforeach
 		</tbody>
@@ -100,7 +107,7 @@ function admin_add(title,url,w,h){
 	layer_show(title,url,w,h);
 }
 /*管理员-删除*/
-function admin_del(obj,id){
+function admin_del(obj,id,level){
 	/*layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
 			type: 'POST',
@@ -115,18 +122,24 @@ function admin_del(obj,id){
 			},
 		});		
 	});*/
+	L = {{session('level')}}
 	
-	if(confirm('确认删除吗')){
+	if(L>1 && L>level){
+		if(confirm('确认删除吗')){
 
-		$.get('/del',{'id':id},function(data){
-			if(data==1){
-				layer.msg('删除成功!', {icon: 6,time:1000});
-			}else{
-				layer.msg('删除失败!', {icon: 5,time:1000});
-			}
-		});
-		$(obj).parent().parent().remove();
+			$.get('/del',{'id':id},function(data){
+				if(data==1){
+					layer.msg('删除成功!', {icon: 6,time:1000});
+					$(obj).parent().parent().remove();
+				}else{
+					layer.msg('删除失败!', {icon: 5,time:1000});
+				}
+			});
+			
 
+		}
+	}else{
+		layer.alert('您的等级不够,是干不掉我的~~~!');
 	}
 }
 
@@ -137,48 +150,63 @@ function admin_edit(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
 /*管理员-停用*/
-function admin_stop(obj,id,statuss){
-	layer.confirm('确认要停用吗？',function(index){
-		//此处请求后台程序，下方是成功后的前台处理……
-		// alert('停用');
-		// 确认后改变状态码
-		if(statuss==1){
-			statuss=0;
+function admin_stop(obj,id,statuss,level){
+		//获取权限level等级
+		L = {{session('level')}};
+		// alert(L);
+		// alert(level);
+		if(L>1 && L>level){
+			layer.confirm('确认要停用吗？',function(index){
+				//此处请求后台程序，下方是成功后的前台处理……
+				
+					
+					// 确认后改变状态码
+					if(statuss==1){
+						statuss=0;
+					}
+					// alert(statuss);//0
+					$.get('/statuss',{'id':id,'statuss':statuss},function(data){
+						// 返回测试 //id:"1",statuss:"0"
+						console.log(data);
+					});
+					
+					$(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,'+id+','+statuss+','+level+')" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+					$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
+					$(obj).remove();
+					layer.msg('已停用!',{icon: 5,time:1000});
+			});
+		}else{
+			layer.alert("您的权限不够 So~ Don't touch me.");
 		}
-		// alert(statuss);//0
-		$.get('/statuss',{'id':id,'statuss':statuss},function(data){
-			// 返回测试 //id:"1",statuss:"0"
-			console.log(data);
-		});
-		/********************************************/
-		$(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,id)" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
-		$(obj).remove();
-		layer.msg('已停用!',{icon: 5,time:1000});
-
-		
-	});
 }
 
 /*管理员-启用*/
-function admin_start(obj,id,statuss){
-	layer.confirm('确认要启用吗？',function(index){
-		
-		// 确认后改变状态码
-		if(statuss==0){
-			statuss=1;
-		}
-		// alert(statuss);//1
-		$.get('/statuss',{id:id,statuss:statuss},function(data){
-			// 返回测试 //id:"1",statuss:"1"
-			console.log(data);
+function admin_start(obj,id,statuss,level){
+		//获取权限level等级
+		L = {{session('level')}};
+		// alert(L);
+		// alert(level);
+		if(L>1 && L>level){
+		layer.confirm('确认要启用吗？',function(index){
+			
+			// 确认后改变状态码
+			if(statuss==0){
+				statuss=1;
+			}
+			// alert(statuss);//1
+			$.get('/statuss',{id:id,statuss:statuss},function(data){
+				// 返回测试 //id:"1",statuss:"1"
+				console.log(data);
+			});
+			/********************************************/
+			$(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_stop(this,'+id+','+statuss+','+level+')" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+			$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+			$(obj).remove();
+			layer.msg('已启用!', {icon: 6,time:1000});
 		});
-		/********************************************/
-		$(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_stop(this,id)" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
-		$(obj).remove();
-		layer.msg('已启用!', {icon: 6,time:1000});
-	});
+	}else{
+		layer.alert("您的权限不够 /n Don't touch me.");
+	}
 }
 </script>
 </body>

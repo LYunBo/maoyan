@@ -18,7 +18,7 @@ class LoginMiddleware
     public function handle($request, Closure $next)
     {
         //检测当前有没有登录的session信息
-        if($request->session()->has('o2o30')){
+        if($request->session()->has('admin_user')){
             //执行下个请求
             return $next($request);
         }else{

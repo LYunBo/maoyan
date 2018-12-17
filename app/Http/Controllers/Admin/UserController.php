@@ -38,8 +38,14 @@ class UserController extends Controller
      */
     public function create()
     {
-        //后台用户添加
-        return view('admin.User.add');
+        // 判断level是否符合执行等级
+        // dd(session('level'));
+        if(session('level')>0){
+            //后台用户添加
+            return view('admin.User.add');
+        }else{
+            return back()->with('error','嘿~,麻瓜!您的权限不够,快去学魔法吧~~~!');
+        }
     }
 
     /**
@@ -50,22 +56,27 @@ class UserController extends Controller
      */
     public function store(AdminUserinsert $request)
     {
-       
+        // 可以获取session("id")
+        // dd(session('level'));
+        // dd($request->input('level'));
+        if(session('level')>$request->input('level')){
         
-        // echo "执行添加";
-        $data=$request->except(['repwd','_token']);
-        // dd($data);
-        //哈希加密
-        $data['admin_password']=Hash::make($data['admin_password']);
-        
-        if(User::create($data)){
-            // echo "添加成功";
-            return redirect("/adminuser")->with('success','添加成功');
+            // echo "执行添加";
+            $data=$request->except(['repwd','_token']);
+            // dd($data);
+            //哈希加密
+            $data['admin_password']=Hash::make($data['admin_password']);
+            
+            if(User::create($data)){
+                // echo "添加成功";
+                return redirect("/adminuser")->with('success','添加成功');
+            }else{
+                // echo "添加失败";exit;
+                return back()->with('error','添加失败');
+            }
         }else{
-            // echo "添加失败";exit;
-            return back()->with('error','添加失败');
+            return back()->with('error','添加失败,权限不足~~~!');
         }
-        
     }
 
     /**
@@ -87,13 +98,21 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //获取修改数据id
-        $id = $id;
-        // dd($id);
-        // 获取单条数据
-        $data=User::find($id);
-        //返回修改模板
-        return view('admin.User.edit',['data'=>$data]);
+        $t=DB::table('admin_user')->where('id','=',$id)->first();
+        // var_dump($t->level);
+
+        if(session('level')>0 && session('level')>$t->level){
+            //获取修改数据id
+            $id = $id;
+            // dd($id);
+            // 获取单条数据
+            $data=User::find($id);
+            //返回修改模板
+            return view('admin.User.edit',['data'=>$data]);
+        }else{
+            return back()->with('error','哟~,麻瓜!~~您的权限不够,快去学魔法吧~~~!');
+        }
+        
     }
 
     /**
@@ -147,10 +166,16 @@ class UserController extends Controller
     public function del(Request $request){
         $id=$request->input('id');
         // echo $id;
-        if(DB::table('admin_user')->where('id','=',$id)->delete()){
-            echo '1';
+        $data=DB::table('admin_user')->where('id','=',$id)->first();
+        if($data->admin_user=='boss'){
+            // 此条代码没用,仅作为装饰     只要输出不为1就是失败
+            session(['error'=>'删除失败,此用户无敌']);
         }else{
-            echo '0';
+            if(DB::table('admin_user')->where('id','=',$id)->delete()){
+                echo '1';
+            }else{
+                echo '0';
+            }
         }
     }
 }

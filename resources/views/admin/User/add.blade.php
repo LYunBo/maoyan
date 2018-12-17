@@ -14,6 +14,12 @@
 </div>
 @endif
 
+@if(session('error'))
+<div class="Huialert Huialert-error"><i class="Hui-iconfont">&#xe6a6;</i>
+{{session('error')}}
+</div>
+@endif
+
 <article class="page-container">
 	<form class="form form-horizontal" id="form-admin-add" method="post" action="/adminuser">
 	{{csrf_field()}}
