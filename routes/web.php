@@ -77,6 +77,8 @@ Route::get("/adminfilmprojectiondel","Admin\ProjectionController@del");
 Route::resource("/adminfilmscene","Admin\FilmsceneController");
 // 自定义电影场次删除
 Route::get("/adminfilmscenedel","Admin\FilmsceneController@del");
+// 清除所有时间已过的电影场次
+Route::get("/adminfilmscenedels","Admin\FilmsceneController@dels");
 
 // 电影订单管理
 Route::resource("/adminfilmorder","Admin\FilmorderController");

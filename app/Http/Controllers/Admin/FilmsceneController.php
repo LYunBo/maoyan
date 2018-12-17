@@ -177,6 +177,12 @@ class FilmsceneController extends Controller
         }
     }
 
+    // 清除所有时间已过的电影场次
+    public function dels(Request $request){
+        echo "kakna";
+    }
+
+
     /**
      * Remove the specified resource from storage.
      *
