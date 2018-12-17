@@ -70,7 +70,7 @@
 			</dd>
 		</dl>
 		<dl id="menu-admin">
-			<dt><i class="Hui-iconfont">&#xe62d;</i> 电影管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe667;</i> 电影管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="/adminfilmlist" data-title="电影列表" href="javascript:void(0)">电影列表</a></li>
@@ -79,7 +79,7 @@
 			</dd>
 		</dl>
 		<dl id="menu-admin">
-			<dt><i class="Hui-iconfont">&#xe62d;</i> 电影院管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe66a;</i> 电影院管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="/adminfilmcinema" data-title="电影列表" href="javascript:void(0)">电影院列表</a></li>
@@ -88,7 +88,7 @@
 			</dd>
 		</dl>
 		<dl id="menu-admin">
-			<dt><i class="Hui-iconfont">&#xe62d;</i> 电影院放映厅管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe66a;</i> 电影院放映厅管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="/adminfilmprojection" data-title="电影场次" href="javascript:void(0)">电影院放映厅列表</a></li><li><a data-href="/adminfilmprojection/create" data-title="添加电影场次" href="javascript:void(0)">添加电影院放映厅</a></li>
@@ -96,7 +96,7 @@
 			</dd>
 		</dl>
 		<dl id="menu-admin">
-			<dt><i class="Hui-iconfont">&#xe62d;</i> 电影场次管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe6d1;</i> 电影场次管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="/adminfilmscene" data-title="电影场次" href="javascript:void(0)">电影场次列表</a></li><li><a data-href="/adminfilmscene/create" data-title="添加电影场次" href="javascript:void(0)">添加电影场次</a></li>
@@ -104,7 +104,7 @@
 			</dd>
 		</dl>
 		<dl id="menu-admin">
-			<dt><i class="Hui-iconfont">&#xe62d;</i> 电影订单管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe627;</i> 电影订单管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="/adminfilmorder" data-title="电影场次" href="javascript:void(0)">电影订单列表</a></li>
