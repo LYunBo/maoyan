@@ -22,6 +22,8 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
+        /*$mi = Hash::make('abc123');
+        echo $mi;*/
         //返回搜索的关键词
         $key = $request->input('keyword');
         //返回用户列表页

@@ -49,6 +49,15 @@ Route::get('/adminusersstop','Admin\UsersController@stop');
 //热点管理
 //资讯管理
 Route::resource('/hotnew','Admin\HotNewsController');
+//状态管理
+//通过ajax通过审核
+Route::get('/hotnewtg','Admin\HotNewsController@tg');
+//ajax发布
+Route::get('/hotnewfb','Admin\HotNewsController@fb');
+//ajax下架
+Route::get('/hotnewxj','Admin\HotNewsController@xj');
+//ajax 删除
+Route::get('hotnewdel','Admin\HotNewsController@del');
 
 // 电影列表
 Route::resource("/adminfilmlist","Admin\FilmController");
