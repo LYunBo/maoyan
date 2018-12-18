@@ -58,6 +58,9 @@ Route::get('/hotnewfb','Admin\HotNewsController@fb');
 Route::get('/hotnewxj','Admin\HotNewsController@xj');
 //ajax 删除
 Route::get('hotnewdel','Admin\HotNewsController@del');
+//预告管理
+Route::resource('/future','Admin\FutureController');
+
 
 // 电影列表
 Route::resource("/adminfilmlist","Admin\FilmController");
