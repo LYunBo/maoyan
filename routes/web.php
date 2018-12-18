@@ -49,7 +49,6 @@ Route::get('/adminusersstop','Admin\UsersController@stop');
 //热点管理
 //资讯管理
 Route::resource('/hotnew','Admin\HotNewsController');
-//状态管理
 //通过ajax通过审核
 Route::get('/hotnewtg','Admin\HotNewsController@tg');
 //ajax发布
@@ -66,6 +65,11 @@ Route::get('/futurefb','Admin\FutureController@fb');
 Route::get('/futurexj','Admin\FutureController@xj');
 //删除
 Route::get('/futuredel','Admin\FutureController@del');
+//图集管理
+Route::resource('/imgs','Admin\ImgsController');
+
+//评论管理
+Route::resource('/comment','Admin\CommentController');
 
 
 // 电影列表
