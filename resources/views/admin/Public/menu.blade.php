@@ -109,6 +109,14 @@
 				</ul>
 			</dd>
 		</dl>
+		<dl id="menu-admin">
+            <dt><i class="Hui-iconfont">&#xe687;</i> 友情链接审批<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a data-href="/url" data-title="电影场次" href="javascript:void(0)">链接列表</a></li>
+                </ul>
+            </dd>
+        </dl>
 	</div>
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
