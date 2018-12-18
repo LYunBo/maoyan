@@ -57,9 +57,15 @@ Route::get('/hotnewfb','Admin\HotNewsController@fb');
 //ajax下架
 Route::get('/hotnewxj','Admin\HotNewsController@xj');
 //ajax 删除
-Route::get('hotnewdel','Admin\HotNewsController@del');
+Route::get('/hotnewdel','Admin\HotNewsController@del');
 //预告管理
 Route::resource('/future','Admin\FutureController');
+//发布
+Route::get('/futurefb','Admin\FutureController@fb');
+//下架
+Route::get('/futurexj','Admin\FutureController@xj');
+//删除
+Route::get('/futuredel','Admin\FutureController@del');
 
 
 // 电影列表

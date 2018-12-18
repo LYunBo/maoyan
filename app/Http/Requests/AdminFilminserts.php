@@ -28,7 +28,7 @@ class AdminFilminserts extends FormRequest
             "ymd" => "required|regex:/^\d{4}-\d{1,2}-\d{1,2}$/",
             "times" => "required|regex:/^\d{1,3}$/",
             "years" => "required|regex:/^\d{4}$/",
-            "director" => "required"
+            "director" => "required",
             "film_introduce" => "required",
             "playback_status" => "required",
             "type_id" => "required",

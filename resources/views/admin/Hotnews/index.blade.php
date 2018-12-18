@@ -158,7 +158,7 @@ function xiajia(obj,id){
 /*删除*/
 function del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
-		$.get('hotnewdel',{'id':id},function(data){
+		$.get('/hotnewdel',{'id':id},function(data){
 			if(data == 1){
 				$(obj).parents('tr').remove();
 				layer.msg('已删除!',{icon: 6,time:1000});

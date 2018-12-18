@@ -1,0 +1,1 @@
+<video controls autoplay name="media"><source src="{{$video->url_address}}" type="video/mp4"></video>

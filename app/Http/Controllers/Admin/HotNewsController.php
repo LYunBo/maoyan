@@ -34,8 +34,10 @@ class HotNewsController extends Controller
      */
     public function create()
     {
+        //查看相关电影列表
+        $film = DB::table('film')->get();
         //返回资讯的添加页
-        return view('admin.Hotnews.add');
+        return view('admin.Hotnews.add',['film'=>$film]);
     }
 
     /**

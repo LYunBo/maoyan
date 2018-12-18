@@ -49,7 +49,8 @@
 						@endif
 					</td>
 					<td class="td-manage" width="225">
-						<a style="text-decoration:none" 
+						<a style="text-decoration:none" href="javascript:;" class="ml-5" onclick="Video_show('查看预告片','/future/{{$row->id}}','','880','550')" title="查看预告片"><i class="Hui-iconfont">&#xe725;</i></a>
+						<a style="text-decoration:none" class="ml-5" 
 						@if($row->status == 0)
 							onclick="fabu(this,{{$row->id}})" title='发布'
 						@else
@@ -87,17 +88,17 @@
 	]
 });*/
 /*文章内容-查看*/
-function content_show(title,url,id,w,h){
+function Video_show(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
 /*状态的JS*/
 //发布
 function fabu(obj,id){
 	// 判断是否发布
-	layer.confirm('是否发布资讯?',function(){
+	layer.confirm('是否发布资讯?',function(index){
 		//通过ajax提交数据该表状态
-		$.get('/futruefb',{'id':id},function(data){
-			if(data ==  2){
+		$.get('/futurefb',{'id':id},function(data){
+			if(data ==  1){
 				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onclick="xiajia(this,{{$row->id or ''}})" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
 				$(obj).remove();
@@ -110,9 +111,9 @@ function fabu(obj,id){
 //下架
 function xiajia(obj,id){
 	// 判断是否发布
-	layer.confirm('是否下架资讯?',function(){
-		$.get('/futruexj',{'id':id},function(data){
-			if(data == 3){
+	layer.confirm('是否下架资讯?',function(index){
+		$.get('/futurexj',{'id':id},function(data){
+			if(data == 1){
 				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onclick="fabu(this,{{$row->id or ''}})" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>');
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已下架</span>');
 				$(obj).remove();
@@ -125,8 +126,8 @@ function xiajia(obj,id){
 /*删除*/
 function del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
-		$.get('hotnewdel',{'id':id},function(data){
-			if(data == 1){
+		$.get('/futuredel',{'id':id},function(data){
+			if(data == 2){
 				$(obj).parents('tr').remove();
 				layer.msg('已删除!',{icon: 6,time:1000});
 			}else{
