@@ -98,7 +98,7 @@ function fabu(obj,id){
 		//通过ajax提交数据该表状态
 		$.get('/futruefb',{'id':id},function(data){
 			if(data ==  2){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onclick="xiajia(this,{{$row->id}})" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
+				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onclick="xiajia(this,{{$row->id or ''}})" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
 				$(obj).remove();
 				layer.msg('已发布', {icon:6,time:1000});
@@ -113,7 +113,7 @@ function xiajia(obj,id){
 	layer.confirm('是否下架资讯?',function(){
 		$.get('/futruexj',{'id':id},function(data){
 			if(data == 3){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onclick="fabu(this,{{$row->id}})" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>');
+				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onclick="fabu(this,{{$row->id or ''}})" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>');
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已下架</span>');
 				$(obj).remove();
 				layer.msg('已下架!',{icon: 5,time:1000});
