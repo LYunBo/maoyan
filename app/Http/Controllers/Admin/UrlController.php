@@ -19,7 +19,7 @@ class UrlController extends Controller
     public function index(Request $request)
     {
         //
-        $list=Link::paginate(1);
+        $list=Link::paginate(5);
         return view('admin.User.url',['link'=>$list]);
     }
 
