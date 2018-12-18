@@ -11,12 +11,13 @@
 	<div class="Huialert Huialert-danger"><i class ="Hui-iconfont">&#xe6a6;</i>{{session('wrong')}}</div>
 @endif
 <article class="page-container">
-	<form class="form form-horizontal" id="form-article-add" method="post" action="/future" enctype="multipart/form-data">
+	<form class="form form-horizontal" id="form-article-add" method="post" action="/future/{{$list->id}}" enctype="multipart/form-data">
 	{{csrf_field()}}
+	{{method_field('PUT')}}
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>预告标题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="预告的标题" id="articletitle" name="title">
+				<input type="text" class="input-text" value="{{$list->title}}" id="articletitle" name="title">
 			</div>
 		</div>
 		<div class="row cl">
@@ -25,13 +26,21 @@
 				<div class="uploader-thum-container">
 					<div id="fileList" class="uploader-list"></div>
 					<input type="file" name="notice_cover">
+					<img src="{{$list->notice_cover}}" width="225">
 				</div>
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>相关电影：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{{$samefilm->name or ''}}" id="articletitle">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>修改相关电影：</label>
 			<div class="formControls col-xs-8 col-sm-9"><span class="select-box">
 				<select name="film_id" class="select">
+					<option value="{{$list->id}}">--请选择--</option>
 				@foreach($film as $show)
 					<option value="{{$show->id}}">{{$show->name}}</option>
 				@endforeach
@@ -41,6 +50,12 @@
 		</div>
 		<div class ="cl row">
  			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>预告片内容：</label>
+			<div class="uploader-thum-container">
+				<video controls preload name="media" width="250" height="150"><source src="{{$list->url_address}}" type="video/mp4"></video>
+			</div>
+		</div>
+		<div class ="cl row">
+ 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>修改 预告片内容：</label>
  			<div class="uploader-thum-container">
 					<div id="fileList" class="uploader-list"></div>
 					<input type="file" name="url_address" accept="mp4,avi,dat,3gp,mov,rmvb" />

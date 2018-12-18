@@ -8,7 +8,7 @@
 	<div class = "Huialert Huialert-success"> <i class ="Hui-iconfont">&#xe6a6;</i>{{session('success')}}</div>
 @endif
 <div class="page-container">
-	<form action="/hotnew" method="get">
+	<form action="/future" method="get">
 		<div class="text-c">
 			<input type="text" name="keyword" value="{{$request['keyword'] or ''}}" placeholder=" 资讯" style="width:250px" class="input-text">
 			<button class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i>搜资讯</button>

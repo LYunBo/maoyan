@@ -3,30 +3,28 @@
 <title>资讯管理</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 预告管理 <span class="c-gray en">&gt;</span> 预告管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a><a class="btn btn-primary radius r" style="line-height:1.6em;margin-top:3px" href="/future" title="返回" ><i class="Hui-iconfont">&#xe625;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 图集管理 <span class="c-gray en">&gt;</span> 图集列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a><a class="btn btn-primary radius r" style="line-height:1.6em;margin-top:3px" href="/imgs" title="返回" ><i class="Hui-iconfont">&#xe625;</i></a></nav>
 @if(!empty(session('success')))
 	<div class = "Huialert Huialert-success"> <i class ="Hui-iconfont">&#xe6a6;</i>{{session('success')}}</div>
 @endif
 <div class="page-container">
-	<form action="/hotnew" method="get">
+	<form action="/imgs" method="get">
 		<div class="text-c">
-			<input type="text" name="keyword" value="{{$request['keyword'] or ''}}" placeholder="评论" style="width:250px" class="input-text">
-			<button class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i>搜索</button>
+			<input type="text" name="keyword" value="{{$request['keyword'] or ''}}" placeholder=" 图集标题" style="width:250px" class="input-text">
+			<button class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i>搜图集标题</button>
 		</div>
 	</form>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>{{$tol or '0'}}</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" href="/imgs/create"><i class="Hui-iconfont">&#xe600;</i> 添加图集</a></span> <span class="r">共有数据：<strong>{{$tol or '0'}}</strong> 条</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort">
 			<thead>
 				<tr class="text-c">
 					<th><input name="" type="checkbox" value=""></th>
 					<th>ID</th>
-					<th>评论人</th>
-					<th>评论内容</th>		
-					<th>评论日期</th>
-					<th>点赞数</th>
-					<th>电影星评</th>
-					<th>评论类型</th>
+					<th>标题</th>
+					<th>图片</th>
+					<th>简介</th>		
+					<th>点赞</th>
 					<th>状态</th>
 					<th>操作</th>
 				</tr>
@@ -38,9 +36,9 @@
 					<td><input name="" type="checkbox" value=""></td>
 					<td>{{$row->id}}</td>
 					<td>{{$row->title}}</td>
-					<td><img width="100" height="80" class="picture-thumb" src="{{$row->notice_cover}}"></td>	
-					<td>{{$row->browse}}</td>
-					<td>{{$row->created_at}}</td>
+					<td><u style="cursor:pointer" class="text-primary" onclick="content_show('图集内容','/imgs/{{$row->id}}','10001','360','400')">图集内容</u></td>	
+					<td>{{$row->introduction}}</td>
+					<td>{{$row->nice}}</td>
 					<td>{{$row->updated_at}}</td>
 					<td class="td-status" width="225">
 						@if($row->status == 0)
@@ -53,9 +51,9 @@
 						<a style="text-decoration:none" href="javascript:;" class="ml-5" onclick="Video_show('查看预告片','/future/{{$row->id}}','','880','550')" title="查看预告片"><i class="Hui-iconfont">&#xe725;</i></a>
 						<a style="text-decoration:none" class="ml-5" 
 						@if($row->status == 0)
-							onclick="fabu(this,{{$row->id}})" title='显示'
+							onclick="fabu(this,{{$row->id}})" title='发布'
 						@else
-							onclick="xiajia(this,{{$row->id}})" title='隐藏'
+							onclick="xiajia(this,{{$row->id}})" title='下架'
 						@endif
 						 href="javascript:;">
 						@if($row->status == 0) 
@@ -73,6 +71,7 @@
 	</div>
 </div>
 <!-- 分页 -->
+{{$page->render()}}
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="/static/admin/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="/static/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
@@ -100,9 +99,9 @@ function fabu(obj,id){
 		$.get('/futurefb',{'id':id},function(data){
 			if(data ==  1){
 				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onclick="xiajia(this,{{$row->id or ''}})" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已显示</span>');
+				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
 				$(obj).remove();
-				layer.msg('已显示', {icon:6,time:1000});
+				layer.msg('已发布', {icon:6,time:1000});
 			}
 		});
 	});
@@ -115,9 +114,9 @@ function xiajia(obj,id){
 		$.get('/futurexj',{'id':id},function(data){
 			if(data == 1){
 				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onclick="fabu(this,{{$row->id or ''}})" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已隐藏</span>');
+				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已下架</span>');
 				$(obj).remove();
-				layer.msg('已隐藏!',{icon: 5,time:1000});
+				layer.msg('已下架!',{icon: 5,time:1000});
 			}
 		});
 	});
@@ -139,4 +138,4 @@ function del(obj,id){
 </script>
 </body>
 @endsection
-@section('title','评论列表')
+@section('title','图集列表')

@@ -15,14 +15,16 @@ class FutureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        //返回搜索的关键字
+        $keyword = $request->input('keyword');
         //查询预告的数据表
-        $list = Future::paginate(3);
+        $list = Future::where('title','like','%'.$keyword.'%')->paginate(3);
         //返回数据条数
         $tol = Future::count();
         //返回预告列表页
-        return view('admin.Future.index',['list'=>$list,'tol'=>$tol]);
+        return view('admin.Future.index',['list'=>$list,'tol'=>$tol,'request'=>$request->all()]);
     }
 
     /**
