@@ -26,6 +26,21 @@ Route::group(['middleware'=>'login'],function(){
 
 	//Ajax 删除后台用户
 	Route::get("/del",'Admin\UserController@del');
+
+	
+	//url 友情链接
+	Route::resource('/url','Admin\UrlController');
+	//pass 通过审核
+	Route::get("/pass",'Admin\UrlController@pass');
+	//nopass 不通过审核
+	Route::get("/nopass",'Admin\UrlController@nopass');
+	//lookup 上架
+	Route::get('/lookup','Admin\UrlController@lookup');
+	//lookdown 下架
+	Route::get('/lookdown','Admin\UrlController@lookdown');
+	//删除
+	Route::get('/lookdel','Admin\UrlController@lookdel');
+
 });
 
 //后台登录
