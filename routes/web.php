@@ -53,7 +53,7 @@ Route::group(['middleware'=>'login'],function(){
 	Route::get('/ad_lookdown','Admin\AdController@lookdown');
 	//删除
 	Route::get('/ad_lookdel','Admin\AdController@lookdel');
-});
+
 
 //后台登录
 Route::resource('/login','Admin\AdminLoginController');
@@ -151,3 +151,16 @@ Route::get("/adminfilmorderdel","Admin\FilmorderController@del");
 Route::get("/adminfilmorderdels","Admin\FilmorderController@dels");
 // 清除所有观影时间已过的订单
 Route::get("/adminfilmorderdelss","Admin\FilmorderController@delss");
+
+
+
+
+
+
+
+
+
+
+
+
+});

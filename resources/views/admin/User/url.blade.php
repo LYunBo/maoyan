@@ -128,7 +128,7 @@ function article_shenhe(obj,id,state){
 
 		$.get('/pass',{'id':id,'state':state},function(data){
 			if(data==1){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="article_start(this,{{$row->id}})" href="javascript:;" title="未上架"><i class="Hui-iconfont" style="font-size: 25">&#xe6dc;</i></a>');
+				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="article_start(this,'+id+')" href="javascript:;" title="未上架"><i class="Hui-iconfont" style="font-size: 25">&#xe6dc;</i></a>');
 				$(obj).parents("tr").find(".td-status").first().html('<span class="label label-success radius">已通过</span>');
 				$(obj).parents("tr").find(".td-status").last().html('<span class="label label-danger radius">已下架</span>');
 				$(obj).remove();
