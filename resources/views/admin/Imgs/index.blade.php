@@ -60,6 +60,7 @@
 							<i class="Hui-iconfont">&#xe6de;</i>						
 						@endif
 						</a>
+						<a style="text-decoration:none" class="ml-5" href="/imgadd/{{$row->id}}" title="添加图片"><i class="Hui-iconfont">&#xe604;</i></a>
 						<a style="text-decoration:none" class="ml-5" href="/img/{{$row->id}}/edit" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a><a style="text-decoration:none" class="ml-5" onclick="del(this,{{$row->id}})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
 				@endforeach
@@ -123,7 +124,7 @@ function xiajia(obj,id){
 /*删除*/
 function del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
-		$.get('/imgtdel',{'id':id},function(data){
+		$.get('/imgdel',{'id':id},function(data){
 			if(data == 2){
 				$(obj).parents('tr').remove();
 				layer.msg('已删除!',{icon: 6,time:1000});

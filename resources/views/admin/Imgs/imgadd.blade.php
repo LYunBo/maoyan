@@ -5,7 +5,7 @@
 <meta name="description" content="H-ui.admin">
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 图集管理 <span class="c-gray en">&gt;</span> 添加图集 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="/img" title="返回" ><i class="Hui-iconfont">&#xe625;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 图集管理 <span class="c-gray en">&gt;</span> 添加图片 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="/img" title="返回" ><i class="Hui-iconfont">&#xe625;</i></a></nav>
 <div class="page-container">
 @if(count($errors)>0)
 	@foreach($errors->all() as $error)
@@ -13,27 +13,31 @@
 	@endforeach
 @endif
 <article class="page-container">
-	<form class="form form-horizontal" id="form-article-add" method="post" action="/img" enctype="multipart/form-data">
+	<form class="form form-horizontal" id="form-article-add" method="post" action="/imgdoadd/{{$id}}" enctype="multipart/form-data">
 	{{csrf_field()}}
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>标题：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="图集的标题" id="articletitle" name="title">
+		<div class ="cl row">
+ 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>图集内容：</label>
+			<div class="uploader-thum-container">
+				<div class="portfolio-content">
+					<ul class="cl portfolio-area">
+						@foreach($imgs as $img)
+						<li class="item hover">
+							<div class="portfoliobox" style="text-align: center">
+								<img src="{{$img}}" width="150" height="150">
+							</div>
+						</li>
+						@endforeach
+					</ul>
+				</div>
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">图片：</label>
+			<label class="form-label col-xs-4 col-sm-2">添加图片：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<div class="uploader-thum-container">
 					<div id="fileList" class="uploader-list"></div>
 					<input type="file" multiple="multiple" name="img[]">
 				</div>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>简介：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="introduction" cols="" rows="" class="textarea" placeholder="关于图集的简介" datatype="*10-100" dragonfly="true"></textarea>
 			</div>
 		</div>
 		<div class="row cl">
