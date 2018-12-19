@@ -151,7 +151,7 @@ class FilmController extends Controller
         // 自定义名字
         $director_img_name = time().rand(100000,999999).".".$director_img_houzhui;
         // 自定义文件夹
-        $director_img_path = "/film/director_img/".time().rand(100000,999999);
+        $director_img_path = "./film/director_img/".time().rand(100000,999999);
         $director_img_paths = substr($director_img_path,1);
         // 移入文件夹内
         $director_img -> move($director_img_path,$director_img_name);
