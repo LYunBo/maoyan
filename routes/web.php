@@ -41,6 +41,18 @@ Route::group(['middleware'=>'login'],function(){
 	//删除
 	Route::get('/lookdel','Admin\UrlController@lookdel');
 
+	// 广告栏
+	Route::resource('/ad','Admin\AdController');
+	//pass 通过审核
+	Route::get("/ad_pass",'Admin\AdController@pass');
+	//nopass 不通过审核
+	Route::get("/ad_nopass",'Admin\AdController@nopass');
+	//lookup 上架
+	Route::get('/ad_lookup','Admin\AdController@lookup');
+	//lookdown 下架
+	Route::get('/ad_lookdown','Admin\AdController@lookdown');
+	//删除
+	Route::get('/ad_lookdel','Admin\AdController@lookdel');
 });
 
 //后台登录
