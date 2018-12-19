@@ -13,10 +13,14 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        //获取搜索的关键词
+        $key = $request->input('keyword');
+        //查找相对应的数据表
+        $list = DB::table('comment')->where('content','like','%'.$key.'%')->paginate(5);
         //返回评论列表页
-        return view('admin.Comment.index');
+        return view('admin.Comment.index',['list'=>$list,'request'=>$request]);
     }
 
     /**

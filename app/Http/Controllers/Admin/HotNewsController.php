@@ -100,10 +100,14 @@ class HotNewsController extends Controller
      */
     public function edit($id)
     {
+        //查看电影
+        $film = DB::table('film')->get();
         //用返回的id查数据库相对于的
         $list = DB::table('hotnews')->where('id','=',$id)->first();
+        //对应的相关电影
+        $samefilm = DB::table('film')->where('id','=',$list->film_id)->first();
         //返回修改页
-        return view('admin.Hotnews.edit',['list'=>$list]);
+        return view('admin.Hotnews.edit',['list'=>$list,'film'=>$film,'samefilm'=>$samefilm]);
     }
 
     /**

@@ -8,7 +8,7 @@
 	<div class = "Huialert Huialert-success"> <i class ="Hui-iconfont">&#xe6a6;</i>{{session('success')}}</div>
 @endif
 <div class="page-container">
-	<form action="/hotnew" method="get">
+	<form action="/comment" method="get">
 		<div class="text-c">
 			<input type="text" name="keyword" value="{{$request['keyword'] or ''}}" placeholder="评论" style="width:250px" class="input-text">
 			<button class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i>搜索</button>
@@ -22,11 +22,12 @@
 					<th><input name="" type="checkbox" value=""></th>
 					<th>ID</th>
 					<th>评论人</th>
-					<th>评论内容</th>		
-					<th>评论日期</th>
+					<th>评论内容</th>
 					<th>点赞数</th>
 					<th>电影星评</th>
 					<th>评论类型</th>
+					<th>评论日期</th>
+					<th>修改日期</th>
 					<th>状态</th>
 					<th>操作</th>
 				</tr>
@@ -37,9 +38,10 @@
 				<tr class="text-c">
 					<td><input name="" type="checkbox" value=""></td>
 					<td>{{$row->id}}</td>
-					<td>{{$row->title}}</td>
-					<td><img width="100" height="80" class="picture-thumb" src="{{$row->notice_cover}}"></td>	
-					<td>{{$row->browse}}</td>
+					<td>{{$row->user_id}}</td>
+					<td>{{$row->content}}</td>	
+					<td>{{$row->nice}}</td>
+					<td>{{$row->level}}</td>
 					<td>{{$row->created_at}}</td>
 					<td>{{$row->updated_at}}</td>
 					<td class="td-status" width="225">

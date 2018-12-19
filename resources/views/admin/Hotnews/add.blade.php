@@ -38,7 +38,7 @@
 				</select>
 				</span>
 			</div>
-		</div
+		</div>
 		<div class ="cl row">
  			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>资讯内容：</label>
  			<textarea class ="textarea radius inputstyle" id="content" name ="content" cols ="100" rows ="300">{{old('content')}}</textarea>

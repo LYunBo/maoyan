@@ -30,6 +30,24 @@
 				</div>
 			</div>
 		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>相关电影：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{{$samefilm->name or ''}}" id="articletitle">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>修改相关电影：</label>
+			<div class="formControls col-xs-8 col-sm-9"><span class="select-box">
+				<select name="film_id" class="select">
+					<option value="{{$list->id}}">--请选择--</option>
+				@foreach($film as $show)
+					<option value="{{$show->id}}">{{$show->name}}</option>
+				@endforeach
+				</select>
+				</span>
+			</div>
+		</div>
 		<div class ="cl row">
  			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>资讯内容：</label>
  			<textarea class ="textarea radius inputstyle" id="content" name ="content" cols ="100" rows ="300">{{$list->content}}</textarea>
