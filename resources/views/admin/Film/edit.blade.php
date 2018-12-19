@@ -276,7 +276,7 @@
 			<select class="select" name="playback_status" size="1">
 				<option value="">--请选择--</option>
 				<option {{($data1[0] -> playback_status)=="0"?"selected":""}} value="0">热播</option>
-				<option {{($data1[0] -> playback_status)=="1"?"selected":""}} value="1">未播放</option>
+				<option {{($data1[0] -> playback_status)=="1"?"selected":""}} value="1">即将上映</option>
 				<option {{($data1[0] -> playback_status)=="2"?"selected":""}} value="2">经典</option>
 			</select>
 			</span> </div>

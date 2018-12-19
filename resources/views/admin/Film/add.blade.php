@@ -141,7 +141,7 @@
 			<select class="select" name="playback_status" size="1">
 				<option value="">--请选择--</option>
 				<option value="0">热播</option>
-				<option value="1">未播放</option>
+				<option value="1">即将上映</option>
 				<option value="2">经典</option>
 			</select>
 			</span> </div>
