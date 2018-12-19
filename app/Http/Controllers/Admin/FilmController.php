@@ -460,20 +460,21 @@ class FilmController extends Controller
                 $i++;
             }
         }else{
-            $film_imgs[] = "";
+            $film_imgs_s[] = "";
         }
         
         // 将地址用,号分开
-        $film_imgs = implode(",",$film_imgs);
+        $film_imgs_s = implode(",",$film_imgs_s);
         /***************修改添加**********************/
         // 修改时会加到已有的数据之后，不要重叠掉
         $data_film_relation_film_img = $data_film_relation[0] -> film_img;
-        if (empty($film_imgs)) {
-            $film_imgs = $data_film_relation_film_img;
-        }else{
-            $film_imgs = $data_film_relation_film_img.",".$film_imgs;
+        if (!empty($data_film_relation_film_img)){
+            $film_imgs = $data_film_relation_film_img.",".$film_imgs_s;
+            if (empty($film_imgs_s)) {
+                $film_imgs = rtrim($film_imgs,",");
+                var_dump($film_imgs);
+            }
         }
-        
         // 将插入时获取的id存入$ids下
         $ids = implode(",",$ids);
         /***************修改添加**********************/
