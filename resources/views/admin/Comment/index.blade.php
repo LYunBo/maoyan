@@ -42,17 +42,27 @@
 					<td>{{$row->content}}</td>	
 					<td>{{$row->nice}}</td>
 					<td>{{$row->level}}</td>
+					<td>
+						@if($row->film_id>0)
+							 电影评论
+						@elseif($row->img_id>0)
+							 图集评论
+						@elseif($row->news_id>0)
+							 资讯评论
+						@elseif($row->film_id == 0 && $row->img_id == 0 && $row->news_id == 0)
+							 无
+						@endif
+					</td>
 					<td>{{$row->created_at}}</td>
 					<td>{{$row->updated_at}}</td>
 					<td class="td-status" width="225">
 						@if($row->status == 0)
-							<span class="label label-defaunt radius">已下架</span>
+							<span class="label label-defaunt radius">已隐藏</span>
 						@else
-							<span class="label label-success radius">已发布</span>
+							<span class="label label-success radius">已显示</span>
 						@endif
 					</td>
 					<td class="td-manage" width="225">
-						<a style="text-decoration:none" href="javascript:;" class="ml-5" onclick="Video_show('查看预告片','/future/{{$row->id}}','','880','550')" title="查看预告片"><i class="Hui-iconfont">&#xe725;</i></a>
 						<a style="text-decoration:none" class="ml-5" 
 						@if($row->status == 0)
 							onclick="fabu(this,{{$row->id}})" title='显示'
@@ -66,7 +76,7 @@
 							<i class="Hui-iconfont">&#xe6de;</i>						
 						@endif
 						</a>
-						<a style="text-decoration:none" class="ml-5" href="/future/{{$row->id}}/edit" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a><a style="text-decoration:none" class="ml-5" onclick="del(this,{{$row->id}})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+						<a style="text-decoration:none" class="ml-5" onclick="del(this,{{$row->id}})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
 				@endforeach
 			@endif
@@ -97,9 +107,9 @@ function Video_show(title,url,id,w,h){
 //发布
 function fabu(obj,id){
 	// 判断是否发布
-	layer.confirm('是否发布资讯?',function(index){
+	layer.confirm('是否显示评论?',function(index){
 		//通过ajax提交数据该表状态
-		$.get('/futurefb',{'id':id},function(data){
+		$.get('/commentfb',{'id':id},function(data){
 			if(data ==  1){
 				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onclick="xiajia(this,{{$row->id or ''}})" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已显示</span>');
@@ -113,8 +123,8 @@ function fabu(obj,id){
 //下架
 function xiajia(obj,id){
 	// 判断是否发布
-	layer.confirm('是否下架资讯?',function(index){
-		$.get('/futurexj',{'id':id},function(data){
+	layer.confirm('是否隐藏评论',function(index){
+		$.get('/commentxj',{'id':id},function(data){
 			if(data == 1){
 				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onclick="fabu(this,{{$row->id or ''}})" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>');
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已隐藏</span>');

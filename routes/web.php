@@ -108,9 +108,12 @@ Route::get('/imgdel','Admin\ImgsController@del');
 //修改的时候删除
 Route::get('/imgsdel','Admin\ImgsController@imgdel');
 
-
 //评论管理
 Route::resource('/comment','Admin\CommentController');
+//显示
+Route::get('/commentfb','Admin\CommentController@fb');
+//隐藏
+Route::get('/commentxj','Admin\CommentController@xj');
 
 
 // 电影列表

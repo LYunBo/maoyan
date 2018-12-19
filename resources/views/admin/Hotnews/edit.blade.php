@@ -33,7 +33,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>相关电影：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="{{$samefilm->name or ''}}" id="articletitle">
+				<input type="text" class="input-text" value="{{$samefilm->name or '没关联'}}" id="articletitle">
 			</div>
 		</div>
 		<div class="row cl">

@@ -88,4 +88,34 @@ class CommentController extends Controller
     {
         //
     }
+
+      /*
+    Ajax  显示
+     */
+    public function fb(Request $request){
+        //获取id
+        $id = $request->input('id');
+        //同过传来的id修改状态
+        if(DB::table('comment')->where('id','=',$id)->update(['status'=>1])){
+            //返回状态码
+            echo 1;
+        }else{
+            echo 0;
+        }
+    }
+
+     /*
+    Ajax  隐藏
+     */
+    public function xj(Request $request){
+        //获取id
+        $id = $request->input('id');
+        //同过传来的id修改状态
+        if(DB::table('comment')->where('id','=',$id)->update(['status'=>0])){
+            //返回状态码
+            echo 1;
+        }else{
+            echo 0;
+        }
+    }
 }
