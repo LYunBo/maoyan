@@ -36,7 +36,7 @@
 			<dt><i class="Hui-iconfont">&#xe613;</i> 图集管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="/imgs" data-title="图集管理" href="javascript:void(0)">图集列表</a></li>
+					<li><a data-href="/img" data-title="图集管理" href="javascript:void(0)">图集列表</a></li>
 				</ul>
 			</dd>
 		</dl>

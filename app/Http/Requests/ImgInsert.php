@@ -14,7 +14,7 @@ class ImgInsert extends FormRequest
     public function authorize()
     {
         return true;
-
+    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,20 +24,20 @@ class ImgInsert extends FormRequest
     {
         return [
             //标题的规则
-            // 'title'=>'required',
+            'title'=>'required',
             //图集的规则
-            // 'img'=>'required',
+            'img'=>'required',
             //简介的规则
-            // 'introduction'=>'required'
+            'introduction'=>'required'
         ];
     }
 
     //自定义错误信息
     public function messages(){
         return[
-            // 'title.required'=>'标题不能为空',
-            // 'img.required'=>'图集至少要有一张图片',
-            // 'introduction.required'=>'简介不能为空'
+            'title.required'=>'标题不能为空',
+            'img.required'=>'图集至少要有一张图片',
+            'introduction.required'=>'简介不能为空'
         ];
     }
 }

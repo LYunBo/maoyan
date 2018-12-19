@@ -5,60 +5,49 @@
 <meta name="description" content="H-ui.admin">
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 资讯管理 <span class="c-gray en">&gt;</span> 修改资讯 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="/future" title="返回" ><i class="Hui-iconfont">&#xe625;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 资讯管理 <span class="c-gray en">&gt;</span> 修改资讯 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="/img" title="返回" ><i class="Hui-iconfont">&#xe625;</i></a></nav>
 <div class="page-container">
 @if(session('wrong'))
 	<div class="Huialert Huialert-danger"><i class ="Hui-iconfont">&#xe6a6;</i>{{session('wrong')}}</div>
 @endif
 <article class="page-container">
-	<form class="form form-horizontal" id="form-article-add" method="post" action="/future/{{$list->id}}" enctype="multipart/form-data">
+	<form class="form form-horizontal" id="form-article-add" method="post" action="/img/{{$list->id}}" enctype="multipart/form-data">
 	{{csrf_field()}}
 	{{method_field('PUT')}}
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>预告标题：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>图集标题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="{{$list->title}}" id="articletitle" name="title">
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">封面：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<div class="uploader-thum-container">
-					<div id="fileList" class="uploader-list"></div>
-					<input type="file" name="notice_cover">
-					<img src="{{$list->notice_cover}}" width="225">
+		<div class ="cl row">
+ 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>图集内容：</label>
+			<div class="uploader-thum-container">
+				<div class="portfolio-content">
+					<ul class="cl portfolio-area">
+						@foreach($imgs as $img)
+						<li class="item hover">
+							<div class="portfoliobox">
+								<input class="checkbox" onclick="imgdel(this)" type="checkbox">
+								<img src="{{$img}}" width="150" height="150">
+							</div>
+						</li>
+						@endforeach
+					</ul>
 				</div>
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>相关电影：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="{{$samefilm->name or ''}}" id="articletitle">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>修改相关电影：</label>
-			<div class="formControls col-xs-8 col-sm-9"><span class="select-box">
-				<select name="film_id" class="select">
-					<option value="{{$list->id}}">--请选择--</option>
-				@foreach($film as $show)
-					<option value="{{$show->id}}">{{$show->name}}</option>
-				@endforeach
-				</select>
-				</span>
-			</div>
-		</div>
 		<div class ="cl row">
- 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>预告片内容：</label>
-			<div class="uploader-thum-container">
-				<video controls preload name="media" width="250" height="150"><source src="{{$list->url_address}}" type="video/mp4"></video>
-			</div>
-		</div>
-		<div class ="cl row">
- 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>修改 预告片内容：</label>
+ 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>修改图集内容：</label>
  			<div class="uploader-thum-container">
 					<div id="fileList" class="uploader-list"></div>
-					<input type="file" name="url_address" accept="mp4,avi,dat,3gp,mov,rmvb" />
+					<input type="file" name="img" multiple="multiple"  />
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>简介：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="introduction" cols="" rows="" class="textarea" placeholder="" datatype="*10-100" dragonfly="true">{{$list->introduction}}</textarea>
 			</div>
 		</div>
 		<div class="row cl">
@@ -80,8 +69,12 @@
 <script type="text/javascript" src="/static/admin/lib/ueditor/1.4.3/ueditor.all.min.js"> </script> 
 <script type="text/javascript" src="/static/admin/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
+	function imgdel(obj){
+		console.log($(obj).next('img').attr('src'));
+	}
+	
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
 @endsection
-@section('title','添加资讯')
+@section('title','修改图集')

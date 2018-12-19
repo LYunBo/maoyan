@@ -5,15 +5,15 @@
 <meta name="description" content="H-ui.admin">
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 图集管理 <span class="c-gray en">&gt;</span> 添加图集 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="/imgs" title="返回" ><i class="Hui-iconfont">&#xe625;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 图集管理 <span class="c-gray en">&gt;</span> 添加图集 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="/img" title="返回" ><i class="Hui-iconfont">&#xe625;</i></a></nav>
 <div class="page-container">
 @if(count($errors)>0)
 	@foreach($errors->all() as $error)
-	<div class="Huialert Huialert-danger"><i class ="Hui-iconfont">&#xe6a6;</i>{{$error}}</div>
+	<div class="Huialert Huialert-error"><i class="Hui-iconfont">&#xe6a6;</i>{{$error}}</div>
 	@endforeach
 @endif
 <article class="page-container">
-	<form class="form form-horizontal" id="form-article-add" method="post" action="/imgs" enctype="multipart/form-data">
+	<form class="form form-horizontal" id="form-article-add" method="post" action="/img" enctype="multipart/form-data">
 	{{csrf_field()}}
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>标题：</label>

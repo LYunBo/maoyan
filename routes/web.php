@@ -81,7 +81,16 @@ Route::get('/futurexj','Admin\FutureController@xj');
 //删除
 Route::get('/futuredel','Admin\FutureController@del');
 //图集管理
-Route::resource('/imgs','Admin\ImgsController');
+Route::resource('/img','Admin\ImgsController');
+//查看的图集简介
+Route::get('/imgjj/{id}','Admin\ImgsController@showcontent');
+//发布
+Route::get('/imgfb','Admin\ImgsController@fb');
+//下架
+Route::get('/imgxj','Admin\ImgsController@xj');
+//删除
+Route::get('/imgdel','Admin\ImgsController@del');
+
 
 //评论管理
 Route::resource('/comment','Admin\CommentController');
