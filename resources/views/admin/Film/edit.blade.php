@@ -278,6 +278,9 @@
 				<option {{($data1[0] -> playback_status)=="0"?"selected":""}} value="0">热播</option>
 				<option {{($data1[0] -> playback_status)=="1"?"selected":""}} value="1">即将上映</option>
 				<option {{($data1[0] -> playback_status)=="2"?"selected":""}} value="2">经典</option>
+				<option {{($data1[0] -> playback_status)=="2"?"selected":""}} value="0,1">热播,即将上映</option>
+				<option {{($data1[0] -> playback_status)=="2"?"selected":""}} value="0,2">热播,经典</option>
+				<option {{($data1[0] -> playback_status)=="2"?"selected":""}} value="1,2">即将上映,经典</option>
 			</select>
 			</span> </div>
 	</div>

@@ -143,6 +143,9 @@
 				<option value="0">热播</option>
 				<option value="1">即将上映</option>
 				<option value="2">经典</option>
+				<option value="0,1">热播,即将上映</option>
+				<option value="0,2">热播,经典</option>
+				<option value="1,2">即将上映,经典</option>
 			</select>
 			</span> </div>
 	</div>
