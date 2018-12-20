@@ -10,11 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// 首页
 Route::get('/',"Home\IndexController@index");
+// 首页公共页的定位
 Route::get('/show/{id}',"Home\IndexController@show");
 
 
+
+// 电影页面
 Route::resource("/films","Home\FilmController");
 
 
