@@ -32,6 +32,7 @@
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>相关电影：</label>
 			<div class="formControls col-xs-8 col-sm-9"><span class="select-box">
 				<select name="film_id" class="select">
+					<option value="0">--请选择--</option>
 				@foreach($film as $show)
 					<option value="{{$show->id}}">{{$show->name}}</option>
 				@endforeach
