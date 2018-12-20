@@ -6,7 +6,7 @@
 <html>
 <!--<![endif]-->
 <head>
-<title>猫眼电影 - 一网打尽好电影</title>
+<title>@yield('title')</title>
 <meta charset="utf-8">
 <meta name="keywords" content="电影,电视剧,票房,美剧,猫眼电影,电影排行榜,电影票,经典电影,在线观看">
 <meta name="description" content="国内观众优选的在线购票平台，用户流行的观影决策平台。">
@@ -27,7 +27,7 @@
   </script>
 <link rel="stylesheet" href="/static/home/css/common.4b838ec3.css"/>
 <link rel="stylesheet" href="/static/home/css/home-index.10e05d67.css"/>
-<script crossorigin="anonymous" src="/static/home/ms0.meituan.net/mywww/stat.74891044.js"></script>
+<script crossorigin="anonymous" src="/static/home/js/stat.74891044.js"></script>
 <script>if(window.devicePixelRatio >= 2) { document.write('<link rel="stylesheet" href="/static/home/css/image-2x.8ba7074d.css"/>') }</script>
 <meta name="msvalidate.01" content="F338006073F396CBBDA443AAB6A8BA47"/>
 <meta name="360-site-verification" content="6f1d12912a62a74ce2f1b3c2e75f6c23"/>
@@ -101,7 +101,7 @@
     </div>
   </div>
 </div>
-@section('admin')
+@section('home')
 
 @show
 <div class="footer">

@@ -1,5 +1,5 @@
 @extends('home.Public.Public')
-@section('admin')
+@section('home')
 <div class="header-placeholder">
 </div>
 <div class="banner">
@@ -883,3 +883,4 @@
   </div>
 </div>
 @endsection
+@section('title','')
