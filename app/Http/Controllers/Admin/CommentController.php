@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 //引入DB
 use DB;
+use helper;
 class CommentController extends Controller
 {
     /**
@@ -31,6 +32,8 @@ class CommentController extends Controller
     public function create()
     {
         //
+        $send = new part();
+        $send->sendsphone(13202002462);
     }
 
     /**

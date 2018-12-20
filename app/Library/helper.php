@@ -1,4 +1,5 @@
 <?php
+class part{
 	//发送短信校验码
 	function sendsphone($p){
 		//初始化必填
@@ -20,4 +21,5 @@
 
 		echo $ucpass->SendSms($appid,$templateid,$param,$mobile,$uid);
 	}
+}
 ?>

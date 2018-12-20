@@ -70,7 +70,7 @@
 	</div>
 </div>
 <!-- 分页 -->
-{{$page->render()}}
+{{$list->render()}}
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="/static/admin/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="/static/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
