@@ -27,7 +27,7 @@ class ImgsController extends Controller
         //查询关联的数据表
         $list = Imgs::where('title','like','%'.$key.'%')->where('introduction','like','%'.$key.'%')->paginate(3);
         //查询共有多少条数据
-        $tol = DB::table('imgs')->where('title','like','%'.$key.'%')->count();
+        $tol = DB::table('imgs')->where('title','like','%'.$key.'%')->where('introduction','like','%'.$key.'%')->count();
         //返回图集列表
         return view('admin.Imgs.index',['list'=>$list,'tol'=>$tol,'request'=>$request->all(),'page'=>$page]);
     }
