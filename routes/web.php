@@ -14,7 +14,8 @@
 /*Route::get('/', function () {
     return view('welcome');
 });*/
-
+//后台登录
+Route::resource('/login','Admin\AdminLoginController');
 Route::group(['middleware'=>'login'],function(){
 	//后台首页路由
 	Route::resource('/admin','Admin\AdminController');
@@ -55,8 +56,7 @@ Route::group(['middleware'=>'login'],function(){
 	Route::get('/ad_lookdel','Admin\AdController@lookdel');
 
 
-//后台登录
-Route::resource('/login','Admin\AdminLoginController');
+
 
 
 
