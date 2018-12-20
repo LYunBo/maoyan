@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/',"Home\PublicController@index");
+Route::get('/',"Home\IndexController@index");
 //后台登录
 Route::resource('/login','Admin\AdminLoginController');
 Route::group(['middleware'=>'login'],function(){
