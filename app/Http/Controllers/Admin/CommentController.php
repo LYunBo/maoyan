@@ -32,8 +32,6 @@ class CommentController extends Controller
     public function create()
     {
         //
-        $send = new part();
-        $send->sendsphone(13202002462);
     }
 
     /**
