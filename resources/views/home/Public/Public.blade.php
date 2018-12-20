@@ -52,7 +52,7 @@
     <div class="city-container" data-val="{currentcityid:20 }">
       <div class="city-selected">
         <div class="city-name">
-                  广州
+                  {{session("citys")['name']}}
           <span class="caret"></span>
         </div>
       </div>

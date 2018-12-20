@@ -32,8 +32,13 @@ class IndexController extends Controller
     public function index(Request $request){
     	return view("home.Index.index");
     }
-    public function show(Request $request){
-    	var_dump(expression)
-
+    public function show($id){
+    	$data = DB::table("city") -> where("id","=",$id) -> get();
+    	$arr["id"] = $id;
+    	$arr["name"] = $data[0] -> name;
+    	// var_dump($arr);
+    	session(["citys" => $arr]);
+    	var_dump(session("citys"));
+    	return back();
     }
 }
