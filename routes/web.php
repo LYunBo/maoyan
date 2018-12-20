@@ -16,6 +16,16 @@ Route::get('/show/{id}',"Home\IndexController@show");
 
 
 Route::resource("/films","Home\FilmController");
+
+
+//前台登录
+Route::resource('/homelogin','Home\LoginController');
+
+
+
+
+
+
 //后台登录
 Route::resource('/login','Admin\AdminLoginController');
 Route::group(['middleware'=>'login'],function(){

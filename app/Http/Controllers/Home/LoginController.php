@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Mail;
 class LoginController extends Controller
 {
     /**
@@ -14,7 +14,8 @@ class LoginController extends Controller
      */
     public function index()
     {
-        //
+        //返回登录页面
+        return View('Home.Login.login');
     }
 
     /**
@@ -25,6 +26,12 @@ class LoginController extends Controller
     public function create()
     {
         //
+        Mail::raw('你是不是蛤蜊',function($message)){
+            //接收方
+            $message->to('43887979@qq.com');
+            //发送邮件主题
+            $message->subject('账号激活');
+        }
     }
 
     /**
