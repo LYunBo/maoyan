@@ -30,6 +30,30 @@
 <link rel="stylesheet" href="/static/home/css/home-index.10e05d67.css"/>
 <script crossorigin="anonymous" src="/static/home/js/stat.74891044.js"></script>
 <script>if(window.devicePixelRatio >= 2) { document.write('<link rel="stylesheet" href="/static/home/css/image-2x.8ba7074d.css"/>') }</script>
+
+<!-- 热点 -->
+<!-- hot -->
+  <link rel="stylesheet" href="static/home/css/common.4b838ec3_1.css"/>
+  <link rel="stylesheet" href="static/home/css/news-hotnews.a01df872_1.css"/>
+  <script crossorigin="anonymous" src="static/home/js/stat.74891044_1.js"></script>
+  <script>if(window.devicePixelRatio >= 2) { document.write('<link rel="stylesheet" href="static/home/css/image-2x.8ba7074d_1.css"/>') }</script>
+  <!-- tab2 -->
+    <link rel="stylesheet" href="/static/home/css/common.4b838ec3_1.css"/>
+    <link rel="stylesheet" href="/static/home/css/news-hotnews.a01df872_1.css"/>
+    <script crossorigin="anonymous" src="/static/home/js/stat.74891044_1.js"></script>
+    <script>if(window.devicePixelRatio >= 2) { document.write('<link rel="stylesheet" href="/static/home/css/image-2x.8ba7074d_1.css"/>') }</script>
+  <!-- tab3 -->
+    <link rel="stylesheet" href="/static/home/css/common.4b838ec3_9.css"/>
+    <link rel="stylesheet" href="/static/home/css/news-hotnews.a01df872_9.css"/>
+    <script crossorigin="anonymous" src="/static/home/js/stat.74891044_9.js"></script>
+    <script>if(window.devicePixelRatio >= 2) { document.write('<link rel="stylesheet" href="/static/home/css/image-2x.8ba7074d_9.css"/>') }</script>
+  <!-- tab4 -->
+    <link rel="stylesheet" href="/static/home/css/common.4b838ec3_2.css"/>
+    <link rel="stylesheet" href="/static/home/css/news-hotnews.a01df872_2.css"/>
+    <script crossorigin="anonymous" src="/static/home/js/stat.74891044_1.js"></script>
+    <script>if(window.devicePixelRatio >= 2) { document.write('<link rel="stylesheet" href="/static/home/css/image-2x.8ba7074d_2.css"/>') }</script>
+    
+
 <meta name="msvalidate.01" content="F338006073F396CBBDA443AAB6A8BA47"/>
 <meta name="360-site-verification" content="6f1d12912a62a74ce2f1b3c2e75f6c23"/>
 <meta name="sogou_site_verification" content="uh9MkgvBm3"/>

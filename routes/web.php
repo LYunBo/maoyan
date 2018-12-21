@@ -186,3 +186,6 @@ Route::get("/adminfilmorderdelss","Admin\FilmorderController@delss");
 
 
 });
+
+//热点
+Route::resource('/hot','Home\HotController');
