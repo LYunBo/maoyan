@@ -10,8 +10,29 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// 首页
 Route::get('/',"Home\IndexController@index");
+// 首页公共页的定位
+Route::get('/show/{id}',"Home\IndexController@show");
+
+
+
+// 电影页面
+Route::resource("/films","Home\FilmController");
+
+
+//前台登录
+Route::resource('/hlogin','Home\LoginController');
+//获取验证码的路由
+Route::get('/cove','Home\LoginController@code');
+//检验用户登录
+Route::post('/hdologin','Home\LoginController@dologin');
+//发送手机校验码
+Route::get('/sendmessage','Home\LoginController@sendmessage');
+
+
+
+
 //后台登录
 Route::resource('/login','Admin\AdminLoginController');
 Route::group(['middleware'=>'login'],function(){

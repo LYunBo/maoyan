@@ -7,6 +7,7 @@
 <!--<![endif]-->
 <head>
 <title>@yield('title')</title>
+<script src="/static/jquery-1.8.3.min.js"></script>
 <meta charset="utf-8">
 <meta name="keywords" content="电影,电视剧,票房,美剧,猫眼电影,电影排行榜,电影票,经典电影,在线观看">
 <meta name="description" content="国内观众优选的在线购票平台，用户流行的观影决策平台。">
@@ -51,16 +52,41 @@
     <div class="city-container" data-val="{currentcityid:20 }">
       <div class="city-selected">
         <div class="city-name">
-                  广州
+                  {{session("citys")['name']}}
           <span class="caret"></span>
         </div>
       </div>
-      <div class="city-list" data-val="{ localcityid: 20 }">
-        <div class="city-list-header">
-          定位城市：
-          <a class="js-geo-city">广州</a>
-        </div>
+
+
+      <div style="display:none;" class="city-list" data-val="{ localcityid: 20 }">
+      <div class="city-list-header">定位城市：<a class="js-geo-city">{{session("citys")['name']}}</a></div>
+        <ul>
+          <li>
+            <span>已有</span>
+            <div>
+              @foreach(session("city") as $v)
+              <a href="/show/{{$v['id']}}" class="js-city-name" style="color:black;">{{$v['name']}}</a>
+              @endforeach
+            </div>
+          </li>
+        </ul>
       </div>
+<script>
+  $(".city-selected").mouseover(function(){
+    $(".city-list").css("display","block");
+  });
+  $(".city-selected").mouseout(function(){
+    $(".city-list").css("display","none");
+  });
+  $(".city-list").mouseover(function(){
+    $(this).css("display","block");
+  });
+  $(".city-list").mouseout(function(){
+    $(this).css("display","none");
+  });
+</script>
+
+
     </div>
     <div class="nav">
       <ul class="navbar">
@@ -76,7 +102,7 @@
         <img src="/static/home/image/movie/7dd82a16316ab32c8359debdb04396ef2897.png">
         <span class="caret"></span>
         <ul class="user-menu">
-          <li><a href="javascript:void 0">登录</a></li>
+          <li><a href="/hlogin">登录</a></li>
         </ul>
       </div>
     </div>
