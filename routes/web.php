@@ -17,8 +17,10 @@ Route::get('/show/{id}',"Home\IndexController@show");
 
 
 
-// 电影页面
+// 前台电影页面
 Route::resource("/films","Home\FilmController");
+// 前台电影院选择
+Route::get("/films_show_cinema","Home\FilmCinemaController@film_show_cinema");
 
 
 //前台登录
@@ -29,6 +31,14 @@ Route::get('/cove','Home\LoginController@code');
 Route::post('/hdologin','Home\LoginController@dologin');
 //发送手机校验码
 Route::get('/sendmessage','Home\LoginController@sendmessage');
+
+
+
+//前台热点
+Route::resource('/hot','Home\HotController');
+
+
+
 
 
 
@@ -187,5 +197,3 @@ Route::get("/adminfilmorderdelss","Admin\FilmorderController@delss");
 
 });
 
-//热点
-Route::resource('/hot','Home\HotController');
