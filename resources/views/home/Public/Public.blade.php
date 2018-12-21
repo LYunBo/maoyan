@@ -102,7 +102,7 @@
         <img src="/static/home/image/movie/7dd82a16316ab32c8359debdb04396ef2897.png">
         <span class="caret"></span>
         <ul class="user-menu">
-          <li><a href="/homelogin">登录</a></li>
+          <li><a href="/hlogin">登录</a></li>
         </ul>
       </div>
     </div>

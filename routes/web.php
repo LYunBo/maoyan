@@ -22,11 +22,11 @@ Route::resource("/films","Home\FilmController");
 
 
 //前台登录
-Route::resource('/homelogin','Home\LoginController');
+Route::resource('/hlogin','Home\LoginController');
 //获取验证码的路由
 Route::get('/cove','Home\LoginController@code');
 //检验用户登录
-Route::post('/homedologin','Home\LoginController@dologin');
+Route::post('/hdologin','Home\LoginController@dologin');
 //发送手机校验码
 Route::get('/sendmessage','Home\LoginController@sendmessage');
 

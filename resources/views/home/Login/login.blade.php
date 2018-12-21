@@ -11,6 +11,7 @@
 <![endif]-->
 <link rel="stylesheet" href="/static/home/css/login.css">
 <link rel="stylesheet" type="text/css" href="/static/home/css/iconfont.css">
+<script src="/static/jquery-1.8.3.min.js"></script>
 </head>
 <body class="pg-unitive-login theme--maoyan">
 <header class="header cf"><a class="site-logo" href="/" style="background-image:url(/static/home/image/2.jpg);">猫眼电影</a></header>
@@ -20,12 +21,12 @@
 			<img src="/static/home/image/login/s0.meituan.net.png" width="480" height="370" alt="猫眼电影"/>
 		</div>
 		<div class="login-section" data-params="{&quot;service&quot;:&quot;www&quot;,&quot;isDialog&quot;:false }" >
-			<form id="J-normal-form" action="/homedologin" method="POST" class="form form--stack" style="display:none">
+			<form id="J-normal-form" action="/hdologin" method="POST" class="form form--stack" style="display:block">
 				{{csrf_field()}}
 				<div class="validate-info" style="visibility:hidden">
 				</div>
 				<span class="login-type" data-mtevent="login.mobile.switch">
-				<a id="J-mobile-link" href="/phonelogin">
+				<a id="J-mobile-link" href="javascript:;" onclick="mobile(this)">
                 手机动态码登录
 				<i class="theme--maoyan .login-section .login-type i" style="background-image: url(/static/home/image/login/shouji.png); background-size:16px 16px"></i>
 				</a>
@@ -49,12 +50,8 @@
 				<div class="form-field form-field--ops">
 					<input data-mtevent="login.normal.submit" type="submit" class="btn" value="登录"/>
 				</div>
-				<p class="signup-guide">
-					还没有账号？
-					<a href="/homelogin/create" target="_top">免费注册</a>
-				</p>
 			</form>
-			<form id="J-mobile-form" action="" method="POST" class="form form--stack J-wwwtracker-form" style="display:block">
+			<form id="J-mobile-form" action="" method="POST" class="form form--stack J-wwwtracker-form" style="display:none">
 				<div class="validate-info" style="visibility:hidden">
 				</div>
 				<span class="login-type login-type--normal" data-mtevent="login.normal.switch">
@@ -62,14 +59,14 @@
                 普通方式登录
 				<i class="theme--maoyan .login-section .login-type i" style="background-image: url(/static/home/image/login/yonghu.png); background-size:16px 16px"></i>
 				</a>
-            账号登录
+            	账号登录
 				</span>
 				<div class="J-info form-field form-field--icon">
 					<i class="icon icon-user" style="background-image: url(/static/home/image/login/sj.png); background-size:18px 18px"></i>
 					<input type="text" id="login-mobile" class="f-text" name="mobile" value="" placeholder="手机号"/>
 				</div>
-				<div class="form-field J-form-field-captcha form-field--captcha" style="display:block">
-					<input type="text" id="captcha" class="f-text J-captcha-input" name="code" placeholder="验证码" autocomplete="off"/>
+				<div class="form-field J-form-field-captcha form-field--captcha" style="display:none">
+					<input type="text" class="f-text J-captcha-input" name="code" placeholder="验证码" autocomplete="off"/>
 					<img src="/cove" height="36" width="101"  onclick="this.src=this.src+'?a=1'"/>
 				</div>
 				<div class="form-field form-field--icon">
@@ -84,7 +81,7 @@
 					<span class="verify-tip" id="J-verify-tip"></span>
 				</div>
 				<div class="form-field form-field--auto-login cf">
-					<a tabindex="-1" href="https://passport.meituan.com/useraccount/retrievepassword?service&#x3D;maoyan&amp;continue&#x3D;http%3A%2F%2Fmaoyan.com%2Fpassport%2Flogin%3Fredirect%3D%252F" target="_top" class="forget-password">忘记密码？</a>
+					<a tabindex="-1" href="">忘记密码？</a>
 				</div>
 				<div class="form-field form-field--ops">
 					<input type="hidden" name="origin" value="account-login"/>
@@ -93,6 +90,10 @@
 					<input data-mtevent="login.mobile.submit" type="submit" class="btn" name="commit" value="登录"/>
 				</div>
 			</form>
+			<p class="signup-guide">
+					还没有账号？
+					<a href="/homelogin/create" target="_top">免费注册</a>
+			</p>
 		</div>
 	</div>
 </div>
@@ -109,4 +110,14 @@
 </div>
 </footer>
 </body>
+<script>
+ 	// 当点击手机登录页面转换表单
+ 	function mobile(obj){
+ 		// alert(1);
+ 		// 找到父级的form表单目的让其隐藏
+ 		$(obj).parents('form').css('display','none');
+ 		// 让另外一个form表单显示
+ 		$('J-mobile-form').css('display','block');
+ 	}
+</script>
 </html>
