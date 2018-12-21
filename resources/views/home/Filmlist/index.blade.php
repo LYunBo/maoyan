@@ -113,4 +113,4 @@
  </body>
 </html>
 @endsection
-@section('title','正在热播')
+@section('title','猫眼')
