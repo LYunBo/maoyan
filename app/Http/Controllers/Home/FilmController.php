@@ -23,8 +23,13 @@ class FilmController extends Controller
         }else{
             $playback_status = "0";
         }
+        if ($request -> has("sort")) {
+            $sort = $request -> input("sort");
+        }else{
+            $sort = "id";
+        }
         // 多表查询film和film_relation
-        $data = DB::table("film") -> join("film_relation","film.relation_id","=","film_relation.id") -> select("film.*","film_relation.*") -> orderBy("film.id","asc") -> get();
+        $data = DB::table("film") -> join("film_relation","film.relation_id","=","film_relation.id") -> select("film.*","film_relation.*") -> orderBy("film.".$sort,"asc") -> get();
         // 判断是否有上传区域参数
         if ($request -> has("district")) {
             $district = $request -> input("district");
@@ -77,12 +82,22 @@ class FilmController extends Controller
                 $data_film[] = $v;
             }
         }
-
+        // 手动分页
+        // 页数
+        $pages = ceil(count($data_film)/15);
+        // 判断是否有页码上传
         if (!$request -> has("page")) {
             $page = 1;
         }else{
+            // 限定页数的数量
+            if($request -> input("page") <=0){
+                return back();
+            }elseif ($request -> input("page") > $pages) {
+                return back();
+            }
             $page = $request -> input("page");
         }
+        // 去第几条到第几条
         $j = ($page-1)*15;
         $data_film_s = array();
         if ((count($data_film) - $j) >= 15) {
@@ -94,8 +109,7 @@ class FilmController extends Controller
                 $data_film_s[] = $data_film[$i];
             }
         }
-        // var_dump($data_film_s);
-        return view("home.Filmlist.index",["data" => $data_film_s,"playback_status" => $playback_status,"district_id" => $status,"type_id" => $statusz,"district" => $district,"type" => $type,"page" => $page]);
+        return view("home.Filmlist.index",["data" => $data_film_s,"playback_status" => $playback_status,"district_id" => $status,"type_id" => $statusz,"district" => $district,"type" => $type,"page" => $page,"pages" => $pages,"sort" => $sort]);
 
     }
 
