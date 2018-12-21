@@ -45,11 +45,29 @@
      <div class="movies-sorter"> 
       <div class="cat-sorter"> 
        <ul> 
-        <li> <span class="sort-control-group" data-act="sort-click" data-val="{tagId: 1 }" style="cursor: default"> <span class="sort-control sort-radio sort-radio-checked"></span> <span class="sort-control-label">按热门排序</span> </span> </li> 
-        <li> <span class="sort-control-group" data-act="sort-click" data-val="{tagId: 2 }" data-href="?sortId=2" onclick="location.href=this.getAttribute('data-href')"> <span class="sort-control sort-radio"></span> <span class="sort-control-label">按时间排序</span> </span> </li> 
-        <li> <span class="sort-control-group" data-act="sort-click" data-val="{tagId: 3 }" data-href="?sortId=3" onclick="location.href=this.getAttribute('data-href')"> <span class="sort-control sort-radio"></span> <span class="sort-control-label">按评价排序</span> </span> </li> 
+        <li> <span class="sort-control-group" data-act="sort-click" data-val="{tagId: 1 }" data-href="?playback_status={{$playback_status}}&district={{$district}}&type={{$type}}&sort=box_office" onclick="location.href=this.getAttribute('data-href')"> <span
+          @if($sort == "box_office")
+          class='sort-control sort-radio sort-radio-checked'
+          @else
+          class='sort-control sort-radio'
+          @endif
+          ></span> <span class="sort-control-label">按热门排序</span> </span> </li>
+        <li> <span class="sort-control-group" data-act="sort-click" data-val="{tagId: 2 }" data-href="?playback_status={{$playback_status}}&district={{$district}}&type={{$type}}&sort=ymd" onclick="location.href=this.getAttribute('data-href')"> <span
+          @if($sort == "ymd")
+          class='sort-control sort-radio sort-radio-checked'
+          @else
+          class='sort-control sort-radio'
+          @endif
+          ></span> <span class="sort-control-label">按时间排序</span> </span> </li> 
+        <li> <span class="sort-control-group" data-act="sort-click" data-val="{tagId: 3 }" data-href="?playback_status={{$playback_status}}&district={{$district}}&type={{$type}}&sort=score" onclick="location.href=this.getAttribute('data-href')"> <span 
+          @if($sort == "score")
+          class='sort-control sort-radio sort-radio-checked'
+          @else
+          class='sort-control sort-radio'
+          @endif
+          ></span> <span class="sort-control-label">按评价排序</span> </span> </li> 
        </ul> 
-      </div> 
+      </div>
       <div class="play-sorter"> 
        <span class="sort-control-group" data-act="isplay-click" data-val="{isplay:1}" data-href="?isPlay=1" onclick="location.href=this.getAttribute('data-href')"> <span class="sort-control sort-checkbox"></span> <span class="sort-control-label">可播放</span> </span> 
       </div> 
@@ -59,7 +77,7 @@
       @foreach($data as $v)
        <dd> 
         <div class="movie-item"> 
-         <a href="/films/42964" target="_blank" data-act="movie-click" data-val="{movieid:42964}"> 
+         <a href="/films/{{$v -> id}}"> 
           <div class="movie-poster"> 
            <img data-src="{{$v -> cover}}" /> 
           </div> </a> 
@@ -70,11 +88,11 @@
           <i class="imax3d"></i>
          </div> 
         </div> 
-        <div class="channel-detail movie-item-title" title="毒液：致命守护者"> 
-         <a href="/films/42964" target="_blank" data-act="movies-click" data-val="{movieId:42964}">毒液：致命守护者</a> 
+        <div class="channel-detail movie-item-title" title="{{$v -> name}}"> 
+         <a href="/films/{{$v -> id}}">{{$v -> name}}</a> 
         </div> 
         <div class="channel-detail channel-detail-orange">
-         <i class="integer">9.</i>
+         <i class="integer">{{$v -> score == 0?"电影暂无评分":$v -> score}}</i>
         </div> 
        </dd>
       @endforeach
@@ -82,9 +100,11 @@
      </div> 
      <div class="movies-pager"> 
       <ul class="list-pager"> 
-       <li class="active"> <a class="page_1" href="javascript:void(0);" style="cursor: default">1</a> </li> 
-       <li> <a class="page_2" href="?offset=30">2</a> </li> 
-       <li> <a class="page_2" href="?offset=30">下一页</a> </li> 
+        <li> <a href="?playback_status={{$playback_status}}&district={{$district}}&type={{$type}}&page={{$page-1}}">上一页</a> </li>
+      @for($i=1;$i<=$pages;$i++)
+       <li {{$page == $i?"class=active":""}} > <a href="?playback_status={{$playback_status}}&district={{$district}}&type={{$type}}&page={{$i}}">{{$i}}</a> </li> 
+      @endfor
+      <li> <a href="?playback_status={{$playback_status}}&district={{$district}}&type={{$type}}&page={{$page+1}}">下一页</a> </li>
       </ul> 
      </div> 
     </div> 
