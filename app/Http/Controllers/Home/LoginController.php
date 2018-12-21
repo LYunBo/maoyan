@@ -20,11 +20,16 @@ class LoginController extends Controller
         return View('Home.Login.login');
     }
 
-    //检验登录状态
+    //检验登录(普通登录)
     public function dologin(Request $request){
         // dd($_POST);
         // var_dump($request->all());
         //打包好提交上来的数据
+        
+    }
+
+    //通过ajax发送短信校验码
+    public function sendmessage(){
         
     }
     /**

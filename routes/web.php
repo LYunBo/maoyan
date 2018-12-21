@@ -27,7 +27,8 @@ Route::resource('/homelogin','Home\LoginController');
 Route::get('/cove','Home\LoginController@code');
 //检验用户登录
 Route::post('/homedologin','Home\LoginController@dologin');
-
+//发送手机校验码
+Route::get('/sendmessage','Home\LoginController@sendmessage');
 
 
 
