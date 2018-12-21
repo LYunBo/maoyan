@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Mail;
+//引入第三方验证码类库
+use Gregwar\Captcha\CaptchaBuilder;
 class LoginController extends Controller
 {
     /**
@@ -18,6 +20,13 @@ class LoginController extends Controller
         return View('Home.Login.login');
     }
 
+    //检验登录状态
+    public function dologin(Request $request){
+        // dd($_POST);
+        // var_dump($request->all());
+        //打包好提交上来的数据
+        
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -25,15 +34,28 @@ class LoginController extends Controller
      */
     public function create()
     {
-        //
-        Mail::raw('你是不是蛤蜊',function($message)){
-            //接收方
-            $message->to('43887979@qq.com');
-            //发送邮件主题
-            $message->subject('账号激活');
-        }
+        //返回注册界面
+        return View('Home.Login.add');
+        
     }
 
+    //验证码检测
+    public function code(){
+        // 生成校验码代码
+        ob_clean();//清除操作
+        $builder = new CaptchaBuilder;
+        //可以设置图片宽高及字体
+        $builder->build($width = 100, $height = 40, $font = null);
+        //获取验证码的内容
+        $phrase = $builder->getPhrase();
+        //把内容存入sessio
+        session(['vcode'=>$phrase]);
+        //生成图片
+        header("Cache-Control: no-cache, must-revalidate");
+        header('Content-Type: image/jpeg');
+        $builder->output();
+        // die;
+    }
     /**
      * Store a newly created resource in storage.
      *

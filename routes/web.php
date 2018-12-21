@@ -20,7 +20,10 @@ Route::resource("/films","Home\FilmController");
 
 //前台登录
 Route::resource('/homelogin','Home\LoginController');
-
+//获取验证码的路由
+Route::get('/cove','Home\LoginController@code');
+//检验用户登录
+Route::post('/homedologin','Home\LoginController@dologin');
 
 
 
