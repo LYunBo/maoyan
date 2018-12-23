@@ -317,7 +317,7 @@
   <div class="latest-container">
       <h4 class="latest-header blue">
         预告片速递
-        <a href="?showTab=3" class="all-latest" data-act="all-videos-click">
+        <a href="/hot/tab=3" class="all-latest" data-act="all-videos-click">
           全部
           <span class="arrow blue-arrow"></span>
         </a>
@@ -368,7 +368,7 @@
         <div class="latest-container">
       <h4 class="latest-header yellow">
     最新图集
-    <a href="?showTab=4" class="all-latest" data-act="all-images-click">
+    <a href="/hot/tab=4/edit" class="all-latest" data-act="all-images-click">
       全部
       <span class="arrow yellow-arrow"></span>
     </a>
