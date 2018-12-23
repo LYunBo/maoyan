@@ -118,7 +118,7 @@
         <li><a href="/films" data-act="movies-click">电影</a></li>
         <li><a href="/cinemas" data-act="cinemas-click">影院</a></li>
         <li><a href="/board" data-act="board-click">榜单</a></li>
-        <li><a href="/news" data-act="hotNews-click">热点</a></li>
+        <li><a href="/hot" data-act="hotNews-click">热点</a></li>
       </ul>
     </div>
     <div class="user-info">
