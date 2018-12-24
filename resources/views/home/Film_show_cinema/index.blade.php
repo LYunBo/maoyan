@@ -161,7 +161,7 @@
     @foreach($data as $v)
     <div class="cinema-cell"> 
      <div class="cinema-info"> 
-      <a href="/films/{{$v -> id}}" class="cinema-name">{{$v -> name}}</a> 
+      <a href="/films_cinema?cinema_id={{$v -> id}}" class="cinema-name">{{$v -> name}}</a> 
       <p class="cinema-address">地址：{{$v -> address}}</p> 
      </div> 
      <div class="buy-btn"> 
@@ -170,7 +170,7 @@
     </div> 
     @endforeach
    </div> 
-   <div class="cinema-pager"> 
+   <!-- <div class="cinema-pager"> 
     <ul class="list-pager"> 
      <li class="active"> <a class="page_1" href="javascript:void(0);" style="cursor: default">1</a> </li> 
      <li> <a class="page_2" href="?movieId=42964&amp;offset=12">2</a> </li> 
@@ -181,7 +181,7 @@
      <li> <a class="page_11" href="?movieId=42964&amp;offset=120">11</a> </li> 
      <li> <a class="page_2" href="?movieId=42964&amp;offset=12">下一页</a> </li> 
     </ul> 
-   </div> 
+   </div>  -->
    <script id="comment-form-container" type="text/template">
   <form id="comment-form" data-val="{movieid:42964}">
     <div class="score-msg-container ">

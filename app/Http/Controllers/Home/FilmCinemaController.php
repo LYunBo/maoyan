@@ -5,17 +5,33 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use helper;
 class FilmCinemaController extends Controller
 {
     public function index(Request $request){
         // 获取电影id
-        $film_id = $request -> input("film_id");
+        if ($request -> has("film_id")) {
+            $film_id = $request -> input("film_id");
+        }else{
+            $film_id = "0";
+        }
         // 获取电影院id
         $cinema_id = $request -> input("cinema_id");
         // 查询电影院数据
         $data_cinema = DB::table("cinema") -> where("id","=",$cinema_id) -> get();
         // 查询该电影院的所有电影场次
-        $data_scene = DB::table("film_scene") -> join("film","film_scene.film_id","=","film.id") -> join("film_relation","film.relation_id","=","film_relation.id") -> select("film.*","film_relation.*","film_scene.*") -> where("cinema_id","=",$cinema_id) -> get();
+        $data_scene = DB::table("film_scene") -> join("film","film_scene.film_id","=","film.id") -> join("film_relation","film.relation_id","=","film_relation.id") -> join("projection_hall","film_scene.projection_hall_id","=","projection_hall.id") -> select("film.*","film_relation.*","film_scene.*","film.times as timess","projection_hall.name as projection_hall_name") -> where("film_scene.cinema_id","=",$cinema_id) -> get();
+        $type = ["0" => "爱情","1" => "喜剧","2" => "动画","3" => "剧情","4" => "恐怖","5" => "惊悚","6" => "科幻","7" => "动作","8" => "悬疑","9" => "犯罪","10" => "冒险","11" => "战争","12" => "奇幻","13" => "运动","14" => "家庭","15" => "古装","16" => "武侠","17" => "西部","18" => "历史","19" => "传记","20" => "歌舞","21" => "黑色电影","22" => "短片","23" => "纪录片","24" => "其他"];
+        $language_s = ["1" => "国语2D","2" => "国语3D","3" => "原版2D","4" => "原版3D","5" => "英语2D","6" => "英语3D","7" => "日语2D","8" => "日语3D"
+        ];
+        foreach($data_scene as $v){
+            $type_s = explode(",",$v -> type_id);
+            foreach($type_s as $k => $value){
+                $type_s[$k] = $type[$value];
+            }
+            $v -> type_id = implode(",",$type_s);
+            $v -> language = $language_s[$v -> language];
+        }
         // 将电影场次按电影id分开
         $data_scene_film_id = array();
         $i = 0;
@@ -57,8 +73,6 @@ class FilmCinemaController extends Controller
             // var_dump($data_scene_hi_s);
         }
 
-        // 获取电影信息
-        $film = DB::table("film") -> join("film_relation","film.relation_id","=","film_relation.id") -> select("film.*","film_relation.*") -> where("film.id","=",$film_id) -> get();
         // 将电影院的服务拆开来
         // 3D眼镜
         $service1 = ["0" => "无","1" => "免押金","2" => "5元/副","3" => "3元/副起步"];
@@ -74,7 +88,8 @@ class FilmCinemaController extends Controller
         // 电影院信息$data_cinema
         // 电影院的三个服务
         // 电影$data_scene_hi_s，按电影id分开后再按时间分开，三维数组
-        return view("home.Film_scene.index",["data_cinema" => $data_cinema,"service" => $service,"data" => $data_scene_hi_s]);
+        // var_dump($data_scene_hi_s[0]);
+        return view("home.Film_scene.index",["data_cinema" => $data_cinema,"service" => $service,"data" => $data_scene_hi_s,"film_id" => $film_id]);
     }
 
     public function film_show_cinema(Request $request){
@@ -317,5 +332,57 @@ class FilmCinemaController extends Controller
     	return view("home.Film_show_cinema.index",["id" => $id,"data" => $data,"datas" => $datas,"film_scene" => $film_scene,"film_scene_hi" => $film_scene_hi,"film_scene_hi_s" => $film_scene_hi_s,"city_id" => $city["id"],"city_all_s" => $city_all_s,"brand" => $brand,"data_cinema_brand" => $data_cinema_brand,"type_id" => $type_id,"types" => $projection_hall_type]);
     	
     }
+
+
+    public function film_order(Request $request){
+        // 判断是否有选择电影场次
+        if (!$request -> has("film_scene_id")) {
+            // 返回到首页
+            return redirect("/films");
+        }
+        // 先注释，后面记得去掉注释
+        // // 判断是否有登陆成功的用户id
+        // if (!empty(session("id"))) {
+        //     // 为空返回首页
+        //     return redirect("/hlogin");
+        // }
+        // 获取电影场次id
+        $film_scene_id = $request -> input("film_scene_id");
+        // 获取电影场次数据
+        $film_scene = DB::table("film_scene") -> join("film","film_scene.film_id","=","film.id") -> join("film_relation","film.relation_id","=","film_relation.id") -> join("cinema","film_scene.cinema_id","=","cinema.id") -> join("projection_hall","film_scene.projection_hall_id","=","projection_hall.id") -> select("film_scene.*","film.*","film_relation.*","cinema.*","projection_hall.*","cinema.name as cinema_name","film.name as film_name","projection_hall.type as projection_hall_type","film_relation.cover as film_relation_cover","film_scene.id as film_scene_id") -> where("film_scene.id","=",$film_scene_id) -> get();
+
+        $type = ["0" => "爱情","1" => "喜剧","2" => "动画","3" => "剧情","4" => "恐怖","5" => "惊悚","6" => "科幻","7" => "动作","8" => "悬疑","9" => "犯罪","10" => "冒险","11" => "战争","12" => "奇幻","13" => "运动","14" => "家庭","15" => "古装","16" => "武侠","17" => "西部","18" => "历史","19" => "传记","20" => "歌舞","21" => "黑色电影","22" => "短片","23" => "纪录片","24" => "其他"];
+        $language_s = ["1" => "国语2D","2" => "国语3D","3" => "原版2D","4" => "原版3D","5" => "英语2D","6" => "英语3D","7" => "日语2D","8" => "日语3D"
+        ];
+        $projection_hall_type = ["1" => "IMAX厅","2" => "CGS中国巨幕厅","3" => "杜比全景声厅","4" => "RealD厅","5" => "RealD","6" => "6FL厅","7" => "LUXE巨幕厅","8" => "4DX厅","9" => "DTS:X","10" => "临境音厅","11" => "儿童厅","12" => "4K厅","13" => "4D厅","14" => "巨幕厅"
+        ];
+        foreach($film_scene as $v){
+            $type_s = explode(",",$v -> type_id);
+            foreach($type_s as $k => $value){
+                $type_s[$k] = $type[$value];
+            }
+            $v -> type_id = implode(",",$type_s);
+            $v -> language = $language_s[$v -> language];
+            $v -> projection_hall_type = $projection_hall_type[$v -> projection_hall_type];
+        }
+        return view("home.film_order.index",["data" => $film_scene]);
+    }
+    // 短信验证
+    public function duanxin(Request $request){
+        if (!$request -> has("phone")) {
+            return "2";
+        }
+        $phone = $request -> input("phone");
+        $num = rand(1000,9999);
+        $data = new helper();
+        if($data -> sendsphone($phone,$num)){
+            return $num;
+        }
+    }
+
+    public function user_order(Request $request){
+
+    }
+
 }
 

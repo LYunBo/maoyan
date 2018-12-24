@@ -21,6 +21,8 @@ Route::resource("/films","Home\FilmController");
 Route::get("/films_show_cinema","Home\FilmCinemaController@film_show_cinema");
 // 前台电影院详情以及场次选择
 Route::get("/films_cinema","Home\FilmCinemaController@index");
+// 订单页面，座位选择
+Route::get("/films_order","Home\FilmCinemaController@film_order");
 
 
 //前台登录
