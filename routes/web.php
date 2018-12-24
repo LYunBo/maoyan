@@ -19,6 +19,8 @@ Route::get('/show/{id}',"Home\IndexController@show");
 Route::resource("/films","Home\FilmController");
 // 前台电影院选择
 Route::get("/films_show_cinema","Home\FilmCinemaController@film_show_cinema");
+// 前台电影院详情以及场次选择
+Route::get("/films_cinema","Home\FilmCinemaController@index");
 
 
 //前台登录
