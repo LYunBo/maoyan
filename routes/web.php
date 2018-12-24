@@ -15,8 +15,6 @@ Route::get('/',"Home\IndexController@index");
 // 首页公共页的定位
 Route::get('/show/{id}',"Home\IndexController@show");
 
-
-
 // 前台电影页面
 Route::resource("/films","Home\FilmController");
 // 前台电影院选择
@@ -31,7 +29,8 @@ Route::get('/cove','Home\LoginController@code');
 Route::post('/hdologin','Home\LoginController@dologin');
 //发送手机校验码
 Route::get('/sendmessage','Home\LoginController@sendmessage');
-
+//用手机验证码登录
+Route::post('/hpdologin','Home\LoginController@pdologin');
 
 
 //前台热点

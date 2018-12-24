@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Mail;
 //引入第三方验证码类库
 use Gregwar\Captcha\CaptchaBuilder;
+//引入自定义类
+use helper;
 class LoginController extends Controller
 {
     /**
@@ -24,13 +26,38 @@ class LoginController extends Controller
     public function dologin(Request $request){
         // dd($_POST);
         // var_dump($request->all());
-        //打包好提交上来的数据
+        $vcode = session('vcode');
+
+        $code = $request->input('code');
+
+        // echo $vcode.':'.$code;
+        //判断校验码的是否错误
+        if($code == $vcode){
+
+        }else{
+            return back()->with('error','验证码错误');
+        }
+        
         
     }
 
+    //检验登录(手机登录)
+    public function pdologin(Request $request){
+        dd($request->all());
+    }
     //通过ajax发送短信校验码
-    public function sendmessage(){
-        
+    public function sendmessage(Request $request){
+        // dd($request->all());
+        // 获取电话号码
+        $phone = $request->input('phone');
+        //生成验证码
+        $par = rand(1,10000);
+        //存到session
+        session(['code'=>$par]);
+        //用短信发送的自定义类
+        $send = new helper();
+        // 发送手机校验码
+        echo $send->sendsphone($phone,$par);
     }
     /**
      * Show the form for creating a new resource.
