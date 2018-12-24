@@ -31,6 +31,7 @@
 					<th width="80">联系电话</th>
 					<th width="80">广告标题</th>
 					<th width="220">广告图片</th>
+					<th width="220">网址</th>
 					<th width="60">创建时间</th>
 					<th width="60">修改时间</th>
 					<th width="60">审核结果</th>
@@ -47,6 +48,7 @@
 					<td>{{$row->phone}}</td>
 					<td>{{$row->title}}</td>
 					<td><img src="{{$row->img}}" alt="" style="width: 50px;height: 50px;"></td>
+					<td>{{$row->url}}</td>
 					<td>{{$row->created_at}}</td>
 					<td>{{$row->updated_at}}</td>
 					@if($row->state==0)

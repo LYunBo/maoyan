@@ -52,6 +52,19 @@
     <link rel="stylesheet" href="/static/home/css/news-hotnews.a01df872_2.css"/>
     <script crossorigin="anonymous" src="/static/home/js/stat.74891044_1.js"></script>
     <script>if(window.devicePixelRatio >= 2) { document.write('<link rel="stylesheet" href="/static/home/css/image-2x.8ba7074d_2.css"/>') }</script>
+
+  
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <script src="/static/bootstrap/js/jquery.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/bootstrap/js/holder.min.js"></script>
+
+    <!-- 电影详情 -->
+    <link rel="stylesheet" href="/static/home/css/common.4b838ec3.css"/>
+<link rel="stylesheet" href="/static/home/css/movie-detail.40d4116c.css"/>
+<script crossorigin="anonymous" src="/static/home/js/stat.74891044.js"></script>
+<script>if(window.devicePixelRatio >= 2) { document.write('<link rel="stylesheet" href="/static/home/css/image-2x.8ba7074d.css"/>') }</script>
     
 
 <meta name="msvalidate.01" content="F338006073F396CBBDA443AAB6A8BA47"/>
@@ -163,10 +176,63 @@
       投诉举报邮箱：tousujubao@meituan.com
       舞弊线索举报邮箱：wubijubao@maoyan.com
   </p>
+  
+  <button class="btn" style="font-size: 1px;text-align: center;margin:0 900px;left:500px;"  data-toggle="modal" data-target="#mymodal">点击加入我们</button>
+
+  <div class="modal" id="mymodal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <!-- 这是模态框的头 -->
+        <div class="modal-header">
+          <!-- data-dismiss="modal" 关闭modal框 -->
+          <button class="close" data-dismiss="modal">&times;</button>
+          <h3>请输入您的信息</h3>
+        </div>
+      <!-- 模态框主体 -->
+        <div class="modal-body">
+          <form action="/urladd" method="get">
+          
+          <div class="form-group">
+            <label for="name">您的真实姓名:</label>
+            <input type="text" class="form-control"  name="name" id="name">
+          </div>
+          <div class="form-group">
+            <label for="phone">您的联系电话:</label>
+            <input type="text" class="form-control"  name="phone">
+          </div>
+          <div class="form-group">
+            <label for="urlname">网址名:</label>
+            <input type="text" class="form-control"  name="urlname">
+          </div>
+          <div class="form-group">
+            <label for="url">网址:</label>
+            <input type="text" class="form-control"  name="url">
+          </div>
+          <input type="submit"  value="提交" class="btn btn-success">
+          {{csrf_field()}}
+          </form>
+        </div>
+      <!-- 模态框脚部 -->
+        <div class="modal-footer">
+          <button class="btn btn-info" data-dismiss="modal">关闭</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <?php 
+    
+    $link=DB::table('link')->where('state','=','1')->where('look','=','1')->get();
+
+   ?>
+  
   <p class="friendly-links">
         友情链接 :
-    <a href="http://www.meituan.com" data-query="utm_source=wwwmaoyan" target="_blank">美团网</a>
+        @foreach($link as $row)
+    <a href="{{$row->url}}" data-query="utm_source=wwwmaoyan" target="_blank">{{$row->urlname}}</a>
     <span></span>
+      @endforeach
     <a href="http://i.meituan.com/client" data-query="utm_source=wwwmaoyan" target="_blank">美团下载</a>
     <span></span>
     <a href="https://www.huanxi.com" data-query="utm_source=maoyan_pc" target="_blank">欢喜首映</a>

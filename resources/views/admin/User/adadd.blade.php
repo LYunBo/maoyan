@@ -44,12 +44,17 @@
 	</div>
 	
 	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>url：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="请输入网址" name="url">
+		</div>
+	</div>
+	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>广告商联系方式：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			<input type="text" class="input-text" value="" placeholder="请输入11位手机号码" id="phone" name="phone">
 		</div>
 	</div>
-	
 	
 	
 	<div class="row cl">
