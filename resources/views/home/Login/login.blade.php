@@ -36,7 +36,7 @@
 				</span>
 				<div class="form-field form-field--icon">
 					<i class="icon icon-user" style="background-image: url(/static/home/image/login/yonghu-.png); background-size:18px 18px"></i>
-					<input type="text" id="login-input" class="f-text" name="email" placeholder="手机号/用户名/邮箱" value=""/>
+					<input type="text" id="login-input" class="f-text" name="user" placeholder="手机号/用户名/邮箱" value=""/>
 				</div>
 				<div class="form-field form-field--icon">
 					<i class="icon icon-password" style="background-image: url(/static/home/image/login/mima.png); background-size:18px 18px" ></i>
@@ -55,7 +55,10 @@
 			</form>
 			<form id="J-mobile-form" action="/hpdologin" method="POST" class="form form--stack J-wwwtracker-form" style="display:none">
 				{{csrf_field()}}
-				<div class="validate-info" id="messages" style="visibility:hidden">
+				<div class="validate-info" @if(!empty(session('error'))) style="visibility:visible" @else style="visibility:hidden" @endif id="messages">
+					@if(!empty(session('error')))
+						{{session('error')}}
+					@endif
 				</div>
 				<span class="login-type login-type--normal" data-mtevent="login.normal.switch">
 				<a id="J-normal-link" href="javascript:;" onclick="normal(this)">
@@ -83,12 +86,12 @@
 					<a tabindex="-1" href="/" target="_top" class="forget-password">忘记密码？</a>
 				</div>
 				<div class="form-field form-field--ops">
-					<input data-mtevent="login.mobile.submit" id="pbtn" type="submit" class="btn" name="commit" value="登录"/>
+					<input data-mtevent="login.mobile.submit" id="pbtn" type="submit" class="btn" value="登录" />
 				</div>
 			</form>
 			<p class="signup-guide">
 					还没有账号？
-					<a href="/homelogin/create" target="_top">免费注册</a>
+					<a href="/hlogin/create" target="_top">免费注册</a>
 			</p>
 		</div>
 	</div>
@@ -195,9 +198,11 @@
  			div.html('用户名不能为空');
  			div.css('visibility','visible');
  			$('#J-mobile-form').attr('onsubmit','return false');
+ 			$('.sendphone').attr('disable',true);
  		}else{
  			div.css('visibility','hidden');
  			$('#J-mobile-form').attr('onsubmit','return true');
+ 			$('.sendphone').attr('disable',false);
  		}
 
  		//判断手机号码是否有效
@@ -205,22 +210,82 @@
  			div.html('手机号码无效');
  			div.css('visibility','visible');
  			$('#J-mobile-form').attr('onsubmit','return false');
+ 			$('.sendphone').attr('disable',true);
  		}
  	});
 
  	//发送手机验证码
- 	$('.sendphone').one('click',function(){
+ 	$('.sendphone').click(function(){
  		//获取手机号码
  		var phone = $('#login-mobile').val();
  		// console.log(phone);
+ 		var i = 60;
+ 		//获取本对象
+ 		var sendbtn = $(this);
  		//通过ajax提交手机号码调用方法发送
  		$.get('/sendmessage',{'phone':phone},function(data){
  			// alert(1);
  			// console.log(data);
  			var str = JSON.parse(data);
- 			console.long(str);
+ 			// console.log(str);
+ 			if(str.code == '000000'){
+ 				var timmer = setInterval(function(){
+ 					sendbtn.val('重新发送('+i+')');
+ 					i--;
+ 					sendbtn.attr('disabled',true);
+ 					if(i==0){
+ 						clearInterval(timmer);
+ 						sendbtn.val('重新发送');
+ 						sendbtn.attr('disabled',false);
+ 					}
+ 				},1000);
+ 			}		
 
  		});
+ 	});
+ 	//判断验证码
+ 	$('#login-verify-code').blur(function(){
+ 		//获取输入的内容
+ 		var code = $(this).val();
+ 		//获取提示信息的对象
+ 		var div = $('#messages');
+ 		if(code !== ''){
+ 			//判断验证码是否正确
+	 		$.get('/hpcheck',{'code':code},function(data){
+	 			// console.log(data);
+	 			if(data == 1){
+	 				div.html('验证码过期请重新获取');
+	 				div.css('visibility','visible');
+	 				$('#J-mobile-form').attr('onsubmit','return false');
+	 			}else if(data == 2){
+	 				div.html('验证码不正确');
+	 				div.css('visibility','visible');
+	 				$('#J-mobile-form').attr('onsubmit','return false');
+	 			}else if(data == 3){
+	 				div.css('visibility','hidden');
+	 				$('#J-mobile-form').attr('onsubmit','return true');
+	 			}
+	 		});
+	 	}else{
+	 		div.html('请输入正确的验证码');
+	 		div.css('visibility','visible');
+	 		$('#J-mobile-form').attr('onsubmit','return false');
+	 	}
+ 	});
+ 	// alert({{\Cookie::get('code')}});
+ 	// 阻止手机号码登录的验证
+ 	$('#pbtn').click(function(){
+ 		//获取手机号码
+ 		var phone = $('#login-mobile').val().length;
+ 		//获取验证码
+ 		var code = $('#login-verify-code').val().length;
+		//获取提示信息的对象
+ 		var div = $('#messages');
+ 		if(phone == 0){
+ 			div.html('不能留空');
+ 			div.css('visibility','visible');
+ 			$('#J-mobile-form').attr('onsubmit','return false');
+ 		}
  	});
 </script>
 </html>

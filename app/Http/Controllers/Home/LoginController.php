@@ -9,6 +9,10 @@ use Mail;
 use Gregwar\Captcha\CaptchaBuilder;
 //引入自定义类
 use helper;
+//引入DB
+use DB;
+//引入Hash
+use Hash;
 class LoginController extends Controller
 {
     /**
@@ -26,14 +30,47 @@ class LoginController extends Controller
     public function dologin(Request $request){
         // dd($_POST);
         // var_dump($request->all());
+        // 获取正确的图片校验码
         $vcode = session('vcode');
-
+        //获取输入框的验证码
         $code = $request->input('code');
-
         // echo $vcode.':'.$code;
         //判断校验码的是否错误
         if($code == $vcode){
-
+            //获取用户名
+            $user = $request->input('user');
+             //获取密码
+            $password = $request->input('password');
+            //获取密码
+            //判断用户名是否正确
+            $res1 = DB::table('user')->where('phone','like','%'.$user.'%')->first();
+            $res2 = DB::table('user')->where('username','like','%'.$user.'%')->first();
+            $res3 = DB::table('user')->where('email','like','%'.$user.'%')->first();
+            if($res1){
+                //验证密码
+                if(Hash::check($password,$res1->password)){
+                    session(['id'=>$res1->id,'phone'=>$res1->phone]);
+                    echo "<script>alert('登录成功');location='/'</script>";
+                }else{
+                    return back()->with('error','密码错误');
+                }
+            }elseif ($res2) {
+                if(Hash::check($password,$res1->password)){
+                    session(['id'=>$res1->id,'username'=>$res1->phone]);
+                    echo "<script>alert('登录成功');location='/'</script>";
+                }else{
+                    return back()->with('error','密码错误');
+                }
+            }elseif($res3){
+                if(Hash::check($password,$res1->password)){
+                    session(['id'=>$res1->id,'email'=>$res1->phone]);
+                    echo "<script>alert('登录成功');location='/'</script>";
+                }else{
+                    return back()->with('error','密码错误');
+                }
+            }else{
+                return back()->with('error','用户名错误');
+            }
         }else{
             return back()->with('error','验证码错误');
         }
@@ -43,21 +80,50 @@ class LoginController extends Controller
 
     //检验登录(手机登录)
     public function pdologin(Request $request){
-        dd($request->all());
+        // dd($request->all());
+        //获取提交的手机号码
+        $mobile = $request->input('phone');
+        //判断是否有此账号
+        if(DB::table('user')->where('phone','like','%'.$mobile.'%')->first()){
+            echo "<script>alert('登录成功');location='/'</script>";
+        }else{
+            return back()->with('error','请先注册');
+        }
     }
+
     //通过ajax发送短信校验码
     public function sendmessage(Request $request){
         // dd($request->all());
         // 获取电话号码
         $phone = $request->input('phone');
         //生成验证码
-        $par = rand(1,10000);
-        //存到session
-        session(['code'=>$par]);
+        $par = rand(1000,9999);
+        //存到Cookie
+        \Cookie::queue('code',$par,1);  
         //用短信发送的自定义类
         $send = new helper();
         // 发送手机校验码
         echo $send->sendsphone($phone,$par);
+        // var_dump($data);
+    }
+
+    //手机登录验证码验证
+    public function codecheck(Request $request){
+        //获取传递过来的数值
+        $code = $request->input('code');
+        //获取存储的Cookie验证码
+        $Cookie = $request->cookie('code');
+        // echo $Cookie;
+        
+        //用来跟存储的Cookie做判断
+        if(empty($Cookie)){
+            echo 1;
+        }elseif($code !== $Cookie){
+            echo 2;
+        }elseif($code == $Cookie){
+            echo 3;
+        }
+
     }
     /**
      * Show the form for creating a new resource.

@@ -35,7 +35,8 @@ Route::post('/hdologin','Home\LoginController@dologin');
 Route::get('/sendmessage','Home\LoginController@sendmessage');
 //用手机验证码登录
 Route::post('/hpdologin','Home\LoginController@pdologin');
-
+//验证验证码
+Route::get('/hpcheck','Home\LoginController@codecheck');
 
 //前台热点
 Route::resource('/hot','Home\HotController');
