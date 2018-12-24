@@ -1,5 +1,6 @@
 @extends('home.Public.Public')
 @section('home')
+<script src="/static/jquery-1.8.3.min.js"></script>
   <link rel="stylesheet" href="/static/home/film_order/ms0.meituan.net/mywww/common.4b838ec3.css"/>
 <link rel="stylesheet" href="/static/home/film_order/ms0.meituan.net/mywww/cinemas-seat.d66e64ba.css"/>
   <script crossorigin="anonymous" src="/static/home/film_order/ms0.meituan.net/mywww/stat.74891044.js"></script>
@@ -83,182 +84,26 @@
     <div class="seats-wrapper">
         
 
-        <div class="row">
-            <span class="seat selectable" 
-              data-column-id="13"
-              data-row-id="4"
-              data-no="0000000000000001-4-13"
-              data-st="N"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
-            <span class="seat selectable" 
-              data-column-id="12"
-              data-row-id="4"
-              data-no="0000000000000001-4-12"
-              data-st="N"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
-            <span class="seat selectable" 
-              data-column-id="11"
-              data-row-id="4"
-              data-no="0000000000000001-4-11"
-              data-st="N"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
-            <span class="seat selectable" 
-              data-column-id="10"
-              data-row-id="4"
-              data-no="0000000000000001-4-10"
-              data-st="N"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
-            <span class="seat selectable" 
-              data-column-id="09"
-              data-row-id="4"
-              data-no="0000000000000001-4-09"
-              data-st="N"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
-            <span class="seat selectable" 
-              data-column-id="08"
-              data-row-id="4"
-              data-no="0000000000000001-4-08"
-              data-st="N"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
-            <span class="seat selectable" 
-              data-column-id="07"
-              data-row-id="4"
-              data-no="0000000000000001-4-07"
-              data-st="N"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
-            <span class="seat selectable" 
-              data-column-id="06"
-              data-row-id="4"
-              data-no="0000000000000001-4-06"
-              data-st="N"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
-            <span class="seat selectable" 
-              data-column-id="05"
-              data-row-id="4"
-              data-no="0000000000000001-4-05"
-              data-st="N"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
+      @foreach($seat as $k => $v)
+        <div class="row" style="overflow:hidden;height:30px;">
+        @for($i=1,$j=1;$i<=strlen($v);$i++)
+          @if($v[$i-1] == "_")
             <span class="seat empty" 
               data-column-id=""
-              data-row-id="4"
-              data-no=""
-              data-st="E"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
+              data-row-id="{{$k+1}}"
+              style="float:left;"
             ></span>
-            <span class="seat empty" 
-              data-column-id=""
-              data-row-id="4"
-              data-no=""
-              data-st="E"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
-            <span class="seat empty" 
-              data-column-id=""
-              data-row-id="4"
-              data-no=""
-              data-st="E"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
+          @else if($v[$i-1] == "e")
             <span class="seat selectable" 
-              data-column-id="04"
-              data-row-id="4"
-              data-no="0000000000000001-4-04"
-              data-st="N"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
+              data-column-id="{{$j++}}"
+              data-row-id="{{$k+1}}"
+              style="float:left;"
+              onclick="fun(this)"
             ></span>
-            <span class="seat selectable" 
-              data-column-id="03"
-              data-row-id="4"
-              data-no="0000000000000001-4-03"
-              data-st="N"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
-            <span class="seat selectable" 
-              data-column-id="02"
-              data-row-id="4"
-              data-no="0000000000000001-4-02"
-              data-st="N"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
-            <span class="seat selectable" 
-              data-column-id="01"
-              data-row-id="4"
-              data-no="0000000000000001-4-01"
-              data-st="N"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
-            <span class="seat empty" 
-              data-column-id=""
-              data-row-id="4"
-              data-no=""
-              data-st="E"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
-            <span class="seat empty" 
-              data-column-id=""
-              data-row-id="4"
-              data-no=""
-              data-st="E"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
+          @endif
+        @endfor
         </div>
-        <div class="row">
-          <!-- 可以选择的 -->
-            <span class="seat selectable" 
-              data-column-id="13"
-              data-row-id="5"
-              data-no="0000000000000001-5-13"
-              data-st="N"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
-            <!-- 已被选择了的 -->
-            <span class="seat sold" 
-              data-column-id="05"
-              data-row-id="5"
-              data-no="0000000000000001-5-05"
-              data-st="LK"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
-            <!-- 空的 -->
-            <span class="seat empty" 
-              data-column-id=""
-              data-row-id="5"
-              data-no=""
-              data-st="E"
-              data-act="seat-click"
-              data-bid="b_s7eiiijf"
-            ></span>
-            
-        </div>
+      @endforeach
 
     </div>
   </div>
@@ -309,13 +154,14 @@
         </div>
 
         <div class="ticket-info">
-          <div class="no-ticket">
+          <div class="no-ticket" style="display:none;">
             <p class="buy-limit">座位：一次最多选6个座位</p>
             <p class="no-selected">请<span>点击左侧</span>座位图选择座位</p>
           </div>
-          <div class="has-ticket" style="display:none">
+          <div class="has-ticket" style="display:block">
             <span class="text">座位：</span>
-            <div class="ticket-container" data-limit="6"></div>
+            <div class="ticket-container" data-limit="0">
+            </div>
           </div>
 
           <div class="total-price">
@@ -329,13 +175,13 @@
               <input type="hidden" name="film_scene_id" value="{{$data[0] -> film_scene_id}}">
               <input type="text" class="input-phone" placeholder="输入手机号" style="width:260px">
               <div class="captcha" style="display:none">
-                <input type="text" class="input-captcha" placeholder="验证码">
+                <input type="text" class="input-captcha" placeholder="验证码" name="user_phone">
               </div>
               <div class="code-inputer">
                 <input type="text" class="input-code" placeholder="填写验证码" style="width:260px">
-                <span class="send-code disable">获取验证码</span>
+                <span class="send-code disable" id="verification_phone">获取验证码</span>
               </div>
-         <button class="confirm-btn disable" data-act="confirm-click" data-bid="b_0a0ep6pp" style="margin-right:120px;margin-top:-15px;border:0;">确认选座</button>
+         <button class="confirm-btn disable" data-act="confirm-click" data-bid="b_0a0ep6pp" style="margin-right:120px;margin-top:0px;border:0;">确认选座</button>
           </form>
         </div>
       </div>
@@ -352,5 +198,64 @@
 
 
     </div>
+<script>
+  function fun(thiss){
+    var list = $(thiss).attr("data-column-id");
+    var link = $(thiss).attr("data-row-id");
+    var seat = link+","+list;
+    
+    if ($(thiss).attr("class") == "seat selectable") {
+      num = $(".ticket-container").children().length;
+      if (num >=6) {
+        alert("一次最多只能买6张，谢谢");
+        return false;
+      }
+      $(thiss).removeClass("selectable");
+      $(thiss).addClass("selected");
+      $(".ticket-container").attr("data-limit",parseInt($(".ticket-container").attr("data-limit"))+1);
+      $(".ticket-container").append('<span class="ticket" data-row-id="'+link+'" data-column-id="'+list+'" data-index="'+seat+'">'+link+'排'+list+'座</span>');
+      $(".price").html({{$data[0] -> price}}*(num+1));
+    }else if($(thiss).attr("class") == "seat selected"){
+      $(thiss).removeClass("selected");
+      $(thiss).addClass("selectable");
+      $(".ticket-container").attr("data-limit",parseInt($(".ticket-container").attr("data-limit"))-1);
+      $(".ticket-container").find("span[data-index='"+seat+"']").remove();
+      num = $(".ticket-container").children().length;
+      $(".price").html({{$data[0] -> price}}*num);
+    } 
+  }
 
+  $("#verification_phone").click(function(){
+    var str = /^1[34578]\d{9}$/;
+    if($(".input-phone").val() == ""){
+      alert("手机号码不能为空");
+      return false;
+    }else if(str.test($(".input-phone").val())){
+      // alert($(".input-phone").val());
+      $.get("/sendmessage",{"phone":$(".input-phone").val()},function(result){
+        var restring = JSON.parse(result);
+        if (restring.code == "000000") {
+          var i = 60;
+          var times = setInterval(function(){
+            $("#verification_phone").css("display","none");
+            console.log(i);
+            i--;
+            if (i < 0) {
+              clreatInterval(times);
+              $("#verification_phone").html("获取验证码");
+              $("#verification_phone").css("display","block");
+            }
+          },1000)
+        }else{
+          alert("验证码发生了点点小故障喵!");
+          return false;
+        }
+      })
+    }else{
+      alert("手机号码输入失败");
+      return false;
+    }
+    
+  })
+</script>
 @section('title','电影订单')

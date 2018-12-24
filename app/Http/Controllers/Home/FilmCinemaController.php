@@ -365,7 +365,10 @@ class FilmCinemaController extends Controller
             $v -> language = $language_s[$v -> language];
             $v -> projection_hall_type = $projection_hall_type[$v -> projection_hall_type];
         }
-        return view("home.film_order.index",["data" => $film_scene]);
+        // var_dump($film_scene);
+        $seat = $film_scene[0] -> seat;
+        $seat = explode(",",$seat);
+        return view("home.film_order.index",["data" => $film_scene,"seat" => $seat]);
     }
     // 短信验证
     public function duanxin(Request $request){
