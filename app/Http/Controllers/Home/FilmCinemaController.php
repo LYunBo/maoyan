@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use helper;
 use payment;
+use App\HomeModels\film_order;
 class FilmCinemaController extends Controller
 {
     public function index(Request $request){
@@ -391,7 +392,7 @@ class FilmCinemaController extends Controller
             return $num;
         }
     }
-
+    // 调用支付宝接口
     public function add_order(Request $request){
         // echo $request -> input("code");
         if ($request -> input("code") == "") {
@@ -422,7 +423,6 @@ class FilmCinemaController extends Controller
     }
 
     public function return_url(Request $request,$film_scene_id,$seat,$num,$money,$phone){
-
         // 用户id
         $user_id = session("id");
         // 电影场次id
@@ -447,7 +447,7 @@ class FilmCinemaController extends Controller
             return false;
         }
 
-        if ($data = DB::table("order") -> insert(["user_id" => $user_id,"film_id" => $film_id,"order_number" => $order_number,"price" => $price,"payment" => "1","num" => $num_s,"phone" => $phone,"seat_num" => $seat])) {
+        if ($data = film_order::create(["user_id" => $user_id,"film_id" => $film_id,"order_number" => $order_number,"price" => $price,"payment" => "1","num" => $num_s,"phone" => $phone,"seat_num" => $seat])) {
             // echo "成功";
             return view("home.Film_order.sueecss") -> with("success","订单支付成功");
         }else{
