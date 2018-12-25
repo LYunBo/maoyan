@@ -23,6 +23,11 @@ Route::get("/films_show_cinema","Home\FilmCinemaController@film_show_cinema");
 Route::get("/films_cinema","Home\FilmCinemaController@index");
 // 订单页面，座位选择
 Route::get("/films_order","Home\FilmCinemaController@film_order");
+// 支付
+Route::get("/add_order","Home\FilmCinemaController@add_order");
+// 支付成功
+// 参数一是电影场次id，二是座位
+Route::get("/return_url/{film_scene_id}/{seat}/{num}/{money}/{phone}","Home\FilmCinemaController@return_url");
 
 
 //前台登录
