@@ -140,9 +140,9 @@
         <span class="caret"></span>
         <ul class="user-menu">
           @if(!empty(session('id')))
-            <li><a href="/hlogin">我的订单</a></li>
-            <li><a href="/hlogin">基本信息</a></li>
-            <li><a href="/hlogin">退出登录</a></li>
+            <li><a href="/myorder">我的订单</a></li>
+            <li><a href="/information">基本信息</a></li>
+            <li><a href="/outlogin">退出登录</a></li>
           @else
             <li><a href="/hlogin">登录</a></li>
           @endif

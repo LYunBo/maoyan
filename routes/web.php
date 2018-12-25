@@ -42,12 +42,18 @@ Route::get('/sendmessage','Home\LoginController@sendmessage');
 Route::post('/hpdologin','Home\LoginController@pdologin');
 //验证验证码
 Route::get('/hpcheck','Home\LoginController@codecheck');
+//退出登录
+Route::get('/outlogin','Home\LoginController@outlogin');
 
 //前台注册
 Route::get('/register','Home\RegisterController@index');
 //添加注册
 Route::post('/goregister','Home\RegisterController@add');
 
+//个人的基本信息
+Route::get('/information','Home\CenterController@index');
+//个人订单
+Route::get('/myorder','Home\CenterController@order');
 
 //前台热点
 Route::resource('/hot','Home\HotController');

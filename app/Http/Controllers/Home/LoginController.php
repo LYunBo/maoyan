@@ -152,6 +152,12 @@ class LoginController extends Controller
         $builder->output();
         // die;
     }
+
+    //退出登录
+    public function outlogin(){
+        session()->pull('id');
+        return redirect('/');
+    }
     /**
      * Store a newly created resource in storage.
      *

@@ -36,7 +36,7 @@
     @foreach($tj as $value)
         <?php 
           $val=explode(',',$value->img);
-          $c=count($value); 
+          $c=count($val); 
 
         ?>
      <div class="images-box">
