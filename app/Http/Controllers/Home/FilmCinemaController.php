@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use helper;
+use payment;
 class FilmCinemaController extends Controller
 {
     public function index(Request $request){
@@ -341,11 +342,11 @@ class FilmCinemaController extends Controller
             return redirect("/films");
         }
         // 先注释，后面记得去掉注释
-        // // 判断是否有登陆成功的用户id
-        // if (!empty(session("id"))) {
-        //     // 为空返回首页
-        //     return redirect("/hlogin");
-        // }
+        // 判断是否有登陆成功的用户id
+        if (!empty(session("id"))) {
+            // 为空返回首页
+            return redirect("/hlogin");
+        }
         // 获取电影场次id
         $film_scene_id = $request -> input("film_scene_id");
         // 获取电影场次数据
@@ -383,8 +384,69 @@ class FilmCinemaController extends Controller
         }
     }
 
-    public function user_order(Request $request){
+    public function add_order(Request $request){
+        // echo $request -> input("code");
+        if ($request -> input("code") == "") {
+            return 2;
+        }
+        if (!$request -> has("code")) {
+            return 2;
+        }
+        if ($request -> input("code") != \Cookie::get("code")) {
+            // echo $request -> input("code");
+            return 2;
+        }
+        $num = $request -> input("phone").time().rand(10000,99999);
+        $name = $request -> input("name_s");
+        $money = $request -> input("money");
+        $comment = "测试电影购票";
+        $seat = rtrim($request -> input("seat"),",");
+        $phone = $request -> input("phone");
+        $film_scene_id = $request -> input("film_scene_id");
+        $data = DB::table("film_scene") -> where("id","=",$film_scene_id) -> get();
+        if ($money / $data[0] -> price != count(explode(",",$seat))) {
+            return 3;
+        }
+        $data = new payment;
+        // 测试用的金额
+        // $money = "0.01";
+        $data -> fun($num,$name,$money,$comment,$seat,$film_scene_id,$phone);
+    }
 
+    public function return_url(Request $request,$film_scene_id,$seat,$num,$money,$phone){
+
+        // 用户id
+        $user_id = session("id");
+        // 电影场次id
+        $film_id = $film_scene_id;
+        // 订单号
+        $order_number = $num;
+        // 总数额
+        // $money
+        // 座位$seat
+        // 用场次id查询场次
+        $film_scene = DB::table("film_scene") -> where("id","=",$film_id) -> get();
+        // 去除一张票的金额，总金额除去一张票的金额，一次确认票数
+        $price = $film_scene[0] -> price;
+        // 票数
+        $num_s = $money/$price;
+        // 座位数
+        $seat_num = count(explode(",",$seat));
+
+        // 价格验证，不测试的话要开启
+        if ($num_s != $seat_num) {
+            echo "失败";
+            return false;
+        }
+
+        if ($data = DB::table("order") -> insert(["user_id" => $user_id,"film_id" => $film_id,"order_number" => $order_number,"price" => $price,"payment" => "1","num" => $num_s,"phone" => $phone,"seat_num" => $seat])) {
+            // echo "成功";
+            return view("home.Film_order.sueecss") -> with("success","订单支付成功");
+        }else{
+            // echo "失败";
+            return view("home.Film_order.sueecss") -> with("success","订单支付失败");
+        }
+        
     }
 
 }

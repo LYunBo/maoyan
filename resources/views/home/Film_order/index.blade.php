@@ -1,5 +1,9 @@
 @extends('home.Public.Public')
 @section('home')
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+<script src="/static/bootstrap/js/jquery.min.js"></script>
+  <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/static/bootstrap/js/holder.min.js"></script>
 <script src="/static/jquery-1.8.3.min.js"></script>
   <link rel="stylesheet" href="/static/home/film_order/ms0.meituan.net/mywww/common.4b838ec3.css"/>
 <link rel="stylesheet" href="/static/home/film_order/ms0.meituan.net/mywww/cinemas-seat.d66e64ba.css"/>
@@ -45,7 +49,7 @@
 
 
     <div class="main clearfix">
-      <div class="hall">
+      <div class="hall" style="position:absolute;">
         <div class="seat-example">
           <div class="selectable-example example">
             <span>可选座位</span>
@@ -112,7 +116,7 @@
 
       </div>
 
-      <div class="side">
+      <div class="side" style="float:right;">
         <div class="movie-info clearfix">
           <div class="poster">
             <img src="{{$data[0] -> film_relation_cover}}">
@@ -171,9 +175,10 @@
         </div>
 
         <div class="confirm-order">
-            <form class="login-form" methon="post" action="">
-              <input type="hidden" name="film_scene_id" value="{{$data[0] -> film_scene_id}}">
-              <input type="text" class="input-phone" placeholder="输入手机号" style="width:260px">
+            <form class="login-form">
+              <input type="hidden" id="film_scene_id" name="film_scene_id" value="{{$data[0] -> film_scene_id}}">
+              <input type="hidden" id="name_s" name=" name_s" value="{{$data[0] -> film_name}}">
+              <input type="text" class="input-phone" placeholder="输入手机号" name="phone" style="width:260px">
               <div class="captcha" style="display:none">
                 <input type="text" class="input-captcha" placeholder="验证码" name="user_phone">
               </div>
@@ -181,8 +186,8 @@
                 <input type="text" class="input-code" placeholder="填写验证码" style="width:260px">
                 <span class="send-code disable" id="verification_phone">获取验证码</span>
               </div>
-         <button class="confirm-btn disable" data-act="confirm-click" data-bid="b_0a0ep6pp" style="margin-right:120px;margin-top:0px;border:0;">确认选座</button>
           </form>
+         <button onclick="orders()" data-toggle="modal" data-target="#mymodal" class="confirm-btn disable" data-act="confirm-click" data-bid="b_0a0ep6pp" style="margin-right:200px;margin-top:0px;border:0;">确认选座</button>
         </div>
       </div>
     </div>
@@ -198,11 +203,53 @@
 
 
     </div>
+  <div class="modal" id="mymodal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+        </div>
+      </div>
+    </div>
+  </div>
 <script>
+function orders(){
+  // 取出座位
+  var seat = $(".ticket");
+  // 设置空数组，准备去除座位字符串
+  var seat_s = "";
+  $(".ticket").each(function(){
+    seat_s += $(this).attr("data-index")+",";
+  })
+  // console.log(seat_s);
+  // 手机号码
+  phone = $(".input-phone").val();
+  // 电影场次id
+  film_scene_id = $("#film_scene_id").val();
+  // 电影名
+  name_s = $("#name_s").val();
+  // 金额
+  money = $(".price").html();
+  // 验证码
+  code = $(".input-code").val();
+  // alert(code);
+  $.get("/add_order",{"seat":seat_s,"phone":phone,"film_scene_id":film_scene_id,"name_s":name_s,"money":money,"code":code},function(result){
+    console.log(result);
+    if (result == "2") {
+      $(".modal-body").html("验证码错误");
+      return false;
+    }else if(result == "3"){
+      $(".modal-body").html(result);
+      return false;
+    }else{
+      $(".modal-body").html(result);
+    }
+  })
+}
+
   function fun(thiss){
     var list = $(thiss).attr("data-column-id");
     var link = $(thiss).attr("data-row-id");
-    var seat = link+","+list;
+    var seat = link+"."+list;
     
     if ($(thiss).attr("class") == "seat selectable") {
       num = $(".ticket-container").children().length;
@@ -241,7 +288,7 @@
             console.log(i);
             i--;
             if (i < 0) {
-              clreatInterval(times);
+              clearInterval(times);
               $("#verification_phone").html("获取验证码");
               $("#verification_phone").css("display","block");
             }
@@ -255,7 +302,6 @@
       alert("手机号码输入失败");
       return false;
     }
-    
   })
 </script>
 @section('title','电影订单')
