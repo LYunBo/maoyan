@@ -91,7 +91,7 @@
 			</form>
 			<p class="signup-guide">
 					还没有账号？
-					<a href="/hlogin/create" target="_top">免费注册</a>
+					<a href="/register" target="_top">免费注册</a>
 			</p>
 		</div>
 	</div>

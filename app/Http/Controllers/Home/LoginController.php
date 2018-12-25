@@ -132,9 +132,7 @@ class LoginController extends Controller
      */
     public function create()
     {
-        //返回注册界面
-        return View('Home.Login.add');
-        
+        //        
     }
 
     //验证码检测

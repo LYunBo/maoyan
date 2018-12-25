@@ -139,7 +139,13 @@
         <img src="/static/home/image/movie/7dd82a16316ab32c8359debdb04396ef2897.png">
         <span class="caret"></span>
         <ul class="user-menu">
-          <li><a href="/hlogin">登录</a></li>
+          @if(!empty(session('id')))
+            <li><a href="/hlogin">我的订单</a></li>
+            <li><a href="/hlogin">基本信息</a></li>
+            <li><a href="/hlogin">退出登录</a></li>
+          @else
+            <li><a href="/hlogin">登录</a></li>
+          @endif
         </ul>
       </div>
     </div>

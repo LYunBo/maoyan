@@ -43,6 +43,12 @@ Route::post('/hpdologin','Home\LoginController@pdologin');
 //验证验证码
 Route::get('/hpcheck','Home\LoginController@codecheck');
 
+//前台注册
+Route::get('/register','Home\RegisterController@index');
+//添加注册
+Route::post('/goregister','Home\RegisterController@add');
+
+
 //前台热点
 Route::resource('/hot','Home\HotController');
 
