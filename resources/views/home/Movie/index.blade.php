@@ -8,7 +8,7 @@
   <div class="wrapper clearfix">
     <div class="celeInfo-left">
       <div class="avatar-shadow">
-        <img class="avatar" src="/static/home/picture/f18a1a371e38920840b315f51e846e271016796.jpg@464w_644h_1e_1c" alt="">
+        <img class="avatar" src="{{$data->cover}}" alt="">
         <div class="movie-ver">
         </div>
       </div>
@@ -20,7 +20,8 @@
           
         </div>
         <ul>
-          <li class="ellipsis">纪录片</li>
+        
+          <li class="ellipsis">{{$for}}</li>
           <li class="ellipsis">
         中国大陆
           / {{$data->times}}分钟
@@ -45,7 +46,7 @@
           </div>
           </a>
         </div>
-        <a class="btn buy" href="/cinemas?movieId=1238696" target="_blank">特惠购票</a>
+        <a class="btn buy" href="/films_show_cinema?id={{$data->id}}" target="_blank">特惠购票</a>
       </div>
       <div class="movie-stats-container">
         <div class="movie-index">
@@ -61,7 +62,7 @@
                 <div class="star-on" style="width:91%;">
                 </div>
               </div>
-              <span class='score-num'><span class="stonefont">&#xe5bf;&#xefbf;&#xecd2;&#xe5bf;</span>人评分</span>
+              <span class='score-num'><span class="stonefont">{{$data->box_office+753}}</span>人评分</span>
             </div>
           </div>
         </div>
@@ -70,7 +71,7 @@
             累计票房
           </p>
           <div class="movie-index-content box">
-            <span class="stonefont">&#xefea;&#xefea;&#xe5bf;</span><span class="unit">万</span>
+            <span class="stonefont">{{$data->box_office}}</span><span class="unit">万</span>
           </div>
         </div>
       </div>
@@ -82,27 +83,28 @@
     <div class="main-content">
       <div class="tab-container">
         <div class="tab-title-container clearfix">
-          <div class="tab-title active" data-act="tab-desc-click">
+          <div class="tab-title active" onclick="fun(this)" data-act="tab-desc" id="cz">
             介绍
           </div>
-          <div class="tab-title " data-act="tab-celebrity-click">
+          <div class="tab-title " onclick="fun(this)" data-act="tab-celebrity">
             演职人员
           </div>
-          <div class="tab-title tab-disabled" data-act="tab-award-click">
-            奖项
-          </div>
-          <div class="tab-title " data-act="tab-img-click">
+          
+          <div class="tab-title " onclick="fun(this)" data-act="tab-img">
             图集
           </div>
         </div>
+
+
         <div class="tab-content-container">
+          <!-- 介绍 -->
           <div class="tab-desc tab-content active" data-val="{tabtype:'desc'}">
             <div class="module">
               <div class="mod-title">
                 <h3>剧情简介</h3>
               </div>
               <div class="mod-content">
-                <span class="dra">这是一部由程工、任长箴共同执导的现实题材电影，该电影讲述了15名普通中国人最真实的生活状态，这并无交集的十四段故事谱写着同一个世界角落的生活，它或许艰辛，或许无奈，或许也带着些许苦涩，但每个人都在默默坚持着、爱着这样的生活。</span>
+                <span class="dra">{{$data->film_introduce}}生活。</span>
               </div>
             </div>
             <div class="module">
@@ -119,24 +121,15 @@
                     <ul class="celebrity-list clearfix">
                       <li class="celebrity " data-act="celebrity-click" data-val="{celebrityid:947678}">
                       <a href="/films/celebrity/947678" target="_blank" class="portrait">
-                      <img class="default-img" data-src="/static/home/picture/a30fd0e7dfdd7993e73405a4f990b0c942429.jpg@128w_170h_1e_1c" alt="">
+                      <img class="default-img" data-src="{{$data->director_img}}" alt="">
                       </a>
                       <div class="info">
                         <a href="/films/celebrity/947678" target="_blank" class="name">
-      程工
+      {{$data->director}}
                         </a>
                       </div>
                       </li>
-                      <li class="celebrity " data-act="celebrity-click" data-val="{celebrityid:1157292}">
-                      <a href="/films/celebrity/1157292" target="_blank" class="portrait">
-                      <img class="default-img" data-src="/static/home/picture/74cef854bac2aa7d95717e59a189369b49707.jpg@128w_170h_1e_1c" alt="">
-                      </a>
-                      <div class="info">
-                        <a href="/films/celebrity/1157292" target="_blank" class="name">
-      任长箴
-                        </a>
-                      </div>
-                      </li>
+                      
                     </ul>
                   </div>
                   <div class="celebrity-group">
@@ -144,36 +137,19 @@
     演员
                     </div>
                     <ul class="celebrity-list clearfix">
+                    @for($i=0;$i<$count;$i++)
                       <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2894923}">
                       <a href="/films/celebrity/2894923" target="_blank" class="portrait">
-                      <img class="default-img" data-src="/static/home/picture/3a2061d771d98566d3e5fa5c08c5e0b33685.png@128w_170h_1e_1c" alt="">
+                      <img class="default-img" data-src="{{$performer[$i]->img}}" alt="">
                       </a>
                       <div class="info">
                         <a href="/films/celebrity/2894923" target="_blank" class="name">
-      李安甫
+      {{$performer[$i]->name}}
                         </a>
                       </div>
                       </li>
-                      <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2894924}">
-                      <a href="/films/celebrity/2894924" target="_blank" class="portrait">
-                      <img class="default-img" data-src="/static/home/picture/3a2061d771d98566d3e5fa5c08c5e0b33685.png@128w_170h_1e_1c" alt="">
-                      </a>
-                      <div class="info">
-                        <a href="/films/celebrity/2894924" target="_blank" class="name">
-      胡兆翠
-                        </a>
-                      </div>
-                      </li>
-                      <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2894935}">
-                      <a href="/films/celebrity/2894935" target="_blank" class="portrait">
-                      <img class="default-img" data-src="/static/home/picture/3a2061d771d98566d3e5fa5c08c5e0b33685.png@128w_170h_1e_1c" alt="">
-                      </a>
-                      <div class="info">
-                        <a href="/films/celebrity/2894935" target="_blank" class="name">
-      康昕
-                        </a>
-                      </div>
-                      </li>
+                    @endfor
+                      
                     </ul>
                   </div>
                 </div>
@@ -186,21 +162,12 @@
               </div>
               <div class="mod-content">
                 <div class="album clearfix" data-act="movie-img-click">
+                @for($i=0;$i<=4;$i++)
                   <div class="img1">
-                    <img class="default-img" data-src="/static/home/picture/dc301560a1836c7c9415ff5fa7bff38d334100.jpg@465w_258h_1e_1c" alt="">
+                    <img class="default-img" data-src="{{$filmarr[$i]}}" alt="">
                   </div>
-                  <div class="img2">
-                    <img class="default-img" data-src="/static/home/picture/45bbe6bfaab8cd642777815dff6b8a34297242.jpg@126w_126h_1e_1c" alt="">
-                  </div>
-                  <div class="img3">
-                    <img class="default-img" data-src="/static/home/picture/5e16af18915ca385ded8caccb3649785448186.jpg@126w_126h_1e_1c" alt="">
-                  </div>
-                  <div class="img4">
-                    <img class="default-img" data-src="/static/home/picture/358280034ba7adb9d25ca199f2980407363076.jpg@126w_126h_1e_1c" alt="">
-                  </div>
-                  <div class="img5">
-                    <img class="default-img" data-src="/static/home/picture/ec10e9962add9a3b84b6424010d2b779496026.jpg@126w_126h_1e_1c" alt="">
-                  </div>
+                  @endfor
+                  
                 </div>
               </div>
             </div>
@@ -596,319 +563,62 @@
               </div>
             </div>
           </div>
+
+          <!-- 演职人员 -->
           <div class="tab-celebrity tab-content" data-val="{tabtype:'celebrity'}">
             <div class="celebrity-container">
               <div class="celebrity-group">
                 <div class="celebrity-type">
     导演
-                  <span class="num">（2）</span>
+                  <span class="num"></span>
                 </div>
                 <ul class="celebrity-list clearfix">
                   <li class="celebrity " data-act="celebrity-click" data-val="{celebrityid:947678}">
                   <a href="/films/celebrity/947678" target="_blank" class="portrait">
-                  <img class="default-img" data-src="/static/home/picture/a30fd0e7dfdd7993e73405a4f990b0c942429.jpg@128w_170h_1e_1c" alt="">
+                  <img class="default-img" data-src="{{$data->director_img}}" alt="">
                   </a>
                   <div class="info">
                     <a href="/films/celebrity/947678" target="_blank" class="name">
-      程工
+      {{$data->director}}
                     </a>
                   </div>
                   </li>
-                  <li class="celebrity " data-act="celebrity-click" data-val="{celebrityid:1157292}">
-                  <a href="/films/celebrity/1157292" target="_blank" class="portrait">
-                  <img class="default-img" data-src="/static/home/picture/74cef854bac2aa7d95717e59a189369b49707.jpg@128w_170h_1e_1c" alt="">
-                  </a>
-                  <div class="info">
-                    <a href="/films/celebrity/1157292" target="_blank" class="name">
-      任长箴
-                    </a>
-                  </div>
-                  </li>
+                  
                 </ul>
               </div>
               <div class="celebrity-group">
                 <div class="celebrity-type">
     演员
-                  <span class="num">（14）</span>
+                  <span class="num">（{{$c}}）</span>
                 </div>
                 <ul class="celebrity-list clearfix">
+                  @for($i=0;$i<$c;$i++)
                   <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2894923}">
                   <a href="/films/celebrity/2894923" target="_blank" class="portrait">
-                  <img class="default-img" data-src="/static/home/picture/3a2061d771d98566d3e5fa5c08c5e0b33685.png@128w_170h_1e_1c" alt="">
+                  <img class="default-img" data-src="{{$perfor[$i]->img}}" alt="">
                   </a>
                   <div class="info">
                     <a href="/films/celebrity/2894923" target="_blank" class="name">
-      李安甫
+      {{$perfor[$i]->name}}
                     </a>
                   </div>
                   </li>
-                  <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2894924}">
-                  <a href="/films/celebrity/2894924" target="_blank" class="portrait">
-                  <img class="default-img" data-src="/static/home/picture/3a2061d771d98566d3e5fa5c08c5e0b33685.png@128w_170h_1e_1c" alt="">
-                  </a>
-                  <div class="info">
-                    <a href="/films/celebrity/2894924" target="_blank" class="name">
-      胡兆翠
-                    </a>
-                  </div>
-                  </li>
-                  <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2894935}">
-                  <a href="/films/celebrity/2894935" target="_blank" class="portrait">
-                  <img class="default-img" data-src="/static/home/picture/3a2061d771d98566d3e5fa5c08c5e0b33685.png@128w_170h_1e_1c" alt="">
-                  </a>
-                  <div class="info">
-                    <a href="/films/celebrity/2894935" target="_blank" class="name">
-      康昕
-                    </a>
-                  </div>
-                  </li>
-                  <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2894939}">
-                  <a href="/films/celebrity/2894939" target="_blank" class="portrait">
-                  <img class="default-img" data-src="/static/home/picture/3a2061d771d98566d3e5fa5c08c5e0b33685.png@128w_170h_1e_1c" alt="">
-                  </a>
-                  <div class="info">
-                    <a href="/films/celebrity/2894939" target="_blank" class="name">
-      黄媛媛
-                    </a>
-                  </div>
-                  </li>
-                  <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:1504253}">
-                  <a href="/films/celebrity/1504253" target="_blank" class="portrait">
-                  <img class="default-img" data-src="/static/home/picture/3a2061d771d98566d3e5fa5c08c5e0b33685.png@128w_170h_1e_1c" alt="">
-                  </a>
-                  <div class="info">
-                    <a href="/films/celebrity/1504253" target="_blank" class="name">
-      宋金
-                    </a>
-                  </div>
-                  </li>
-                  <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2894941}">
-                  <a href="/films/celebrity/2894941" target="_blank" class="portrait">
-                  <img class="default-img" data-src="/static/home/picture/3a2061d771d98566d3e5fa5c08c5e0b33685.png@128w_170h_1e_1c" alt="">
-                  </a>
-                  <div class="info">
-                    <a href="/films/celebrity/2894941" target="_blank" class="name">
-      尹焕章
-                    </a>
-                  </div>
-                  </li>
-                  <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2894942}">
-                  <a href="/films/celebrity/2894942" target="_blank" class="portrait">
-                  <img class="default-img" data-src="/static/home/picture/3a2061d771d98566d3e5fa5c08c5e0b33685.png@128w_170h_1e_1c" alt="">
-                  </a>
-                  <div class="info">
-                    <a href="/films/celebrity/2894942" target="_blank" class="name">
-      宋龙超
-                    </a>
-                  </div>
-                  </li>
-                  <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2894945}">
-                  <a href="/films/celebrity/2894945" target="_blank" class="portrait">
-                  <img class="default-img" data-src="/static/home/picture/3a2061d771d98566d3e5fa5c08c5e0b33685.png@128w_170h_1e_1c" alt="">
-                  </a>
-                  <div class="info">
-                    <a href="/films/celebrity/2894945" target="_blank" class="name">
-      张天义
-                    </a>
-                  </div>
-                  </li>
-                  <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2894947}">
-                  <a href="/films/celebrity/2894947" target="_blank" class="portrait">
-                  <img class="default-img" data-src="/static/home/picture/3a2061d771d98566d3e5fa5c08c5e0b33685.png@128w_170h_1e_1c" alt="">
-                  </a>
-                  <div class="info">
-                    <a href="/films/celebrity/2894947" target="_blank" class="name">
-      刘良松
-                    </a>
-                  </div>
-                  </li>
-                  <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2894948}">
-                  <a href="/films/celebrity/2894948" target="_blank" class="portrait">
-                  <img class="default-img" data-src="/static/home/picture/3a2061d771d98566d3e5fa5c08c5e0b33685.png@128w_170h_1e_1c" alt="">
-                  </a>
-                  <div class="info">
-                    <a href="/films/celebrity/2894948" target="_blank" class="name">
-      何英宇
-                    </a>
-                  </div>
-                  </li>
-                  <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2894949}">
-                  <a href="/films/celebrity/2894949" target="_blank" class="portrait">
-                  <img class="default-img" data-src="/static/home/picture/3a2061d771d98566d3e5fa5c08c5e0b33685.png@128w_170h_1e_1c" alt="">
-                  </a>
-                  <div class="info">
-                    <a href="/films/celebrity/2894949" target="_blank" class="name">
-      李少云
-                    </a>
-                  </div>
-                  </li>
-                  <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2894951}">
-                  <a href="/films/celebrity/2894951" target="_blank" class="portrait">
-                  <img class="default-img" data-src="/static/home/picture/3a2061d771d98566d3e5fa5c08c5e0b33685.png@128w_170h_1e_1c" alt="">
-                  </a>
-                  <div class="info">
-                    <a href="/films/celebrity/2894951" target="_blank" class="name">
-      田有学
-                    </a>
-                  </div>
-                  </li>
-                  <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2894953}">
-                  <a href="/films/celebrity/2894953" target="_blank" class="portrait">
-                  <img class="default-img" data-src="/static/home/picture/3a2061d771d98566d3e5fa5c08c5e0b33685.png@128w_170h_1e_1c" alt="">
-                  </a>
-                  <div class="info">
-                    <a href="/films/celebrity/2894953" target="_blank" class="name">
-      陈金凤
-                    </a>
-                  </div>
-                  </li>
-                  <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2894954}">
-                  <a href="/films/celebrity/2894954" target="_blank" class="portrait">
-                  <img class="default-img" data-src="/static/home/picture/3a2061d771d98566d3e5fa5c08c5e0b33685.png@128w_170h_1e_1c" alt="">
-                  </a>
-                  <div class="info">
-                    <a href="/films/celebrity/2894954" target="_blank" class="name">
-      陈燕玲
-                    </a>
-                  </div>
-                  </li>
+                  @endfor
                 </ul>
               </div>
-              <div class="celebrity-group">
-                <div class="celebrity-type">
-    编剧
-                  <span class="num">（1）</span>
-                </div>
-                <ul class="celebrity-list clearfix">
-                  <li class="celebrity " data-act="celebrity-click" data-val="{celebrityid:947678}">
-                  <a href="/films/celebrity/947678" target="_blank" class="portrait">
-                  <img class="default-img" data-src="/static/home/picture/a30fd0e7dfdd7993e73405a4f990b0c942429.jpg@128w_170h_1e_1c" alt="">
-                  </a>
-                  <div class="info">
-                    <a href="/films/celebrity/947678" target="_blank" class="name">
-      程工
-                    </a>
-                  </div>
-                  </li>
-                </ul>
-              </div>
+              
             </div>
           </div>
-          <div class="tab-award tab-content" data-val="{tabtype:'award'}">
-          </div>
+          
+          <!-- 图集 -->
           <div class="tab-img tab-content" data-val="{tabtype:'img'}">
             <ul class="clearfix">
+            @for($i=0;$i<$cc;$i++)
               <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/dc301560a1836c7c9415ff5fa7bff38d334100.jpg@106w_106h_1e_1c" alt="">
+              <img class="default-img" data-act="movie-img-click" data-src="{{$filmimg[$i]}}" alt="">
               </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/45bbe6bfaab8cd642777815dff6b8a34297242.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/5e16af18915ca385ded8caccb3649785448186.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/358280034ba7adb9d25ca199f2980407363076.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/ec10e9962add9a3b84b6424010d2b779496026.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/8f44f03e2771b19e547b0091503ef151483619.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/e2e2b55e02fd7d1279b9b7f823b77f6f511374.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/fd4ac99f3fd875b93074e3618aab8a1a357683.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/151d9f7384aa665e0f7d72cc56bb7caf410477.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/05761c132c0cc7016ebd6966298546a4958928.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/a107f64796b2778960abeba0a12c92e9994520.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/b2f44143cb53a830a61495f5f0fa989f968422.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/96a1dbabb691b5533da8f6dfbb06afb8693378.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/f356f781cd4641f7717b24f4267f4d49759874.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/0b1a59fb4a1ece4598576bdef93b1f24665580.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/4954e9c3a99a31aef2942845916888cd112379.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/aa252f3f20ae0dc3aabca44e7117e4cb271910.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/2d869caa0b5334c755274a243f00e6cd306691.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/fac5cece2d147eec8eb32e69db98239e262109.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/2785d1c16c6003d8e79d9e527d58936b211413.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/efa23b2d715e6fe50f157efb635870d8273572.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/5f060755485b14e9dc0f71ab6b4a480c282808.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/22d7bd94dee19cef463639f093eea1963897381.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/16f189501b7ef4c51018f1cc0a3e846c3231408.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/29425cc4be8dae4d750c0b70bbb8cb71617665.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/5e14f3c565e2c335b04e1e18ae31f5c3307254.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/66bff3ce71b5106e55815fc5c1d20c6d273414.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/fec98b1e11f1f6ef51a94dfc311e14a3283737.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/6b8ea385320e9fbd8c502972c614f309273629.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/aabd53c1005c7208a7353ad46aa61a96261908.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/28667c7d83042b1241a7967b956561ce212633.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/084b83cb36e765c36d68164a489909f5408504.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/54abd2808cef6803e927961f0c2740f6404790.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/1825a76f9c44a8eb7abaa667ea43f4d4413675.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/ee64e3a9737a8b4e4b4da4ebe82805f1469906.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/b1032cfd693cd3777c37df16c067b15e483562.jpg@106w_106h_1e_1c" alt="">
-              </li>
-              <li>
-              <img class="default-img" data-act="movie-img-click" data-src="/static/home/picture/bf9062b083a2a9499e04fc253442f061486319.jpg@106w_106h_1e_1c" alt="">
-              </li>
+              @endfor
+              
             </ul>
           </div>
         </div>
@@ -1133,6 +843,15 @@
 window.onload = function(){
   $(".banner").css("display","block");
 }
-
-
 </script>
+<script>
+// alert("123");
+function fun(thiss){
+  $(".tab-title").removeClass("active");
+  $(thiss).addClass("active");
+  var data = $(thiss).attr("data-act");
+  $(".tab-content").removeClass("active");
+  $("."+data).addClass("active");
+}
+
+</script> 
