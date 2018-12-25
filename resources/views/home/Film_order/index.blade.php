@@ -98,7 +98,12 @@
               style="float:left;"
             ></span>
           @else if($v[$i-1] == "e")
-            <span class="seat selectable" 
+            <span 
+            @if(in_array(($k+1).".".($j+1),$seat_num))
+            class="seat sold"
+            @else
+            class="seat selectable"
+            @endif
               data-column-id="{{$j++}}"
               data-row-id="{{$k+1}}"
               style="float:left;"

@@ -369,7 +369,15 @@ class FilmCinemaController extends Controller
         // var_dump($film_scene);
         $seat = $film_scene[0] -> seat;
         $seat = explode(",",$seat);
-        return view("home.film_order.index",["data" => $film_scene,"seat" => $seat]);
+        // 查询已经被选择了的座位
+        $seat_active = DB::table("order") -> where("film_id","=",$film_scene_id) -> get();
+        $seat_num = array();
+        foreach($seat_active as $v){
+            $seat_num[] = $v -> seat_num;
+        }
+        $seat_num = implode(",",$seat_num);
+        $seat_num = explode(",",$seat_num);
+        return view("home.film_order.index",["data" => $film_scene,"seat" => $seat,"seat_num" => $seat_num]);
     }
     // 短信验证
     public function duanxin(Request $request){
