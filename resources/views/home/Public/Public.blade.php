@@ -130,7 +130,7 @@
         <li><a href="/" data-act="home-click" class="active">首页</a></li>
         <li><a href="/films" data-act="movies-click">电影</a></li>
         <li><a href="/films_show_cinema?id=0" data-act="cinemas-click">影院</a></li>
-        <li><a href="/board" data-act="board-click">榜单</a></li>
+        <li><a href="/List" data-act="board-click">榜单</a></li>
         <li><a href="/hot" data-act="hotNews-click">热点</a></li>
       </ul>
     </div>
@@ -149,8 +149,8 @@
         </ul>
       </div>
     </div>
-    <form action="/query" target="_blank" class="search-form" data-actform="search-click">
-      <input name="kw" class="search" type="search" maxlength="32" placeholder="找影视剧、影人、影院" autocomplete="off">
+    <form action="/List" target="_blank" class="search-form" data-actform="search-click" method="get">
+      <input name="name" class="search" type="search" maxlength="32" placeholder="找影名" autocomplete="off">
       <input class="submit" type="submit" value="">
     </form>
     <div class="app-download">
