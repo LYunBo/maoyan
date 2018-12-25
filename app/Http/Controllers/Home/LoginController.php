@@ -55,15 +55,15 @@ class LoginController extends Controller
                     return back()->with('error','密码错误');
                 }
             }elseif ($res2) {
-                if(Hash::check($password,$res1->password)){
-                    session(['id'=>$res1->id,'username'=>$res1->phone]);
+                if(Hash::check($password,$res2->password)){
+                    session(['id'=>$res2->id,'username'=>$res2->phone]);
                     echo "<script>alert('登录成功');location='/'</script>";
                 }else{
                     return back()->with('error','密码错误');
                 }
             }elseif($res3){
-                if(Hash::check($password,$res1->password)){
-                    session(['id'=>$res1->id,'email'=>$res1->phone]);
+                if(Hash::check($password,$res3->password)){
+                    session(['id'=>$res3->id,'email'=>$res3->phone]);
                     echo "<script>alert('登录成功');location='/'</script>";
                 }else{
                     return back()->with('error','密码错误');

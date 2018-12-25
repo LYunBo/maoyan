@@ -55,6 +55,10 @@ Route::post('/goregister','Home\RegisterController@add');
 
 //个人的基本信息
 Route::get('/information','Home\CenterController@index');
+//修改头像
+Route::post('/changephoto','Home\CenterController@change');
+//个人信息修改
+Route::post('/chinformation','Home\CenterController@chmessage');
 //个人订单
 Route::get('/myorder','Home\CenterController@order');
 

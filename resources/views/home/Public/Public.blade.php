@@ -136,7 +136,7 @@
     </div>
     <div class="user-info">
       <div class="user-avatar J-login">
-        <img src="/static/home/image/movie/7dd82a16316ab32c8359debdb04396ef2897.png">
+          <img src="/static/home/image/movie/7dd82a16316ab32c8359debdb04396ef2897.png">
         <span class="caret"></span>
         <ul class="user-menu">
           @if(!empty(session('id')))
