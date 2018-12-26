@@ -121,10 +121,11 @@
             return false;
             $('#sendphone').attr('disabled',true);
         }else{
-            div.empty();
-            div.prepend('<i class ="iconfont icon-zhengque" style="color:green;"></i>');
-            $('#form').attr('onsubmit','return true');
-            $('#sendphone').attr('disabled',false);
+            
+                div.empty();
+                div.prepend('<i class ="iconfont icon-zhengque" style="color:green;"></i>');
+                $('#form').attr('onsubmit','return true');
+                $('#sendphone').attr('disabled',false);
         }
      });
 
