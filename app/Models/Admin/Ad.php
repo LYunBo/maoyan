@@ -12,5 +12,5 @@ class Ad extends Model
     //该模型是否被自动维护时间戳
     public $timestamps=true;
     //可以被批量赋值的属性
-    protected $fillable=['ad_name','title','img','phone'];
+    protected $fillable=['ad_name','title','img','phone','url'];
 }

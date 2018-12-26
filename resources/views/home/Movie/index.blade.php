@@ -260,11 +260,11 @@
                 </div>
                 <ul class="celebrity-list clearfix">
                   <li class="celebrity " data-act="celebrity-click" data-val="{celebrityid:947678}">
-                  <a href="/films/celebrity/947678" target="_blank" class="portrait">
+                  <a class="portrait">
                   <img class="default-img" data-src="{{$data->director_img}}" alt="">
                   </a>
                   <div class="info">
-                    <a href="/films/celebrity/947678" target="_blank" class="name">
+                    <a class="name">
       {{$data->director}}
                     </a>
                   </div>
@@ -280,11 +280,11 @@
                 <ul class="celebrity-list clearfix">
                   @for($i=0;$i<$c;$i++)
                   <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2894923}">
-                  <a href="/films/celebrity/2894923" target="_blank" class="portrait">
+                  <a class="portrait">
                   <img class="default-img" data-src="{{$perfor[$i]->img}}" alt="">
                   </a>
                   <div class="info">
-                    <a href="/films/celebrity/2894923" target="_blank" class="name">
+                    <a class="name">
       {{$perfor[$i]->name}}
                     </a>
                   </div>
