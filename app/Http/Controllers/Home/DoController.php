@@ -14,9 +14,19 @@ class DoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        //图片详情
+        
+        $id=$request->input('id');
+        $data=DB::table('imgs')->where('id','=',$id)->first();
+
+        $arr=explode(',',$data->img);
+        $count=count($arr);
+
+        // var_dump($arr);exit;
+        
+        return view('home.Img.index',['data'=>$data,'arr'=>$arr,'count'=>$count]);
     }
 
     /**
@@ -48,7 +58,7 @@ class DoController extends Controller
      */
     public function show($id)
     {
-        //
+        //文章详情
         $data=DB::table('hotnews')->where('id','=',$id)->first();
         
         return view('Home.Document.index',['data'=>$data]);

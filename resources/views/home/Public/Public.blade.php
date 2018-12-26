@@ -65,6 +65,12 @@
 <link rel="stylesheet" href="/static/home/css/movie-detail.40d4116c.css"/>
 <script crossorigin="anonymous" src="/static/home/js/stat.74891044.js"></script>
 <script>if(window.devicePixelRatio >= 2) { document.write('<link rel="stylesheet" href="/static/home/css/image-2x.8ba7074d.css"/>') }</script>
+
+  <!-- 图集详情 -->
+   <link rel="stylesheet" href="/static/home/css/common.4b838ec3_6.css"/>
+<link rel="stylesheet" href="/static/home/css/news-photo.cebe47bc_6.css"/>
+  <script crossorigin="anonymous" src="/static/home/js/stat.74891044_6.js"></script>
+  <script>if(window.devicePixelRatio >= 2) { document.write('<link rel="stylesheet" href="/static/home/css/image-2x.8ba7074d_6.css"/>') }</script>
     
 
 <meta name="msvalidate.01" content="F338006073F396CBBDA443AAB6A8BA47"/>

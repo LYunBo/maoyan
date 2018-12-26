@@ -41,20 +41,20 @@
         ?>
      <div class="images-box">
       <h4 class="images-header one-line">
-        <a href="/tuji/id={{$value->id}}" target="_blank" data-act="images-click" data-val="{ imagesid:51298 }">{{$value->title}}</a>
+        <a href="/wenzhang?id={{$value->id}}" target="_blank" data-act="images-click" data-val="{ imagesid:51298 }">{{$value->title}}</a>
       </h4>
       <div class="images-thumbnails clearfix">
-            <a href="/tuji/id={{$value->id}}" target="_blank" data-act="images-click" data-val="{ imagesid:51298 }">
+            <a href="/wenzhang?id={{$value->id}}" target="_blank" data-act="images-click" data-val="{ imagesid:51298 }">
               <img src="{{$val['0']}}" alt>
             </a>
-            <a href="/tuji/id={{$value->id}}" target="_blank" data-act="images-click" data-val="{ imagesid:51298 }">
+            <a href="/wenzhang?id={{$value->id}}" target="_blank" data-act="images-click" data-val="{ imagesid:51298 }">
               <img src="{{$val['1']}}" alt>
             </a>
-            <a href="/tuji/id={{$value->id}}" target="_blank" data-act="images-click" data-val="{ imagesid:51298 }">
+            <a href="/wenzhang?id={{$value->id}}" target="_blank" data-act="images-click" data-val="{ imagesid:51298 }">
               <img src="{{$val['2']}}" alt>
             </a>
 
-        <a class="more-images" href="/tuji/id={{$value->id}}" target="_blank" data-act="images-click" data-val="{ imagesid:51298 }">
+        <a class="more-images" href="/wenzhang?id={{$value->id}}" target="_blank" data-act="images-click" data-val="{ imagesid:51298 }">
           <span>{{$c}}张图片</span>
         </a>
       </div>

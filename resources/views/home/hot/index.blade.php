@@ -385,24 +385,24 @@
           ?>
           <div class="latest-images-box">
             <div class="clearfix">
-                  <a class="latest-images-thumb" href="/tuji?id={{$t->id}}" target="_blank" data-act="images-click" data-val="{imagesid:51298}">
+                  <a class="latest-images-thumb" href="/wenzhang?id={{$t->id}}" target="_blank" data-act="images-click" data-val="{imagesid:51298}">
                     <img class="latest-images-big" data-src="{{$value[0]}}" alt="">
                   </a>
-                  <a class="latest-images-thumb" href="/tuji?id={{$t->id}}" target="_blank" data-act="images-click" data-val="{imagesid:51298}">
+                  <a class="latest-images-thumb" href="/wenzhang?id={{$t->id}}" target="_blank" data-act="images-click" data-val="{imagesid:51298}">
                     <img data-src="{{$value[1]}}" alt="">
                   </a>
-                  <a class="latest-images-thumb" href="/tuji?id={{$t->id}}" target="_blank" data-act="images-click" data-val="{imagesid:51298}">
+                  <a class="latest-images-thumb" href="/wenzhang?id={{$t->id}}" target="_blank" data-act="images-click" data-val="{imagesid:51298}">
                     <img data-src="{{$value[2]}}" alt="">
                   </a>
             </div>
 
-              <a class="latest-images-more" href="/tuji?id={{$t->id}}" target="_blank" data-act="images-click" data-val="{imagesid:51298}">
+              <a class="latest-images-more" href="/wenzhang?id={{$t->id}}" target="_blank" data-act="images-click" data-val="{imagesid:51298}">
                 {{$c}}张图片
               </a>
 
             <div class="latest-images-info">
               <p class="latest-images-title one-line">
-                <a href="/tuji?id={{$t->id}}" target="_blank" data-act="images-click" data-val="{imagesid:51298}">
+                <a href="/wenzhang?id={{$t->id}}" target="_blank" data-act="images-click" data-val="{imagesid:51298}">
                   {{$t->title}}
                 </a>
               </p>

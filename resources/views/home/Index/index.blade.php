@@ -166,7 +166,7 @@
         <div class="panel">
           <div class="panel-header">
             <span class="panel-more">
-            <a href="/board/6" class="textcolor_orange" data-act="all-mostExpect-click">
+            <a href="/List?id=2" class="textcolor_orange" data-act="all-mostExpect-click">
             <span>查看完整榜单</span>
             </a>
             <span class="panel-arrow panel-arrow-orange"></span>
@@ -305,7 +305,7 @@
         <div class="panel">
           <div class="panel-header">
             <span class="panel-more">
-            <a href="/board/4" class="textcolor_orange" data-act="all-TOP100-click">
+            <a href="/List?id=3" class="textcolor_orange" data-act="all-TOP100-click">
             <span>查看完整榜单</span>
             </a>
             <span class="panel-arrow panel-arrow-orange"></span>
@@ -380,7 +380,7 @@
         <div class="panel">
           <div class="panel-header">
             <span class="panel-more">
-            <a href="/films?showType=1" class="textcolor_red" data-act="all-playingMovie-click">
+            <a href="/films" class="textcolor_red" data-act="all-playingMovie-click">
             <span>全部</span>
             </a>
             <span class="panel-arrow panel-arrow-red"></span>
@@ -425,7 +425,7 @@
         <div class="panel">
           <div class="panel-header">
             <span class="panel-more">
-            <a href="/films?showType=2" class="textcolor_blue" data-act="all-upcomingMovie-click">
+            <a href="films?playback_status=1" class="textcolor_blue" data-act="all-upcomingMovie-click">
             <span>全部</span>
             </a>
             <span class="panel-arrow panel-arrow-blue"></span>
