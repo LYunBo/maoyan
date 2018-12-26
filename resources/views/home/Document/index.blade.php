@@ -14,6 +14,12 @@
   <link rel="dns-prefetch" href="//report.meituan.com" />
   <link rel="dns-prefetch" href="//frep.meituan.com" />
 
+  <!-- bootstrap -->
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <script src="/static/bootstrap/js/jquery.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/bootstrap/js/holder.min.js"></script>
+
   
   <meta charset="utf-8">
   <meta name="keywords" content="">
