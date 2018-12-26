@@ -77,7 +77,7 @@
       @foreach($data as $v)
        <dd> 
         <div class="movie-item"> 
-         <a href="/films/{{$v -> id}}"> 
+         <a href="/movie/{{$v -> id}}"> 
           <div class="movie-poster"> 
            <img data-src="{{$v -> cover}}" /> 
           </div> </a> 
@@ -89,7 +89,7 @@
          </div> 
         </div> 
         <div class="channel-detail movie-item-title" title="{{$v -> name}}"> 
-         <a href="/films/{{$v -> id}}">{{$v -> name}}</a> 
+         <a href="/movie/{{$v -> id}}">{{$v -> name}}</a> 
         </div> 
         <div class="channel-detail channel-detail-orange">
          <i class="integer">{{$v -> score == 0?"电影暂无评分":$v -> score}}</i>
