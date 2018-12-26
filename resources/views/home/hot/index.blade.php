@@ -328,7 +328,7 @@
           @foreach($yg1 as $y)
             <div class="latest-video-box latest-video-big">
               <a href="/yugao/{{$y->id}}" target="_blank"  data-act="video-click" data-val="{videoId:96375}">
-                <img data-src="{{$y->notice_cover}}" alt="">
+                <img data-src="{{$y->notice_cover}}" alt="s">
 
                 <div class="latest-video-info">
                   <p class="one-line">

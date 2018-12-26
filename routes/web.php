@@ -52,6 +52,8 @@ Route::get('/outlogin','Home\LoginController@outlogin');
 Route::get('/register','Home\RegisterController@index');
 //添加注册
 Route::post('/goregister','Home\RegisterController@add');
+//验证手机号码
+Route::get('/checkphone','Home\RegisterController@checkphone');
 
 //个人的基本信息
 Route::get('/information','Home\CenterController@index');
