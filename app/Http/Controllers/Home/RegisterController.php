@@ -40,4 +40,30 @@ class RegisterController extends Controller
     		return back()->with('error','注册失败');
     	}
     }
+
+    //验证手机号码
+    public function checkphone(Request $request){
+        //获取手机号
+        $phone = $request->input('phone');
+        //判断是否已经注册
+        // echo $phone;
+        if(DB::table('user')->where('phone','=',$phone)->first()){
+            echo 2;
+        }else{
+            echo 1;
+        }
+    }
+
+    //验证邮箱
+    public function checkemail(Request $request){
+        //获取手机号
+        $email = $request->input('email');
+        //判断是否已经注册
+        // echo $phone;
+        if(DB::table('user')->where('email','=',$email)->first()){
+            echo 2;
+        }else{
+            echo 1;
+        }
+    }
 }

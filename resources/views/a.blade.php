@@ -1,0 +1,1 @@
+<a href="http://xm.com/emailchange/id={{$id}}&_token={{$token}}">密码重置</a>

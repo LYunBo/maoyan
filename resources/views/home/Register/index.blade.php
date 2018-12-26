@@ -122,10 +122,20 @@
             $('#sendphone').attr('disabled',true);
         }else{
             $.get('/checkphone',{'phone':p},function(data){
-                div.empty();
-                div.prepend('<i class ="iconfont icon-zhengque" style="color:green;"></i>');
-                $('#form').attr('onsubmit','return true');
-                $('#sendphone').attr('disabled',false);
+                // console.log(data);
+                if(data == 1){
+                    div.empty();
+                    div.prepend('<i class ="iconfont icon-zhengque" style="color:green;"></i>');
+                    $('#form').attr('onsubmit','return true');
+                    $('#sendphone').attr('disabled',false);
+                }else{
+                    div.html('手机号码已注册');
+                    div.prepend('<i class ="iconfont icon-cuowu" style="color:red;"></i>');
+                    div.css('color','red');
+                    $('#sendphone').attr('disabled',true);
+                    return false;
+                    
+                }
             });
         }
      });
@@ -204,9 +214,18 @@
             div.css('color','red');
             return false;
         }else{
-            div.empty();
-            div.prepend('<i class ="iconfont icon-zhengque" style="color:green;"></i>');
-            $('#form').attr('onsubmit','return true');
+            $.get('/checkemail',{'email':p},function(data){
+                if(data == 1){
+                    div.empty();
+                    div.prepend('<i class ="iconfont icon-zhengque" style="color:green;"></i>');
+                    $('#form').attr('onsubmit','return true');
+                }else{
+                    div.html('邮箱已经注册');
+                    div.prepend('<i class ="iconfont icon-cuowu" style="color:red;"></i>');
+                    div.css('color','red');
+                    return false;
+                }
+            });
         }
      });
 
@@ -231,11 +250,15 @@
 
         if(plength >= 6 && plength<10){
             $('#a1').css('background-color','green');
+            $('#b2').css('background-color','#EEE');
+            $('#c3').css('background-color','#EEE');
         }else if(plength >= 10 && plength<15){
             $('#a1').css('background-color','#EEE');
+            $('#c3').css('background-color','#EEE');
             $('#b2').css('background-color','green');
         }else if(plength >= 15 && plength<=20){
             $('#b2').css('background-color','#EEE');
+            $('#a1').css('background-color','#EEE');
             $('#c3').css('background-color','green');
         }
     });
@@ -302,10 +325,22 @@
             return false;
             $('#sendphone').attr('disabled',true);
         }else{
-            pdiv.empty();
-            pdiv.prepend('<i class ="iconfont icon-zhengque" style="color:green;"></i>');
-            $('#form').attr('onsubmit','return true');
-            $('#sendphone').attr('disabled',false);
+            $.get('/checkphone',{'phone':p},function(data){
+                // console.log(data);
+                if(data == 1){
+                    pdiv.empty();
+                    pdiv.prepend('<i class ="iconfont icon-zhengque" style="color:green;"></i>');
+                    $('#form').attr('onsubmit','return true');
+                    $('#sendphone').attr('disabled',false);
+                }else{
+                    pdiv.html('手机号码已注册');
+                    pdiv.prepend('<i class ="iconfont icon-cuowu" style="color:red;"></i>');
+                    pdiv.css('color','red');
+                    $('#sendphone').attr('disabled',true);
+                    return false;
+                    
+                }
+            });
         }
 
          //获取提示信息的对象
@@ -343,9 +378,18 @@
             ediv.css('color','red');
             return false;
         }else{
-            ediv.empty();
-            ediv.prepend('<i class ="iconfont icon-zhengque" style="color:green;"></i>');
-            $('#form').attr('onsubmit','return true');
+           $.get('/checkemail',{'email':p},function(data){
+                if(data == 1){
+                    ediv.empty();
+                    ediv.prepend('<i class ="iconfont icon-zhengque" style="color:green;"></i>');
+                    $('#form').attr('onsubmit','return true');
+                }else{
+                    ediv.html('邮箱已经注册');
+                    ediv.prepend('<i class ="iconfont icon-cuowu" style="color:red;"></i>');
+                    ediv.css('color','red');
+                    return false;
+                }
+            });
         }
 
         //获取提示信息的对象

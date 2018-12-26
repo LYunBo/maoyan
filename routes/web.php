@@ -54,6 +54,24 @@ Route::get('/register','Home\RegisterController@index');
 Route::post('/goregister','Home\RegisterController@add');
 //验证手机号码
 Route::get('/checkphone','Home\RegisterController@checkphone');
+//验证邮箱
+Route::get('/checkemail','Home\RegisterController@checkemail');
+//找回密码
+Route::get('/returnpass','Home\ReturnController@index');
+//验证账号
+Route::post('/backcheck','Home\ReturnController@check');
+//手机号码找回密码
+Route::get('/pcheck','Home\ReturnController@phone');
+//邮箱找回密码
+Route::get('/echeck','Home\ReturnController@email');
+//邮箱发送
+Route::post('/sendemail','Home\ReturnController@sendMail');
+//邮箱重置密码
+Route::get('/emailchange/id={id}&_token={token}','Home\ReturnController@emailchange');
+//修改密码
+Route::post('/dochange','Home\ReturnController@dochange');
+//修改成功返回的页面
+Route::get('/changesuccess','Home\ReturnController@success');
 
 //个人的基本信息
 Route::get('/information','Home\CenterController@index');

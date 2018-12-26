@@ -47,7 +47,7 @@
 					<img src="/cove" height="36" width="101"  onclick="this.src=this.src+'?a=1'"/>
 				</div>
 				<div class="form-field form-field--auto-login cf">
-					<a tabindex="-1" href="/" target="_top" class="forget-password">忘记密码？</a>
+					<a tabindex="-1" href="/returnpass" target="_top" class="forget-password">忘记密码？</a>
 				</div>
 				<div class="form-field form-field--ops">
 					<input data-mtevent="login.normal.submit" type="submit" class="btn" value="登录"/>
@@ -83,7 +83,7 @@
 					<span class="verify-tip" id="J-verify-tip"></span>
 				</div>
 				<div class="form-field form-field--auto-login cf">
-					<a tabindex="-1" href="/" target="_top" class="forget-password">忘记密码？</a>
+					<a tabindex="-1" href="/returnpass" target="_top" class="forget-password">忘记密码？</a>
 				</div>
 				<div class="form-field form-field--ops">
 					<input data-mtevent="login.mobile.submit" id="pbtn" type="submit" class="btn" value="登录" />
