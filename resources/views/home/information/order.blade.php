@@ -19,7 +19,7 @@
           <div class="profile-title">
             我的订单
           </div>
-          if(!empty($data))
+          @if(!empty($data))
             @foreach($data as $row)
             <div class="order-box" data-orderid="20535359849">
               <div class="order-header">

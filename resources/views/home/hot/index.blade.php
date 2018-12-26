@@ -199,7 +199,7 @@
           <li class="top-list">
             <div>
               <div class="top-info-thumb">
-                <a href="/yugao?id={{$y->id}}" target="_blank" data-act="video-click" data-val="{videoId:95985}">
+                <a href="/yugao/{{$y->id}}" target="_blank" data-act="video-click" data-val="{videoId:95985}">
                   <img src="{{$y->notice_cover}}" alt="">
                   <i class="ranking top-info-icon orange-bg">1</i>
                   <i class="play-icon"></i>
@@ -207,7 +207,7 @@
               </div>
               <div class="top5-video-info">
                 <p class="one-line">
-                  <a href="/yugao?id={{$y->id}}" target="_blank" data-act="video-click" data-val="{videoId:95985}">
+                  <a href="/yugao/{{$y->id}}" target="_blank" data-act="video-click" data-val="{videoId:95985}">
                     《{{$y->title}}》
                   </a>
                 </p>
@@ -327,7 +327,7 @@
     <div class="latest-content clearfix">
           @foreach($yg1 as $y)
             <div class="latest-video-box latest-video-big">
-              <a href="/yugao?id={{$y->id}}" target="_blank"  data-act="video-click" data-val="{videoId:96375}">
+              <a href="/yugao/{{$y->id}}" target="_blank"  data-act="video-click" data-val="{videoId:96375}">
                 <img data-src="{{$y->notice_cover}}" alt="">
 
                 <div class="latest-video-info">

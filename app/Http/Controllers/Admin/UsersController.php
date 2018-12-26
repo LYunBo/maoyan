@@ -27,7 +27,7 @@ class UsersController extends Controller
         //返回搜索的关键词
         $key = $request->input('keyword');
         //返回用户列表页
-        $list = Users::where('username','like','%'.$key.'%')->paginate(5);
+        $list = Users::where('phone','like','%'.$key.'%')->paginate(5);
         //返回共有多少条数据
         $tol = Users::count();
         return view('admin.Users.index',['list'=>$list,'tol'=>$tol,'request'=>$request->all()]);
