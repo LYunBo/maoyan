@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\HomeModels\Register;
 //引入Hash
 use Hash;
+use DB;
 class RegisterController extends Controller
 {
     //注册首页
@@ -26,10 +27,15 @@ class RegisterController extends Controller
     	unset($data['code']);
     	// dd($data);
     	$data['password'] = Hash::make($data['password']);
-    	// dd($data);
+    	// dd($data);\
+        $user = Register::create($data);
+        //获取$id
+        $id = $user->id;
     	// 加入数据库
-    	if(Register::create($data)){
-    		echo "<script>alert('注册成功');location='/hlogin'</script>";
+    	if($id>0){
+            if(DB::table('information')->insert(['user_id'=>$id])){
+    		  echo "<script>alert('注册成功');location='/hlogin'</script>";
+            }
     	}else{
     		return back()->with('error','注册失败');
     	}

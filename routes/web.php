@@ -29,6 +29,9 @@ Route::get("/add_order","Home\FilmCinemaController@add_order");
 // 参数一是电影场次id，二是座位
 Route::get("/return_url/{film_scene_id}/{seat}/{num}/{money}/{phone}","Home\FilmCinemaController@return_url");
 
+// 榜单页面
+Route::get("/List","Home\ListController@index");
+
 
 //前台登录
 Route::resource('/hlogin','Home\LoginController');
@@ -52,6 +55,10 @@ Route::post('/goregister','Home\RegisterController@add');
 
 //个人的基本信息
 Route::get('/information','Home\CenterController@index');
+//修改头像
+Route::post('/changephoto','Home\CenterController@change');
+//个人信息修改
+Route::post('/chinformation','Home\CenterController@chmessage');
 //个人订单
 Route::get('/myorder','Home\CenterController@order');
 
