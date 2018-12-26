@@ -38,10 +38,10 @@ val = {"id":53686};    window.system = {"newsId":"53686","shareImg":"http://p1.m
   window.openPlatformSub = '';
 
   </script>
-  <link rel="stylesheet" href="static/css/7afc1db6322447cab5c5cddbdcad57f7.css"/>
-<link rel="stylesheet" href="static/css/0415e14847f2455a8a204917111d0431.css"/>
-  <script crossorigin="anonymous" src="static/js/99d8a283307d4524b50c9d990a0e86f8.js"></script>
-  <script>if(window.devicePixelRatio >= 2) { document.write('<link rel="stylesheet" href="static/css/9f1dbb2bdf794e4e83f3f73ca5a80825.css"/>') }</script>
+  <link rel="stylesheet" href="/static/home/css/7afc1db6322447cab5c5cddbdcad57f7.css"/>
+<link rel="stylesheet" href="/static/home/css/0415e14847f2455a8a204917111d0431.css"/>
+  <script crossorigin="anonymous" src="/static/home/js/99d8a283307d4524b50c9d990a0e86f8.js"></script>
+  <script>if(window.devicePixelRatio >= 2) { document.write('<link rel="stylesheet" href="/static/home/css/9f1dbb2bdf794e4e83f3f73ca5a80825.css"/>') }</script>
   <style>
     @font-face {
       font-family: stonefont;
@@ -56,64 +56,97 @@ val = {"id":53686};    window.system = {"newsId":"53686","shareImg":"http://p1.m
   </style>
 </head>
 <body>
-
-
 <div class="header">
   <div class="header-inner">
-        <a href="/" class="logo" data-act="icon-click"></a>
-        <div class="city-container" data-val="{currentcityid:20 }">
-            <div class="city-selected">
-                <div class="city-name">
-                  广州
-                  <span class="caret"></span>
-                </div>
-            </div>
-            <div class="city-list" data-val="{ localcityid: 20 }">
-                <div class="city-list-header">定位城市：<a class="js-geo-city">广州</a></div>
-                
-            </div>
+    <a href="/" class="logo" data-act="icon-click"></a>
+    <div class="city-container" data-val="{currentcityid:20 }">
+      <div class="city-selected">
+        <div class="city-name">
+                  {{session("citys")['name']}}
+          <span class="caret"></span>
         </div>
+      </div>
 
 
-        <div class="nav">
-            <ul class="navbar">
-                <li><a href="/" data-act="home-click"  >首页</a></li>
-                <li><a href="/films" data-act="movies-click" >电影</a></li>
-                <li><a href="/cinemas" data-act="cinemas-click" >影院</a></li> 
-                
-                <li><a href="/board" data-act="board-click" >榜单</a></li>
-                <li><a href="/news" data-act="hotNews-click" >热点</a></li>
-            </ul>
-        </div>
-
-        <div class="user-info">
-            <div class="user-avatar J-login">
-              <img src="static/picture/7dd82a16316ab32c8359debdb04396ef2897_6.png">
-              <span class="caret"></span>
-              <ul class="user-menu">
-                <li><a href="javascript:void 0">登录</a></li>
-              </ul>
+      <div style="display:none;" class="city-list" data-val="{ localcityid: 20 }">
+      <div class="city-list-header">定位城市：<a class="js-geo-city">{{session("citys")['name']}}</a></div>
+        <ul>
+          <li>
+            <span>已有</span>
+            <div>
+              @foreach(session("city") as $v)
+              <a href="/show/{{$v['id']}}" class="js-city-name" style="color:black;">{{$v['name']}}</a>
+              @endforeach
             </div>
-        </div>
+          </li>
+        </ul>
+      </div>
+<script>
+  $(".city-selected").mouseover(function(){
+    $(".city-list").css("display","block");
+  });
+  $(".city-selected").mouseout(function(){
+    $(".city-list").css("display","none");
+  });
+  $(".city-list").mouseover(function(){
+    $(this).css("display","block");
+  });
+  $(".city-list").mouseout(function(){
+    $(this).css("display","none");
+  });
+</script>
 
-        <form action="/query" target="_blank" class="search-form" data-actform="search-click">
-            <input name="kw" class="search" type="search" maxlength="32" placeholder="找影视剧、影人、影院" autocomplete="off">
-            <input class="submit" type="submit" value="">
-        </form>
 
-        <div class="app-download">
-          <a href="/app" target="_blank">
-            <span class="iphone-icon"></span>
-            <span class="apptext">APP下载</span>
-            <span class="caret"></span>
-            <div class="download-icon">
-                <p class="down-title">扫码下载APP</p>
-                <p class='down-content'>选座更优惠</p>
-            </div>
-          </a>
-        </div>
+    </div>
+    <div class="nav">
+      <ul class="navbar">
+        <li><a href="/" data-act="home-click" class="active">首页</a></li>
+        <li><a href="/films" data-act="movies-click">电影</a></li>
+        <li><a href="/films_show_cinema?id=0" data-act="cinemas-click">影院</a></li>
+        <li><a href="/board" data-act="board-click">榜单</a></li>
+        <li><a href="/hot" data-act="hotNews-click">热点</a></li>
+      </ul>
+    </div>
+    <div class="user-info">
+      <div class="user-avatar J-login">
+        <img src="/static/home/image/movie/7dd82a16316ab32c8359debdb04396ef2897.png">
+        <span class="caret"></span>
+        <ul class="user-menu">
+          @if(!empty(session('id')))
+            <li><a href="/myorder">我的订单</a></li>
+            <li><a href="/information">基本信息</a></li>
+            <li><a href="/outlogin">退出登录</a></li>
+          @else
+            <li><a href="/hlogin">登录</a></li>
+          @endif
+        </ul>
+      </div>
+    </div>
+    <form action="/query" target="_blank" class="search-form" data-actform="search-click">
+      <input name="kw" class="search" type="search" maxlength="32" placeholder="找影视剧、影人、影院" autocomplete="off">
+      <input class="submit" type="submit" value="">
+    </form>
+    <div class="app-download">
+      <a href="/app" target="_blank">
+      <span class="iphone-icon"></span>
+      <span class="apptext">APP下载</span>
+      <span class="caret"></span>
+      <div class="download-icon">
+        <p class="down-title">
+          扫码下载APP
+        </p>
+        <p class='down-content'>
+          选座更优惠
+        </p>
+      </div>
+      </a>
+    </div>
   </div>
 </div>
+
+
+
+<!-- 正文开始 -->
 <div class="header-placeholder"></div>
 
 
@@ -126,16 +159,16 @@ val = {"id":53686};    window.system = {"newsId":"53686","shareImg":"http://p1.m
   <div class="news-main">
     
     <div class="news-title">
-      <h1>姜昆冯巩杨少华罕见同框，冯巩摘掉帽子头发尴尬了</h1>
+      <h1>{{$data->title}}</h1>
       <div class="news-subtitle">
         猫眼娱乐&nbsp;&nbsp;
-        12-25 19:35&nbsp;&nbsp;
+        {{$data->created_at}}&nbsp;&nbsp;
         <span class="news-icon-views"></span>
-        75
+        {{$data->browse}}
       </div>
     </div>
     <div class="news-content">
-    <p class="image-wrapper" data-img-width="640" data-img-height="857"><img alt="u=320276078,3779038210&amp;fm=173&amp;app=49&amp;f=JPEG.jpeg" src="static/picture/79d2574a1527cf79553eaefd377c311250014_6.jpg@750w_1l" /><br /></p><p><br /></p><p>近日，网上曝光了央视春晚的后台照，在照片中可以看到，休息厅内，姜昆、冯巩、杨少华父子同时现身。</p><p><br /></p><p class="image-wrapper" data-img-width="640" data-img-height="952"><img alt="u=681697999,3833663097&amp;fm=173&amp;app=49&amp;f=JPEG.jpeg" src="static/picture/712d90c38af49bee5cf237d9fb6bbb4c45577_6.jpg@750w_1l" /><br /></p><p><br /></p><p>68岁的姜昆和冯巩在照片中罕见同框，冯巩穿着羽绒服，看着笑容满面，不过冯巩摘掉帽子后亮了，头发油亮亮的。而姜昆穿着就比较少，一身蓝色的外套，笑容满面，看起来他很热，还拿着东西在扇风。</p><p><br /></p><p class="image-wrapper" data-img-width="506" data-img-height="827"><img alt="WX20181225-194441.png" src="static/picture/94f5ebfb4f7bfb6b82bec35ffc8c6e5a447836_6.png@750w_1l" /><br /></p><p><br /></p><p>据悉，今年央视春晚的语言类节目已经过审，冯巩也将会第33次出现在央视春晚的舞台上。至于姜昆的节目，到底是什么现在还是未知的。而杨少华老爷子和儿子杨议也将登上2019年春晚的舞台。</p><p><br /></p><p class="image-wrapper" data-img-width="640" data-img-height="768"><img alt="u=3715375541,266210190&amp;fm=173&amp;app=49&amp;f=JPEG.jpeg" src="static/picture/5ed8dc5c2e5c26fd291fea25ef4b1bf440706_6.jpg@750w_1l" /><br /></p><p><br /></p><p>姜昆本来也是央视春晚的常客，但这几年上春晚的次数明显变少了。不过已经68岁的他，看着还是精气神十足，今年也将重登春晚，给大家意外的惊喜。</p><p><br /></p><p class="image-wrapper" data-img-width="300" data-img-height="340"><img alt="F201110141559242301224559.jpg" src="static/picture/ebf43e1f7f5ab66beabd55b1f709ad4f16577_6.jpg@750w_1l" /><br /></p><p><br /></p><p>语言类节目在春晚一直都是最受欢迎的节目，而今年这些艺术家们又将给大家带来什么样的作品，我们也是十分期待的！</p>
+    <p class="image-wrapper" data-img-width="640" data-img-height="857"><img alt="u=320276078,3779038210&amp;fm=173&amp;app=49&amp;f=JPEG.jpeg" src="{{$data->cover}}" /><br /></p><p><br /></p><p>{{$data->content}}</p>
     </div>
     
     <div class="news-action" data-val="{ newsid: 53686 }">
@@ -196,36 +229,90 @@ val = {"id":53686};    window.system = {"newsId":"53686","shareImg":"http://p1.m
     </div>
 
 <div class="footer">
-    <p class="friendly-links">
+  <p class="friendly-links">
       商务合作邮箱：v@maoyan.com
       客服电话：10105335
       违法和不良信息举报电话：4006018900
-      <br/>
+    <br/>
       投诉举报邮箱：tousujubao@meituan.com
       舞弊线索举报邮箱：wubijubao@maoyan.com
-    </p>
-    <p class="friendly-links">
+  </p>
+  
+  <button class="btn" style="font-size: 1px;text-align: center;margin:0 900px;left:500px;"  data-toggle="modal" data-target="#mymodal">点击加入我们</button>
+
+  <div class="modal" id="mymodal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <!-- 这是模态框的头 -->
+        <div class="modal-header">
+          <!-- data-dismiss="modal" 关闭modal框 -->
+          <button class="close" data-dismiss="modal">&times;</button>
+          <h3>请输入您的信息</h3>
+        </div>
+      <!-- 模态框主体 -->
+        <div class="modal-body">
+          <form action="/urladd" method="get">
+          
+          <div class="form-group">
+            <label for="name">您的真实姓名:</label>
+            <input type="text" class="form-control"  name="name" id="name">
+          </div>
+          <div class="form-group">
+            <label for="phone">您的联系电话:</label>
+            <input type="text" class="form-control"  name="phone">
+          </div>
+          <div class="form-group">
+            <label for="urlname">网址名:</label>
+            <input type="text" class="form-control"  name="urlname">
+          </div>
+          <div class="form-group">
+            <label for="url">网址:</label>
+            <input type="text" class="form-control"  name="url">
+          </div>
+          <input type="submit"  value="提交" class="btn btn-success">
+          {{csrf_field()}}
+          </form>
+        </div>
+      <!-- 模态框脚部 -->
+        <div class="modal-footer">
+          <button class="btn btn-info" data-dismiss="modal">关闭</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <?php 
+    
+    $link=DB::table('link')->where('state','=','1')->where('look','=','1')->get();
+
+   ?>
+  
+  <p class="friendly-links">
         友情链接 :
-        <a href="http://www.meituan.com" data-query="utm_source=wwwmaoyan" target="_blank">美团网</a>
-        <span></span>
-        <a href="http://i.meituan.com/client" data-query="utm_source=wwwmaoyan" target="_blank">美团下载</a>
-        <span></span>
-        <a href="https://www.huanxi.com" data-query="utm_source=maoyan_pc" target="_blank">欢喜首映</a>
-    </p>
-    <p>
+        @foreach($link as $row)
+    <a href="{{$row->url}}" data-query="utm_source=wwwmaoyan" target="_blank">{{$row->urlname}}</a>
+    <span></span>
+      @endforeach
+    <a href="http://i.meituan.com/client" data-query="utm_source=wwwmaoyan" target="_blank">美团下载</a>
+    <span></span>
+    <a href="https://www.huanxi.com" data-query="utm_source=maoyan_pc" target="_blank">欢喜首映</a>
+  </p>
+  <p>
         &copy;2016
         猫眼电影 maoyan.com
-        <a href="https://tsm.miit.gov.cn/pages/EnterpriseSearchList_Portal.aspx?type=0&keyword=京ICP证160733号&pageNo=1" target="_blank">京ICP证160733号</a>
-        <a href="http://www.miibeian.gov.cn" target="_blank">京ICP备16022489号-1</a>
-        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010102003232" target="_blank">京公网安备 11010102003232号</a>
-        <a href="/about/licence" target="_blank">网络文化经营许可证</a>
-        <a href="http://www.meituan.com/about/rules" target="_blank">电子公告服务规则</a>
-    </p>
-    <p>北京猫眼文化传媒有限公司</p>
+    <a href="https://tsm.miit.gov.cn/pages/EnterpriseSearchList_Portal.aspx?type=0&keyword=京ICP证160733号&pageNo=1" target="_blank">京ICP证160733号</a>
+    <a href="http://www.miibeian.gov.cn" target="_blank">京ICP备16022489号-1</a>
+    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010102003232" target="_blank">京公网安备 11010102003232号</a>
+    <a href="/about/licence" target="_blank">网络文化经营许可证</a>
+    <a href="http://www.meituan.com/about/rules" target="_blank">电子公告服务规则</a>
+  </p>
+  <p>
+    北京猫眼文化传媒有限公司
+  </p>
 </div>
-
-    <script crossorigin="anonymous" src="static/js/owl_1.7.11_6.js"></script>
-    <script>
+<script crossorigin="anonymous" src="/static/home/js/owl_1.7.11.js"></script>
+<script>
       Owl.start({
         project: 'com.sankuai.movie.fe.mywww', 
         pageUrl: location.href.split('?')[0].replace(/\/\d+/g, '/:id'),
@@ -244,10 +331,13 @@ val = {"id":53686};    window.system = {"newsId":"53686","shareImg":"http://p1.m
           console.error(err)
         }
       }, true)
-    </script>
-    <!--[if IE 8]><script crossorigin="anonymous" src="static/js/b7f05b51c5de4ce59b4b992845da4491.js"></script><![endif]-->
-    <!--[if IE 8]><script crossorigin="anonymous" src="static/js/0d12174b9084423db7fcb3ab3b9c4459.js"></script><![endif]-->
-    <script crossorigin="anonymous" src="static/js/f9431003a2b548ee983a8b09e20bc735.js"></script>
-<script crossorigin="anonymous" src="static/js/af7866afd6b5439bbf4c51e3f110f034.js"></script>
+</script>
+<!--[if IE 8]>
+<script crossorigin="anonymous" src="/static/home/js/es5-shim.bbad933f.js"></script>
+<![endif]--><!--[if IE 8]>
+<script crossorigin="anonymous" src="/static/home/js/es5-sham.d6ea26f4.js"></script>
+<![endif]-->
+<script crossorigin="anonymous" src="/static/home/js/common.1a4cea09.js"></script>
+<script crossorigin="anonymous" src="/static/home/js/home-index.dba25347.js"></script>
 </body>
 </html>

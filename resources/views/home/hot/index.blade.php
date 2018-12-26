@@ -35,13 +35,13 @@
           <li class="top1-list">
             <div>
                 <div class="top-info-thumb">
-                  <a href="/wenzhang?id={{$s->id}}" target="_blank" data-act="news-click" data-val="{newsid:52047}">
+                  <a href="/wenzhang/{{$s->id}}" target="_blank" data-act="news-click" data-val="{newsid:52047}">
                     <img src="{{$s->cover}}" alt="">
                     <i class="ranking top-info-icon red-bg">1</i>
                   </a>
                 </div>
                 <p class="top1-news-content">
-                  <a href="/wenzhang?id={{$s->id}}" class="two-line" title="{{$s->title}}" target="_blank" data-act="news-click" data-val="{newsid:52047}">
+                  <a href="/wenzhang/{{$s->id}}" class="two-line" title="{{$s->title}}" target="_blank" data-act="news-click" data-val="{newsid:52047}">
                     {{$s->title}}
                   </a>
                 </p>
@@ -55,7 +55,7 @@
                 <div class="normal-link">
                   <i class="ranking red">2</i>
                   <p class="top10-news-content">
-                    <a href="/wenzhang?id={{$t->id}}" target="_blank" data-act="news-click" data-val="{newsid:52060}">{{$t->title}}</a>
+                    <a href="/wenzhang/{{$t->id}}" target="_blank" data-act="news-click" data-val="{newsid:52060}">{{$t->title}}</a>
                   </p>
                 </div>            
             </div>
@@ -67,7 +67,7 @@
                 <div class="normal-link">
                   <i class="ranking red">3</i>
                   <p class="top10-news-content">
-                    <a href="/wenzhang?id={{$t->id}}" target="_blank" data-act="news-click" data-val="{newsid:52066}">{{$t->title}}</a>
+                    <a href="/wenzhang/{{$t->id}}" target="_blank" data-act="news-click" data-val="{newsid:52066}">{{$t->title}}</a>
                   </p>
                 </div>            
             </div>
@@ -79,7 +79,7 @@
                 <div class="normal-link">
                   <i class="ranking ">4</i>
                   <p class="top10-news-content">
-                    <a href="/wenzhang?id={{$p->id}}" target="_blank" data-act="news-click" data-val="{newsid:52086}">{{$p->title}}</a>
+                    <a href="/wenzhang/{{$p->id}}" target="_blank" data-act="news-click" data-val="{newsid:52086}">{{$p->title}}</a>
                   </p>
                 </div>            
             </div>
@@ -91,7 +91,7 @@
                 <div class="normal-link">
                   <i class="ranking ">5</i>
                   <p class="top10-news-content">
-                    <a href="/wenzhang?id={{$p->id}}" target="_blank" data-act="news-click" data-val="{newsid:52086}">{{$p->title}}</a>
+                    <a href="/wenzhang/{{$p->id}}" target="_blank" data-act="news-click" data-val="{newsid:52086}">{{$p->title}}</a>
                   </p>
                 </div>            
             </div>
@@ -103,7 +103,7 @@
                 <div class="normal-link">
                   <i class="ranking ">6</i>
                   <p class="top10-news-content">
-                    <a href="/wenzhang?id={{$p->id}}" target="_blank" data-act="news-click" data-val="{newsid:52086}">{{$p->title}}</a>
+                    <a href="/wenzhang/{{$p->id}}" target="_blank" data-act="news-click" data-val="{newsid:52086}">{{$p->title}}</a>
                   </p>
                 </div>            
             </div>
@@ -115,7 +115,7 @@
                 <div class="normal-link">
                   <i class="ranking ">7</i>
                   <p class="top10-news-content">
-                    <a href="/wenzhang?id={{$p->id}}" target="_blank" data-act="news-click" data-val="{newsid:52086}">{{$p->title}}</a>
+                    <a href="/wenzhang/{{$p->id}}" target="_blank" data-act="news-click" data-val="{newsid:52086}">{{$p->title}}</a>
                   </p>
                 </div>            
             </div>
@@ -127,7 +127,7 @@
                 <div class="normal-link">
                   <i class="ranking ">8</i>
                   <p class="top10-news-content">
-                    <a href="/wenzhang?id={{$p->id}}" target="_blank" data-act="news-click" data-val="{newsid:52086}">{{$p->title}}</a>
+                    <a href="/wenzhang/{{$p->id}}" target="_blank" data-act="news-click" data-val="{newsid:52086}">{{$p->title}}</a>
                   </p>
                 </div>            
             </div>
@@ -139,7 +139,7 @@
                 <div class="normal-link">
                   <i class="ranking ">9</i>
                   <p class="top10-news-content">
-                    <a href="/wenzhang?id={{$p->id}}" target="_blank" data-act="news-click" data-val="{newsid:52086}">{{$p->title}}</a>
+                    <a href="/wenzhang/{{$p->id}}" target="_blank" data-act="news-click" data-val="{newsid:52086}">{{$p->title}}</a>
                   </p>
                 </div>            
             </div>
@@ -151,7 +151,7 @@
                 <div class="normal-link">
                   <i class="ranking ">10</i>
                   <p class="top10-news-content">
-                    <a href="/wenzhang?id={{$p->id}}" target="_blank" data-act="news-click" data-val="{newsid:52086}">{{$p->title}}</a>
+                    <a href="/wenzhang/{{$p->id}}" target="_blank" data-act="news-click" data-val="{newsid:52086}">{{$p->title}}</a>
                   </p>
                 </div>            
             </div>
@@ -173,11 +173,11 @@
     <div class="latest-content clearfix">
         @foreach($data as $row)
           <div class="latest-news-box">
-            <a href="/wenzhang?id={{$row->id}}" target="_blank" data-act="news-click" data-val="{newsid:52237}">
+            <a href="/wenzhang/{{$row->id}}" target="_blank" data-act="news-click" data-val="{newsid:52237}">
               <img src="{{$row->cover}}" alt="">
             </a>
             <p class="latest-news-title">
-              <a href="/wenzhang?id={{$row->id}}" class="two-line" title="{{$row->title}}" target="_blank" data-act="news-click" data-val="{newsid:52237}">
+              <a href="/wenzhang/{{$row->id}}" class="two-line" title="{{$row->title}}" target="_blank" data-act="news-click" data-val="{newsid:52237}">
                 {{$row->title}}
               </a>
             </p>

@@ -33,20 +33,20 @@
       @foreach($zx as $value)
         
           <div class="news-box clearfix">
-            <a class="news-img" href="/wenzhang?id={{$value->id}}" target="_blank" data-act="news-click" data-val="{ newsid:53309 }">
+            <a class="news-img" href="/wenzhang/{{$value->id}}" target="_blank" data-act="news-click" data-val="{ newsid:53309 }">
               <img src="{{$value->cover}}" alt="">
             </a>
 
             <div class="news-content ">
               <h4 class="news-header one-line">
-                <a href="/wenzhang?id={{$value->id}}" target="_blank" data-act="news-click" data-val="{ newsid:53309 }">{{$value->title}}</a>
+                <a href="/wenzhang/{{$value->id}}" target="_blank" data-act="news-click" data-val="{ newsid:53309 }">{{$value->title}}</a>
               </h4>
               <div class="latestNews-text" style="overflow: hidden; max-height: 30px;">​{{$value->content}}...</div>
               <div class="info-container">
                 <span class="news-source">猫眼电影</span>
                 <span class="news-date">{{$value->created_at}}</span>
                     <span class="tag">
-                      <a href="/films/346559" title="黑衣人：全球追缉" target="_blank" data-act="news-click" data-val="{ newsid:53309 }">
+                      <a href="/wenzhang/{{$value->id}}" title="黑衣人：全球追缉" target="_blank" data-act="news-click" data-val="{ newsid:53309 }">
                         
                       </a>
                     </span>

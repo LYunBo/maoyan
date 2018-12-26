@@ -100,7 +100,18 @@ class MovieController extends Controller
         //图集
         $cc=count($filmimg);
 
-        return view('home.Movie.index',['data'=>$data,'for'=>$for,'count'=>$count,'performer'=>$performer,'filmarr'=>$filmarr,'perfor'=>$perfor,'c'=>$c,'filmimg'=>$filmimg,'cc'=>$cc]);
+
+        //相关电影
+        $sz=explode(',',$data->type_id);
+        $num=count($sz);
+        $data1=array();
+        for($i=0;$i<$num;$i++){
+        $data1=DB::table('film')->join('film_relation','film.relation_id','=','film_relation.id')->where('type_id','like','%'.$sz[$i].'%')->where('film.id','!=',$id)->limit(6)->get();
+        }
+
+        // var_dump($data1);exit;
+
+        return view('home.Movie.index',['data'=>$data,'for'=>$for,'count'=>$count,'performer'=>$performer,'filmarr'=>$filmarr,'perfor'=>$perfor,'c'=>$c,'filmimg'=>$filmimg,'cc'=>$cc,'data1'=>$data1]);
     }
 
     /**

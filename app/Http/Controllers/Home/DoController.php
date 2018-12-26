@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class DoControler extends Controller
+use DB;
+
+class DoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -47,6 +49,9 @@ class DoControler extends Controller
     public function show($id)
     {
         //
+        $data=DB::table('hotnews')->where('id','=',$id)->first();
+        
+        return view('Home.Document.index',['data'=>$data]);
     }
 
     /**
