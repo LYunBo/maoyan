@@ -33,12 +33,12 @@
 
       @foreach($yg as $row)
         <div class="video-box">
-          <a href="/yugao/id={{$row->id}}" data-act="video-click" data-val="{videoId:96734}" target="_blank">
+          <a href="/yugao/{{$row->id}}" data-act="video-click" data-val="{videoId:96734}" target="_blank">
             <img class="video-screenshot" src="{{$row->notice_cover}}" alt="">
             <div class="play-icon"></div>
           </a>
           <h4 class="video-name one-line">
-            <a href="/yugao/id={{$row->id}}" data-act="video-click" data-val="{videoId:96734}" target="_blank">{{$row->title}}</a>
+            <a href="/yugao/{{$row->id}}" data-act="video-click" data-val="{videoId:96734}" target="_blank">{{$row->title}}</a>
           </h4>
           <div>
             <span class="video-play-count">{{$row->browse}}</span>

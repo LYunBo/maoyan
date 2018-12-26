@@ -126,4 +126,20 @@ class HotController extends Controller
     {
         //
     }
+
+    //返回预告的显示页面
+    public function video($id){
+        // var_dump($id);
+        $list = DB::table('notice')->join('film','notice.film_id','=','film.id')->Select('notice.*','film.ymd as film_hi')->where('notice.id','=',$id)->first();
+        // var_dump($list);
+        //相关视频
+        // $tol = DB::table('notice')->limit(5)->count();
+        $data = DB::table('notice')->where('id','!=',$id)->limit(5)->get();
+        $tol = $data->count();
+        /*echo $tol;
+        var_dump($data);*/
+        //返回视频播放页
+        return view('home.hot.showvideo',['list'=>$list,'tol'=>$tol,'data'=>$data]);
+    }
 }
+                                            

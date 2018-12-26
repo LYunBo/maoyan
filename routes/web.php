@@ -64,6 +64,8 @@ Route::get('/myorder','Home\CenterController@order');
 
 //前台热点
 Route::resource('/hot','Home\HotController');
+//预告显示
+Route::get('/yugao/{id}','Home\HotController@video');
 //友情链接提交
 Route::get('/urladd','Home\IndexController@urladd');
 //电影详情

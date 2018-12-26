@@ -25,8 +25,11 @@ class CenterController extends Controller
 		//获取用户id
 		$id = session('id');
 		// dd($id);
-		$data = DB::table('order')->where('user_id','=',$id)->get();
-		
+		$data = DB::table('order')->join('film_scene','order.film_id','=','film_scene.id')->join('cinema','film_scene.cinema_id','=','cinema.id')->join('film','film_scene.film_id','=','film.id')->join('projection_hall','film_scene.projection_hall_id','projection_hall.id')->join('film_relation','film.relation_id','film_relation.id')->Select('order.*','film_scene.*','cinema.*','film.*','projection_hall.*','film.name as film_name','film_relation.cover as film_cover')->where('order.user_id','=',$id)->get();
+		// var_dump($data);
+
+		//返回个人订单也
+		return view('home.information.order',['data'=>$data]);
 	}
 
 	//修改头像
