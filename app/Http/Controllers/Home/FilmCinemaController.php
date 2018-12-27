@@ -338,16 +338,16 @@ class FilmCinemaController extends Controller
 
     public function film_order(Request $request){
         // 判断是否有选择电影场次
-        if (!$request -> has("film_scene_id")) {
-            // 返回到首页
-            return redirect("/films");
-        }
-        // 先注释，后面记得去掉注释
-        // 判断是否有登陆成功的用户id
-        if (!empty(session("id"))) {
-            // 为空返回首页
-            return redirect("/hlogin");
-        }
+        // if (!$request -> has("film_scene_id")) {
+        //     // 返回到首页
+        //     return redirect("/films");
+        // }
+        // // 先注释，后面记得去掉注释
+        // // 判断是否有登陆成功的用户id
+        // if (empty(session("id"))) {
+        //     // 为空返回首页
+        //     return redirect("/hlogin");
+        // }
         // 获取电影场次id
         $film_scene_id = $request -> input("film_scene_id");
         // 获取电影场次数据
