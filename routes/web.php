@@ -94,6 +94,10 @@ Route::resource('/movie','Home\MovieController');
 Route::resource('/wenzhang','Home\DoController');
 
 
+//评论提交
+Route::post('/tijiaopl','Home\CommentController@tijiao');
+
+
 
 
 //后台登录
@@ -175,7 +179,7 @@ Route::get('/futurexj','Admin\FutureController@xj');
 //删除
 Route::get('/futuredel','Admin\FutureController@del');
 //图集管理
-Route::resource('/img','Admin\ImgsController');
+Route::resource('/imgss','Admin\ImgsController');
 //添加图片
 Route::get('/imgadd/{id}','Admin\ImgsController@add');
 Route::post('/imgdoadd/{id}','Admin\ImgsController@doadd');

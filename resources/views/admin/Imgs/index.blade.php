@@ -36,7 +36,7 @@
 					<td><input name="" type="checkbox" value=""></td>
 					<td>{{$row->id}}</td>
 					<td>{{$row->title}}</td>	
-					<td><u style="cursor:pointer" class="text-primary" onclick="show('图集内容','/img/{{$row->id}}','10001','880','400')">图集内容</u></td>
+					<td><u style="cursor:pointer" class="text-primary" onclick="show('图集内容','/imgss/{{$row->id}}','10001','880','400')">图集内容</u></td>
 					<td><u style="cursor:pointer" class="text-primary" onclick="show('简介内容','/imgjj/{{$row->id}}','10001','400','400')">简介内容</u></td>
 					<td>{{$row->nice}}</td>
 					<td class="td-status" width="225">

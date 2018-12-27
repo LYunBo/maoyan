@@ -13,7 +13,7 @@
 <script src="/static/jquery-1.8.3.min.js"></script>
 </head>
 <body class="pg-unitive-login theme--maoyan">
-<header class="header cf"><a class="site-logo" href="/" style="background-image:url(/static/home/image/2.jpg);">猫眼电影</a></header>
+<header class="header cf"><a class="site-logo" href="/" style="background-image:url(/static/home/image/2.jpg);background-position: -465px -692px;">猫眼电影</a></header>
 <div class="site-body-wrapper">
 	<div class="site-body cf">
 		<div class="promotion-banner">
@@ -30,20 +30,20 @@
 				<span class="login-type" data-mtevent="login.mobile.switch">
 				<a id="J-mobile-link" href="javascript:;" onclick="mobile(this)">
                 手机动态码登录
-				<i class="theme--maoyan .login-section .login-type i" style="background-image: url(/static/home/image/login/shouji.png); background-size:16px 16px"></i>
+				<i class="theme--maoyan .login-section .login-type i" style="background-image: url(/static/home/image/login/shouji.png); background-size:16px 16px;background-position: -1267px -513px"></i>
 				</a>
                 账号登录
 				</span>
 				<div class="form-field form-field--icon">
-					<i class="icon icon-user" style="background-image: url(/static/home/image/login/yonghu-.png); background-size:18px 18px"></i>
+					<i class="icon icon-user" style="background-image: url(/static/home/image/login/yonghu-.png); background-size:18px 18px;    background-position: -1242px -612px;"></i>
 					<input type="text" id="login-input" class="f-text" name="user" placeholder="手机号/用户名/邮箱" value=""/>
 				</div>
 				<div class="form-field form-field--icon">
-					<i class="icon icon-password" style="background-image: url(/static/home/image/login/mima.png); background-size:18px 18px" ></i>
+					<i class="icon icon-password" style="background-image: url(/static/home/image/login/mima.png); background-size:18px 18px;    background-position: -1242px -521px;" ></i>
 					<input type="password" id="login-password" class="f-text" name="password" placeholder="密码"/>
 				</div>
 				<div class="form-field J-form-field-captcha form-field--captcha" style="display:block">
-					<input type="text" id="captcha" class="f-text J-captcha-input" name="code" placeholder="验证码" autocomplete="off"/>
+					<input type="text" id="captcha" class="f-text J-captcha-input" style="width:150px" name="code" placeholder="验证码" autocomplete="off"/>
 					<img src="/cove" height="36" width="101"  onclick="this.src=this.src+'?a=1'"/>
 				</div>
 				<div class="form-field form-field--auto-login cf">
@@ -63,16 +63,16 @@
 				<span class="login-type login-type--normal" data-mtevent="login.normal.switch">
 				<a id="J-normal-link" href="javascript:;" onclick="normal(this)">
                 普通方式登录
-				<i class="theme--maoyan .login-section .login-type i" style="background-image: url(/static/home/image/login/yonghu.png); background-size:16px 16px"></i>
+				<i class="theme--maoyan .login-section .login-type i" style="background-image: url(/static/home/image/login/yonghu.png); background-size:12px 14px;background-position: -935px -672px;"></i>
 				</a>
             	账号登录
 				</span>
 				<div class="J-info form-field form-field--icon">
-					<i class="icon icon-user" style="background-image: url(/static/home/image/login/sj.png); background-size:18px 18px"></i>
+					<i class="icon icon-user" style="background-image: url(/static/home/image/login/sj.png); background-size:18px 18px;background-position: -1242px -612px;"></i>
 					<input type="text" id="login-mobile" class="f-text" name="phone" value="" placeholder="手机号"/>
 				</div>
 				<div class="form-field form-field--icon">
-					<i class="icon icon-password" style="background-image: url(/static/home/image/login/mima.png); background-size:18px 18px" ></i>
+					<i class="icon icon-password" style="background-image: url(/static/home/image/login/mima.png); background-size:18px 18px;background-position: -1242px -521px;" ></i>
 					<input type="text" name="code" id="login-verify-code" class="f-text" autocomplete="off" value="" placeholder="动态码"/>
 					<div class="form-field form-field--verify-mobile" style="top:19px;">
 						<input type="button" class="btn-normal btn-mini sendphone" id="J-verify-btn" value="获取手机动态码"/>

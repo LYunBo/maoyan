@@ -178,22 +178,22 @@
               <div class="mod-content">
                 <div class="comment-list-container" data-hot="10">
                   <ul>
-                   
+                   @foreach($comment as $com)
                     <li class="comment-container last" data-val="{commentid:1046033674}">
                     <div class="portrait-container">
                       <div class="portrait">
-                        <img src="/static/home/picture/c728ce387496d93a94b640e672970d375454.jpg@100w_100h_1e_1c" alt="">
+                        <img src="{{$com->photo}}" alt="">
                       </div>
                       <i class="level-4-icon"></i>
                     </div>
                     <div class="main">
                       <div class="main-header clearfix">
                         <div class="user">
-                          <span class="name">阳明九州刘立申13955124637</span>
+                          <span class="name">{{$com->user_name}}</span>
                           <span class='tag'>购</span>
                         </div>
                         <div class="time" title="2018-11-27 22:30:03">
-                          <span title="2018-11-27 22:30:03">4天前</span>
+                          <span title="2018-11-27 22:30:03">{{$com->date}}</span>
                           <ul class="score-star clearfix" data-score="8">
                             <li>
                             <i class="half-star left active"></i><i class="half-star right active"></i></li>
@@ -212,11 +212,11 @@
                         </div>
                       </div>
                       <div class="comment-content">
-                        如果绝的苦，用心看看身边的人；如果觉得累，看看你的同行，同事…世界很大，总有人比你更苦，比你更累，每个人光鲜的一面背后总有你想不到的痛苦，每个人不堪（或者你不耻，不屑）的背面也会有他沉浸之中的理由，凡事都是有利有弊，去做你喜欢做的事去吧，闲暇之余，也去想想你现在从事的工作到底有什么好与坏，可以与你的老板，做的好的同行聊聊，有可能的话甚至可以和你同行老板聊聊，或者这个行业的佼佼者们，在网上的言论…中华民族是一个善良的民族，勤劳的民族
+                        {{$com->content}}
                       </div>
                     </div>
                     </li>
-                    
+                    @endforeach
                   </ul>
                 </div>
                 <a class="comment-entry" data-act="comment-no-content-click" data-toggle="modal" data-target="#pinglun">写短评</a>
@@ -231,14 +231,15 @@
                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                           <h4 class="modal-title" id="myModalLabel">写评论</h4>
                       </div>
-                      <form action="/" method="get">
-          
+                      <form action="/tijiaopl" method="post">
+                      
                           <div class="form-group">
                             <label for="name">请留言评论:</label>
                             
-                            <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
+                            <textarea class="form-control" name="content" cols="30" rows="10"></textarea>
                           </div>
                           <input type="submit"  value="提交" class="btn btn-success">
+                          <input type="hidden" name="film_id" value="{{$data->id}}">
                           {{csrf_field()}}
                       </form>
                       <div class="modal-body">在这里添加一些文本</div>

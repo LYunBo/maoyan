@@ -110,8 +110,9 @@ class MovieController extends Controller
         }
 
         // var_dump($data1);exit;
-
-        return view('home.Movie.index',['data'=>$data,'for'=>$for,'count'=>$count,'performer'=>$performer,'filmarr'=>$filmarr,'perfor'=>$perfor,'c'=>$c,'filmimg'=>$filmimg,'cc'=>$cc,'data1'=>$data1]);
+        $comment = DB::table('comment')->join('information','comment.user_id','=','information.user_id')->where('comment.film_id','=',$id)->Select('information.user_name','information.photo','comment.content','comment.date')->get();
+        // var_dump($comment);
+        return view('home.Movie.index',['data'=>$data,'for'=>$for,'count'=>$count,'performer'=>$performer,'filmarr'=>$filmarr,'perfor'=>$perfor,'c'=>$c,'filmimg'=>$filmimg,'cc'=>$cc,'data1'=>$data1,'comment'=>$comment]);
     }
 
     /**

@@ -26,8 +26,7 @@
 					<th>点赞数</th>
 					<th>电影星评</th>
 					<th>评论类型</th>
-					<th>评论日期</th>
-					<th>修改日期</th>
+					<th>评论时间</th>
 					<th>状态</th>
 					<th>操作</th>
 				</tr>
@@ -53,8 +52,7 @@
 							 无
 						@endif
 					</td>
-					<td>{{$row->created_at}}</td>
-					<td>{{$row->updated_at}}</td>
+					<td>{{$row->date}}</td>
 					<td class="td-status" width="225">
 						@if($row->status == 0)
 							<span class="label label-defaunt radius">已隐藏</span>
